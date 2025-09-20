@@ -3,24 +3,7 @@ import re
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 
-# CIS_controls에서 불필요한 데이터 제외 및 구조화
-def parse_cis_controls(text: str) -> dict:
-    if not text: return {}
-    parts = re.split(r'(v\d+)', text)
-    controls_dict = {}
-    for i in range(1, len(parts), 2):
-        version, content = parts[i], parts[i+1].strip()
-        content = re.sub(r'Controls Version Control IG 1 IG 2 IG 3', '', content).strip()
-        content = re.sub(r'Page \d+$', '', content).strip()
-        if content:
-            ig_dots = content.count('●')
-            main_control_text = content.replace('●', '').strip()
-            words = main_control_text.split()
-            if len(words) > 10 and ' '.join(words[:5]) in ' '.join(words[5:10]):
-                main_control_text = words[0] + " " + ' '.join(words[5:])
-            ig_list = [f"IG{j+1}" for j in range(ig_dots)]
-            controls_dict[version] = {"control": main_control_text, "ig": ig_list}
-    return controls_dict
+
 
 # JSON 파일을 Document 객체 리스트로 변환하는 함수
 def json_to_chunk(file_path: str) -> list[Document]:
@@ -46,7 +29,6 @@ Remediation: {item.get('remediation', 'N/A')}"""
         metadata = {
             'id': item.get('id', ''), 'impact': item.get('impact', ''),
             'default_value': item.get('default_value', ''), 'references': item.get('references', ''),
-            'cis_controls': parse_cis_controls(item.get('cis_controls', ''))
         }
         metadata = {k: v for k, v in metadata.items() if v}
         doc = Document(page_content=page_content.strip(), metadata=metadata)

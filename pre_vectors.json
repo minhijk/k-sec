@@ -1,0 +1,1361 @@
+[
+  {
+    "page_content": "Title: 1.1.1 Ensure that the API server pod specification file permissions are set to 600 or more restrictive (Automated)\nDescription: Ensure that the API server pod specification file has permissions of 600 or more restrictive.\nRationale: The API server pod specification file controls various parameters that set the behavior of the API server. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %a /etc/kubernetes/manifests/kube-apiserver.yaml Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod 600 /etc/kubernetes/manifests/kube-apiserver.yaml",
+    "metadata": {
+      "id": "1.1.1",
+      "impact": "None",
+      "default_value": "By default, the kube-apiserver.yaml file has permissions of 640.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.2 Ensure that the API server pod specification file ownership is set to root:root (Automated)\nDescription: Ensure that the API server pod specification file ownership is set to root:root.\nRationale: The API server pod specification file controls various parameters that set the behavior of the API server. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %U:%G /etc/kubernetes/manifests/kube-apiserver.yaml Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown root:root /etc/kubernetes/manifests/kube-apiserver.yaml",
+    "metadata": {
+      "id": "1.1.2",
+      "impact": "None",
+      "default_value": "By default, the kube-apiserver.yaml file ownership is set to root:root.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.3 Ensure that the controller manager pod specification file permissions are set to 600 or more restrictive (Automated)\nDescription: Ensure that the controller manager pod specification file has permissions of 600 or more restrictive.\nRationale: The controller manager pod specification file controls various parameters that set the behavior of the Controller Manager on the master node. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %a /etc/kubernetes/manifests/kube-controller-manager.yaml Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod 600 /etc/kubernetes/manifests/kube-controller-manager.yaml",
+    "metadata": {
+      "id": "1.1.3",
+      "impact": "None",
+      "default_value": "By default, the kube-controller-manager.yaml file has permissions of 640.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.4 Ensure that the controller manager pod specification file ownership is set to root:root (Automated)\nDescription: Ensure that the controller manager pod specification file ownership is set to root:root.\nRationale: The controller manager pod specification file controls various parameters that set the behavior of various components of the master node. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %U:%G /etc/kubernetes/manifests/kube-controller-manager.yaml Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown root:root /etc/kubernetes/manifests/kube-controller-manager.yaml",
+    "metadata": {
+      "id": "1.1.4",
+      "impact": "None",
+      "default_value": "By default, kube-controller-manager.yaml file ownership is set to root:root.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.5 Ensure that the scheduler pod specification file permissions are set to 600 or more restrictive (Automated)\nDescription: Ensure that the scheduler pod specification file has permissions of 600 or more restrictive.\nRationale: The scheduler pod specification file controls various parameters that set the behavior of the Scheduler service in the master node. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %a /etc/kubernetes/manifests/kube-scheduler.yaml Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod 600 /etc/kubernetes/manifests/kube-scheduler.yaml",
+    "metadata": {
+      "id": "1.1.5",
+      "impact": "None",
+      "default_value": "By default, kube-scheduler.yaml file has permissions of 640.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.6 Ensure that the scheduler pod specification file ownership is set to root:root (Automated)\nDescription: Ensure that the scheduler pod specification file ownership is set to root:root.\nRationale: The scheduler pod specification file controls various parameters that set the behavior of the kube-scheduler service in the master node. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %U:%G /etc/kubernetes/manifests/kube-scheduler.yaml Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown root:root /etc/kubernetes/manifests/kube-scheduler.yaml",
+    "metadata": {
+      "id": "1.1.6",
+      "impact": "None",
+      "default_value": "By default, kube-scheduler.yaml file ownership is set to root:root.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.7 Ensure that the etcd pod specification file permissions are set to 600 or more restrictive (Automated)\nDescription: Ensure that the /etc/kubernetes/manifests/etcd.yaml file has permissions of 600 or more restrictive.\nRationale: The etcd pod specification file /etc/kubernetes/manifests/etcd.yaml controls various parameters that set the behavior of the etcd service in the master node. etcd is a highly-available key-value store which Kubernetes uses for persistent storage of all of its REST API object. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %a /etc/kubernetes/manifests/etcd.yaml Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod 600 /etc/kubernetes/manifests/etcd.yaml",
+    "metadata": {
+      "id": "1.1.7",
+      "impact": "None",
+      "default_value": "By default, /etc/kubernetes/manifests/etcd.yaml file has permissions of 640.",
+      "references": [
+        "1. https://coreos.com/etcd 2. https://kubernetes.io/docs/admin/etcd/ Page 33 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.8 Ensure that the etcd pod specification file ownership is set to root:root (Automated)\nDescription: Ensure that the /etc/kubernetes/manifests/etcd.yaml file ownership is set to root:root.\nRationale: The etcd pod specification file /etc/kubernetes/manifests/etcd.yaml controls various parameters that set the behavior of the etcd service in the master node. etcd is a highly-available key-value store which Kubernetes uses for persistent storage of all of its REST API object. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %U:%G /etc/kubernetes/manifests/etcd.yaml Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown root:root /etc/kubernetes/manifests/etcd.yaml",
+    "metadata": {
+      "id": "1.1.8",
+      "impact": "None",
+      "default_value": "By default, /etc/kubernetes/manifests/etcd.yaml file ownership is set to root:root.",
+      "references": [
+        "1. https://coreos.com/etcd 2. https://kubernetes.io/docs/admin/etcd/ Page 35 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.9 Ensure that the Container Network Interface file permissions are set to 600 or more restrictive (Manual)\nDescription: Ensure that the Container Network Interface files have permissions of 600 or more restrictive.\nRationale: Container Network Interface provides various networking options for overlay networking. You should consult their documentation and restrict their respective file permissions to maintain the integrity of those files. Those files should be writable by only the administrators on the system.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %a <path/to/cni/files> Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod 600 <path/to/cni/files>",
+    "metadata": {
+      "id": "1.1.9",
+      "impact": "None",
+      "default_value": "NA",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/cluster-administration/networking/ Page 37 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.10 Ensure that the Container Network Interface file ownership is set to root:root (Manual)\nDescription: Ensure that the Container Network Interface files have ownership set to root:root.\nRationale: Container Network Interface provides various networking options for overlay networking. You should consult their documentation and restrict their respective file permissions to maintain the integrity of those files. Those files should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %U:%G <path/to/cni/files> Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown root:root <path/to/cni/files>",
+    "metadata": {
+      "id": "1.1.10",
+      "impact": "None",
+      "default_value": "NA",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/cluster-administration/networking/ Page 39 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.11 Ensure that the etcd data directory permissions are set to 700 or more restrictive (Automated)\nDescription: Ensure that the etcd data directory has permissions of 700 or more restrictive.\nRationale: etcd is a highly-available key-value store used by Kubernetes deployments for persistent storage of all of its REST API objects. This data directory should be protected from any unauthorized reads or writes. It should not be readable or writable by any group members or the world.\nAudit: On the etcd server node, get the etcd data directory, passed as an argument --data- dir, from the below command: ps -ef | grep etcd Run the below command (based on the etcd data directory found above). For example, stat -c %a /var/lib/etcd Verify that the permissions are 700 or more restrictive.\nRemediation: On the etcd server node, get the etcd data directory, passed as an argument --data- dir, from the below command: ps -ef | grep etcd Run the below command (based on the etcd data directory found above). For example, chmod 700 /var/lib/etcd",
+    "metadata": {
+      "id": "1.1.11",
+      "impact": "None",
+      "default_value": "By default, etcd data directory has permissions of 755.",
+      "references": [
+        "1. https://coreos.com/etcd/docs/latest/op-guide/configuration.html#data-dir Page 41 Internal Only - General 2. https://kubernetes.io/docs/admin/etcd/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.12 Ensure that the etcd data directory ownership is set to etcd:etcd (Automated)\nDescription: Ensure that the etcd data directory ownership is set to etcd:etcd.\nRationale: etcd is a highly-available key-value store used by Kubernetes deployments for persistent storage of all of its REST API objects. This data directory should be protected from any unauthorized reads or writes. It should be owned by etcd:etcd.\nAudit: On the etcd server node, get the etcd data directory, passed as an argument --data- dir, from the below command: ps -ef | grep etcd Run the below command (based on the etcd data directory found above). For example, stat -c %U:%G /var/lib/etcd Verify that the ownership is set to etcd:etcd.\nRemediation: On the etcd server node, get the etcd data directory, passed as an argument --data- dir, from the below command: ps -ef | grep etcd Run the below command (based on the etcd data directory found above). For example, chown etcd:etcd /var/lib/etcd",
+    "metadata": {
+      "id": "1.1.12",
+      "impact": "None",
+      "default_value": "By default, etcd data directory ownership is set to etcd:etcd.",
+      "references": [
+        "1. https://coreos.com/etcd/docs/latest/op-guide/configuration.html#data-dir 2. https://kubernetes.io/docs/admin/etcd/ Page 43 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.13 Ensure that the default administrative credential file permissions are set to 600 (Automated)\nDescription: Ensure that the admin.conf file (and super-admin.conf file, where it exists) have permissions of 600.\nRationale: As part of initial cluster setup, default kubeconfig files are created to be used by the administrator of the cluster. These files contain private keys and certificates which allow for privileged access to the cluster. You should restrict their file permissions to maintain the integrity and confidentiality of the file(s). The file(s) should be readable and writable by only the administrators on the system.\nAudit: Run the following command (based on the file location on your system) on the Control Plane node. For example, stat -c %a /etc/kubernetes/admin.conf On Kubernetes version 1.29 and higher run the following command as well :- stat -c %a /etc/kubernetes/super-admin.conf Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod 600 /etc/kubernetes/admin.conf On Kubernetes 1.29+ the super-admin.conf file should also be modified, if present. For example, chmod 600 /etc/kubernetes/super-admin.conf",
+    "metadata": {
+      "id": "1.1.13",
+      "impact": "None.",
+      "default_value": "By default, admin.conf and super-admin.conf have permissions of 600. Page 45 Internal Only - General",
+      "references": [
+        "1. https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ 2. https://raesene.github.io/blog/2024/01/06/when-is-admin-not-admin/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.14 Ensure that the default administrative credential file ownership is set to root:root (Automated)\nDescription: Ensure that the admin.conf (and super-admin.conf file, where it exists) file ownership is set to root:root.\nRationale: As part of initial cluster setup, default kubeconfig files are created to be used by the administrator of the cluster. These files contain private keys and certificates which allow for privileged access to the cluster. You should set their file ownership to maintain the integrity and confidentiality of the file. The file(s) should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %U:%G /etc/kubernetes/admin.conf On Kubernetes version 1.29 and higher run the following command as well :- stat -c %U:%G /etc/kubernetes/super-admin.conf Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown root:root /etc/kubernetes/admin.conf On Kubernetes 1.29+ the super-admin.conf file should also be modified, if present. For example, chown root:root /etc/kubernetes/super-admin.conf",
+    "metadata": {
+      "id": "1.1.14",
+      "impact": "None.",
+      "default_value": "By default, admin.conf and super-admin.conf file ownership is set to root:root. Page 47 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.15 Ensure that the scheduler.conf file permissions are set to 600 or more restrictive (Automated)\nDescription: Ensure that the scheduler.conf file has permissions of 600 or more restrictive.\nRationale: The scheduler.conf file is the kubeconfig file for the Scheduler. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Run the following command (based on the file location on your system) on the Control Plane node. For example, stat -c %a /etc/kubernetes/scheduler.conf Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod 600 /etc/kubernetes/scheduler.conf",
+    "metadata": {
+      "id": "1.1.15",
+      "impact": "None",
+      "default_value": "By default, scheduler.conf has permissions of 640.",
+      "references": [
+        "1. https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ Page 49 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.16 Ensure that the scheduler.conf file ownership is set to root:root (Automated)\nDescription: Ensure that the scheduler.conf file ownership is set to root:root.\nRationale: The scheduler.conf file is the kubeconfig file for the Scheduler. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %U:%G /etc/kubernetes/scheduler.conf Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown root:root /etc/kubernetes/scheduler.conf",
+    "metadata": {
+      "id": "1.1.16",
+      "impact": "None",
+      "default_value": "By default, scheduler.conf file ownership is set to root:root.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.17 Ensure that the controller-manager.conf file permissions are set to 600 or more restrictive (Automated)\nDescription: Ensure that the controller-manager.conf file has permissions of 600 or more restrictive.\nRationale: The controller-manager.conf file is the kubeconfig file for the Controller Manager. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Run the following command (based on the file location on your system) on the Control Plane node. For example, stat -c %a /etc/kubernetes/controller-manager.conf Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod 600 /etc/kubernetes/controller-manager.conf",
+    "metadata": {
+      "id": "1.1.17",
+      "impact": "None",
+      "default_value": "By default, controller-manager.conf has permissions of 640.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.18 Ensure that the controller-manager.conf file ownership is set to root:root (Automated)\nDescription: Ensure that the controller-manager.conf file ownership is set to root:root.\nRationale: The controller-manager.conf file is the kubeconfig file for the Controller Manager. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c %U:%G /etc/kubernetes/controller-manager.conf Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown root:root /etc/kubernetes/controller-manager.conf",
+    "metadata": {
+      "id": "1.1.18",
+      "impact": "None",
+      "default_value": "By default, controller-manager.conf file ownership is set to root:root.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.19 Ensure that the Kubernetes PKI directory and file ownership is set to root:root (Automated)\nDescription: Ensure that the Kubernetes PKI directory and file ownership is set to root:root.\nRationale: Kubernetes makes use of a number of certificates as part of its operation. You should set the ownership of the directory containing the PKI information and all files in that directory to maintain their integrity. The directory and files should be owned by root:root.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, ls -laR /etc/kubernetes/pki/ Verify that the ownership of all files and directories in this hierarchy is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chown -R root:root /etc/kubernetes/pki/",
+    "metadata": {
+      "id": "1.1.19",
+      "impact": "None",
+      "default_value": "By default, the /etc/kubernetes/pki/ directory and all of the files and directories contained within it, are set to be owned by the root user.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.20 Ensure that the Kubernetes PKI certificate file permissions are set to 644 or more restrictive (Manual)\nDescription: Ensure that Kubernetes PKI certificate files have permissions of 644 or more restrictive.\nRationale: Kubernetes makes use of a number of certificate files as part of the operation of its components. The permissions on these files should be set to 644 or more restrictive to protect their integrity and confidentiality.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c '%a' /etc/kubernetes/pki/*.crt Verify that the permissions are 644 or more restrictive. or ls -l /etc/kubernetes/pki/*.crt Verify -rw------\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod -R 644 /etc/kubernetes/pki/*.crt",
+    "metadata": {
+      "id": "1.1.20",
+      "impact": "None",
+      "default_value": "By default, the certificates used by Kubernetes are set to have permissions of 644",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.1.21 Ensure that the Kubernetes PKI key file permissions are set to 600 (Manual)\nDescription: Ensure that Kubernetes PKI key files have permissions of 600.\nRationale: Kubernetes makes use of a number of key files as part of the operation of its components. The permissions on these files should be set to 600 to protect their integrity and confidentiality.\nAudit: Run the below command (based on the file location on your system) on the Control Plane node. For example, stat -c '%a' /etc/kubernetes/pki/*.key Verify that the permissions are 600 or more restrictive. or ls -l /etc/kubernetes/pki/*.key Verify that the permissions are -rw------\nRemediation: Run the below command (based on the file location on your system) on the Control Plane node. For example, chmod -R 600 /etc/kubernetes/pki/*.key",
+    "metadata": {
+      "id": "1.1.21",
+      "impact": "None",
+      "default_value": "By default, the keys used by Kubernetes are set to have permissions of 600",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.1 Ensure that the --anonymous-auth argument is set to false (Manual)\nDescription: Disable anonymous requests to the API server.\nRationale: When enabled, requests that are not rejected by other configured authentication methods are treated as anonymous requests. These requests are then served by the API server. You should rely on authentication to authorize access and disallow anonymous requests. If you are using RBAC authorization, it is generally considered reasonable to allow anonymous access to the API Server for health checks and discovery purposes, and hence this recommendation is not scored. However, you should consider whether anonymous discovery is an acceptable risk for your purposes.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --anonymous-auth argument is set to false. Alternative Audit kubectl get pod -nkube-system -lcomponent=kube-apiserver -o=jsonpath='{range .items[*]}{.spec.containers[*].command} {\"\\n\"}{end}' | grep '\\--anonymous- auth' | grep -i false If the exit code is '1', then the control isn't present / failed\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the below parameter. --anonymous-auth=false",
+    "metadata": {
+      "id": "1.2.1",
+      "impact": "Anonymous requests will be rejected.",
+      "default_value": "By default, anonymous access is enabled. Page 64 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.2 Ensure that the --token-auth-file parameter is not set (Automated)\nDescription: Do not use token based authentication.\nRationale: The token-based authentication utilizes static tokens to authenticate requests to the apiserver. The tokens are stored in clear-text in a file on the apiserver, and cannot be revoked or rotated without restarting the apiserver. Hence, do not use static token- based authentication.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --token-auth-file argument does not exist. Alternative Audit Method kubectl get pod -nkube-system -lcomponent=kube-apiserver -o=jsonpath='{range .items[*]}{.spec.containers[*].command} {\"\\n\"}{end}' | grep '\\--token-auth- file' | grep -i false If the exit code is '1', then the control isn't present / failed\nRemediation: Follow the documentation and configure alternate mechanisms for authentication. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the master node and remove the --token-auth- file=<filename> parameter.",
+    "metadata": {
+      "id": "1.2.2",
+      "impact": "You will have to configure and use alternate authentication mechanisms such as certificates. Static token based authentication could not be used.",
+      "default_value": "By default, --token-auth-file argument is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.3 Ensure that the DenyServiceExternalIPs is set (Manual)\nDescription: This admission controller rejects all net-new usage of the Service field externalIPs.\nRationale: Most users do not need the ability to set the externalIPs field for a Service at all, and cluster admins should consider disabling this functionality by enabling the DenyServiceExternalIPs admission controller. Clusters that do need to allow this functionality should consider using some custom policy to manage its usage.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the `DenyServiceExternalIPs' argument exist as a string value in --enable- admission-plugins.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the master node and append the Kubernetes API server flag -- enable-admission-plugins with the DenyServiceExternalIPs plugin. Note, the Kubernetes API server flag --enable-admission-plugins takes a comma-delimited list of admission control plugins to be enabled, even if they are in the list of plugins enabled by default. kube-apiserver --enable-admission-plugins=DenyServiceExternalIPs",
+    "metadata": {
+      "id": "1.2.3",
+      "impact": "When enabled, users of the cluster may not create new Services which use externalIPs and may not add new values to externalIPs on existing Service objects.",
+      "default_value": "By default, --enable-admission-plugins=DenyServiceExternalIP argument is not set, and the use of externalIPs is authorized.",
+      "references": [
+        "1. https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/ 2. https://kubernetes.io/docs/admin/kube-apiserver/ Page 68 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.4 Ensure that the --kubelet-client-certificate and --kubelet- client-key arguments are set as appropriate (Automated)\nDescription: Enable certificate based kubelet authentication.\nRationale: The apiserver, by default, does not authenticate itself to the kubelet's HTTPS endpoints. The requests from the apiserver are treated anonymously. You should set up certificate- based kubelet authentication to ensure that the apiserver authenticates itself to kubelets when submitting requests.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --kubelet-client-certificate and --kubelet-client-key arguments exist and they are set as appropriate. Alternative Audit kubectl get pod -nkube-system -lcomponent=kube-apiserver -o=jsonpath='{range .items[]}{.spec.containers[].command} {\"\\n\"}{end}' | grep '--kubelet-client- certificate' | grep -i false If the exit code is '1', then the control isn't present / failed\nRemediation: Follow the Kubernetes documentation and set up the TLS connection between the apiserver and kubelets. Then, edit API server pod specification file /etc/kubernetes/manifests/kube-apiserver.yaml on the Control Plane node and set the kubelet client certificate and key parameters as below. --kubelet-client-certificate=<path/to/client-certificate-file> --kubelet-client-key=<path/to/client-key-file>",
+    "metadata": {
+      "id": "1.2.4",
+      "impact": "You require TLS to be configured on apiserver as well as kubelets.",
+      "default_value": "By default, certificate-based kubelet authentication is not set. Page 70 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.5 Ensure that the --kubelet-certificate-authority argument is set as appropriate (Automated)\nDescription: Verify kubelet's certificate before establishing connection.\nRationale: The connections from the apiserver to the kubelet are used for fetching logs for pods, attaching (through kubectl) to running pods, and using the kubelet’s port-forwarding functionality. These connections terminate at the kubelet’s HTTPS endpoint. By default, the apiserver does not verify the kubelet’s serving certificate, which makes the connection subject to man-in-the-middle attacks, and unsafe to run over untrusted and/or public networks.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --kubelet-certificate-authority argument exists and is set as appropriate. Alternative Audit kubectl get pod -nkube-system -lcomponent=kube-apiserver -o=jsonpath='{range .items[]}{.spec.containers[].command} {\"\\n\"}{end}' | grep '--kubelet- certificate-Authority' | grep -i false If the exit code is '1', then the control isn't present / failed\nRemediation: Follow the Kubernetes documentation and setup the TLS connection between the apiserver and kubelets. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube-apiserver.yaml on the Control Plane node and set the --kubelet-certificate-authority parameter to the path to the cert file for the certificate authority. Page 72 Internal Only - General --kubelet-certificate-authority=<ca-string>",
+    "metadata": {
+      "id": "1.2.5",
+      "impact": "You require TLS to be configured on apiserver as well as kubelets.",
+      "default_value": "By default, --kubelet-certificate-authority argument is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.6 Ensure that the --authorization-mode argument is not set to AlwaysAllow (Automated)\nDescription: Do not always authorize all requests.\nRationale: The API Server, can be configured to allow all requests. This mode should not be used on any production cluster.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --authorization-mode argument exists and is not set to AlwaysAllow.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --authorization-mode parameter to values other than AlwaysAllow. One such example could be as below. --authorization-mode=RBAC",
+    "metadata": {
+      "id": "1.2.6",
+      "impact": "Only authorized requests will be served.",
+      "default_value": "By default, AlwaysAllow is not enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.7 Ensure that the --authorization-mode argument includes Node (Automated)\nDescription: Restrict kubelet nodes to reading only objects associated with them.\nRationale: The Node authorization mode only allows kubelets to read Secret, ConfigMap, PersistentVolume, and PersistentVolumeClaim objects associated with their nodes.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --authorization-mode argument exists and is set to a value to include Node.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --authorization-mode parameter to a value that includes Node. --authorization-mode=Node,RBAC",
+    "metadata": {
+      "id": "1.2.7",
+      "impact": "None",
+      "default_value": "By default, Node authorization is not enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.8 Ensure that the --authorization-mode argument includes RBAC (Automated)\nDescription: Turn on Role Based Access Control.\nRationale: Role Based Access Control (RBAC) allows fine-grained control over the operations that different entities can perform on different objects in the cluster. It is recommended to use the RBAC authorization mode.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --authorization-mode argument exists and is set to a value to include RBAC.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --authorization-mode parameter to a value that includes RBAC, for example: --authorization-mode=Node,RBAC",
+    "metadata": {
+      "id": "1.2.8",
+      "impact": "When RBAC is enabled you will need to ensure that appropriate RBAC settings (including Roles, RoleBindings and ClusterRoleBindings) are configured to allow appropriate access.",
+      "default_value": "By default, RBAC authorization is not enabled.",
+      "references": [
+        "1. https://kubernetes.io/docs/reference/access-authn-authz/rbac/ Page 78 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.9 Ensure that the admission control plugin EventRateLimit is set (Manual)\nDescription: Limit the rate at which the API server accepts requests.\nRationale: Using EventRateLimit admission control enforces a limit on the number of events that the API Server will accept in a given time slice. A misbehaving workload could overwhelm and DoS the API Server, making it unavailable. This particularly applies to a multi-tenant cluster, where there might be a small percentage of misbehaving tenants which could have a significant impact on the performance of the cluster overall. Hence, it is recommended to limit the rate of events that the API server will accept.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --enable-admission-plugins argument is set to a value that includes EventRateLimit.\nRemediation: Follow the Kubernetes documentation and set the desired limits in a configuration file. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml and set the below parameters. --enable-admission-plugins=...,EventRateLimit,... --admission-control-config-file=<path/to/configuration/file>",
+    "metadata": {
+      "id": "1.2.9",
+      "impact": "You need to carefully tune in limits as per your environment.",
+      "default_value": "By default, EventRateLimit is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.10 Ensure that the admission control plugin AlwaysAdmit is not set (Automated)\nDescription: Do not allow all requests.\nRationale: Setting admission control plugin AlwaysAdmit allows all requests and do not filter any requests. The AlwaysAdmit admission controller was deprecated in Kubernetes v1.13. Its behavior was equivalent to turning off all admission controllers.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that if the --enable-admission-plugins argument is set, its value does not include AlwaysAdmit.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and either remove the --enable- admission-plugins parameter, or set it to a value that does not include AlwaysAdmit.",
+    "metadata": {
+      "id": "1.2.10",
+      "impact": "Only requests explicitly allowed by the admissions control plugins would be served.",
+      "default_value": "AlwaysAdmit is not in the list of default admission plugins.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.11 Ensure that the admission control plugin AlwaysPullImages is set (Manual)\nDescription: Always pull images.\nRationale: Setting admission control policy to AlwaysPullImages forces every new pod to pull the required images every time. In a multi-tenant cluster users can be assured that their private images can only be used by those who have the credentials to pull them. Without this admission control policy, once an image has been pulled to a node, any pod from any user can use it simply by knowing the image’s name, without any authorization check against the image ownership. When this plug-in is enabled, images are always pulled prior to starting containers, which means valid credentials are required.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --enable-admission-plugins argument is set to a value that includes AlwaysPullImages.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --enable-admission- plugins parameter to include AlwaysPullImages. --enable-admission-plugins=...,AlwaysPullImages,...",
+    "metadata": {
+      "id": "1.2.11",
+      "impact": "Credentials would be required to pull the private images every time. Also, in trusted environments, this might increases load on network, registry, and decreases speed. This setting could impact offline or isolated clusters, which have images preloaded and do not have access to a registry to pull in-use images. This setting is not appropriate for clusters which use this configuration.",
+      "default_value": "By default, AlwaysPullImages is not set. Page 84 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.12 Ensure that the admission control plugin ServiceAccount is set (Automated)\nDescription: Automate service accounts management.\nRationale: When you create a pod, if you do not specify a service account, it is automatically assigned the default service account in the same namespace. You should create your own service account and let the API server manage its security tokens.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --disable-admission-plugins argument is set to a value that does not includes ServiceAccount.\nRemediation: Follow the documentation and create ServiceAccount objects as per your environment. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube-apiserver.yaml on the master node and ensure that the --disable-admission-plugins parameter is set to a value that does not include ServiceAccount.",
+    "metadata": {
+      "id": "1.2.12",
+      "impact": "None.",
+      "default_value": "By default, ServiceAccount is set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.13 Ensure that the admission control plugin NamespaceLifecycle is set (Automated)\nDescription: Reject creating objects in a namespace that is undergoing termination.\nRationale: Setting admission control policy to NamespaceLifecycle ensures that objects cannot be created in non-existent namespaces, and that namespaces undergoing termination are not used for creating the new objects. This is recommended to enforce the integrity of the namespace termination process and also for the availability of the newer objects.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --disable-admission-plugins argument is set to a value that does not include NamespaceLifecycle.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --disable-admission- plugins parameter to ensure it does not include NamespaceLifecycle.",
+    "metadata": {
+      "id": "1.2.13",
+      "impact": "None",
+      "default_value": "By default, NamespaceLifecycle is set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.14 Ensure that the admission control plugin NodeRestriction is set (Automated)\nDescription: Limit the Node and Pod objects that a kubelet could modify.\nRationale: Using the NodeRestriction plug-in ensures that the kubelet is restricted to the Node and Pod objects that it could modify as defined. Such kubelets will only be allowed to modify their own Node API object, and only modify Pod API objects that are bound to their node.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --enable-admission-plugins argument is set to a value that includes NodeRestriction.\nRemediation: Follow the Kubernetes documentation and configure NodeRestriction plug-in on kubelets. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube-apiserver.yaml on the master node and set the --enable-admission-plugins parameter to a value that includes NodeRestriction. --enable-admission-plugins=...,NodeRestriction,...",
+    "metadata": {
+      "id": "1.2.14",
+      "impact": "None",
+      "default_value": "By default, NodeRestriction is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.15 Ensure that the --profiling argument is set to false (Automated)\nDescription: Disable profiling, if not needed.\nRationale: Profiling allows for the identification of specific performance bottlenecks. It generates a significant amount of program data that could potentially be exploited to uncover system and program details. If you are not experiencing any bottlenecks and do not need the profiler for troubleshooting purposes, it is recommended to turn it off to reduce the potential attack surface.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --profiling argument is set to false.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the below parameter. --profiling=false",
+    "metadata": {
+      "id": "1.2.15",
+      "impact": "Profiling information would not be available.",
+      "default_value": "By default, profiling is enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.16 Ensure that the --audit-log-path argument is set (Automated)\nDescription: Enable auditing on the Kubernetes API Server and set the desired audit log path.\nRationale: Auditing the Kubernetes API Server provides a security-relevant chronological set of records documenting the sequence of activities that have affected system by individual users, administrators or other components of the system. Even though currently, Kubernetes provides only basic audit capabilities, it should be enabled. You can enable it by setting an appropriate audit log path.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --audit-log-path argument is set as appropriate.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --audit-log-path parameter to a suitable path and file where you would like audit logs to be written, for example: --audit-log-path=/var/log/apiserver/audit.log",
+    "metadata": {
+      "id": "1.2.16",
+      "impact": "None",
+      "default_value": "By default, auditing is not enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.17 Ensure that the --audit-log-maxage argument is set to 30 or as appropriate (Automated)\nDescription: Retain the logs for at least 30 days or as appropriate.\nRationale: Retaining logs for at least 30 days ensures that you can go back in time and investigate or correlate any events. Set your audit log retention period to 30 days or as per your business requirements.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --audit-log-maxage argument is set to 30 or as appropriate.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --audit-log-maxage parameter to 30 or as an appropriate number of days: --audit-log-maxage=30",
+    "metadata": {
+      "id": "1.2.17",
+      "impact": "None",
+      "default_value": "By default, auditing is not enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.18 Ensure that the --audit-log-maxbackup argument is set to 10 or as appropriate (Automated)\nDescription: Retain 10 or an appropriate number of old log files.\nRationale: Kubernetes automatically rotates the log files. Retaining old log files ensures that you would have sufficient log data available for carrying out any investigation or correlation. For example, if you have set file size of 100 MB and the number of old log files to keep as 10, you would approximate have 1 GB of log data that you could potentially use for your analysis.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --audit-log-maxbackup argument is set to 10 or as appropriate.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --audit-log-maxbackup parameter to 10 or to an appropriate value. --audit-log-maxbackup=10",
+    "metadata": {
+      "id": "1.2.18",
+      "impact": "None",
+      "default_value": "By default, auditing is not enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.19 Ensure that the --audit-log-maxsize argument is set to 100 or as appropriate (Automated)\nDescription: Rotate log files on reaching 100 MB or as appropriate.\nRationale: Kubernetes automatically rotates the log files. Retaining old log files ensures that you would have sufficient log data available for carrying out any investigation or correlation. If you have set file size of 100 MB and the number of old log files to keep as 10, you would approximate have 1 GB of log data that you could potentially use for your analysis.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --audit-log-maxsize argument is set to 100 or as appropriate.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --audit-log-maxsize parameter to an appropriate size in MB. For example, to set it as 100 MB: --audit-log-maxsize=100",
+    "metadata": {
+      "id": "1.2.19",
+      "impact": "None",
+      "default_value": "By default, auditing is not enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.20 Ensure that the --request-timeout argument is set as appropriate (Manual)\nDescription: Set global request timeout for API server requests as appropriate.\nRationale: Setting global request timeout allows extending the API server request timeout limit to a duration appropriate to the user's connection speed. By default, it is set to 60 seconds which might be problematic on slower connections making cluster resources inaccessible once the data volume for requests exceeds what can be transmitted in 60 seconds. But, setting this timeout limit to be too large can exhaust the API server resources making it prone to Denial-of-Service attack. Hence, it is recommended to set this limit as appropriate and change the default limit of 60 seconds only if needed.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --request-timeout argument is either not set or set to an appropriate value.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml and set the below parameter as appropriate and if needed. For example, --request-timeout=300s",
+    "metadata": {
+      "id": "1.2.20",
+      "impact": "None",
+      "default_value": "By default, --request-timeout is set to 60 seconds.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.21 Ensure that the --service-account-lookup argument is set to true (Automated)\nDescription: Validate service account before validating token.\nRationale: If --service-account-lookup is not enabled, the apiserver only verifies that the authentication token is valid, and does not validate that the service account token mentioned in the request is actually present in etcd. This allows using a service account token even after the corresponding service account is deleted. This is an example of time of check to time of use security issue.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that if the --service-account-lookup argument exists it is set to true.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the below parameter. --service-account-lookup=true Alternatively, you can delete the --service-account-lookup parameter from this file so that the default takes effect.",
+    "metadata": {
+      "id": "1.2.21",
+      "impact": "None",
+      "default_value": "By default, --service-account-lookup argument is set to true.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.22 Ensure that the --service-account-key-file argument is set as appropriate (Automated)\nDescription: Explicitly set a service account public key file for service accounts on the apiserver.\nRationale: By default, if no --service-account-key-file is specified to the apiserver, it uses the private key from the TLS serving certificate to verify service account tokens. To ensure that the keys for service account tokens could be rotated as needed, a separate public/private key pair should be used for signing service account tokens. Hence, the public key should be specified to the apiserver with --service-account-key-file.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --service-account-key-file argument exists and is set as appropriate.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the Control Plane node and set the --service-account-key- file parameter to the public key file for service accounts: --service-account-key-file=<filename>",
+    "metadata": {
+      "id": "1.2.22",
+      "impact": "The corresponding private key must be provided to the controller manager. You would need to securely maintain the key file and rotate the keys based on your organization's key rotation policy.",
+      "default_value": "By default, --service-account-key-file argument is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.23 Ensure that the --etcd-certfile and --etcd-keyfile arguments are set as appropriate (Automated)\nDescription: etcd should be configured to make use of TLS encryption for client connections.\nRationale: etcd is a highly-available key value store used by Kubernetes deployments for persistent storage of all of its REST API objects. These objects are sensitive in nature and should be protected by client authentication. This requires the API server to identify itself to the etcd server using a client certificate and key.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --etcd-certfile and --etcd-keyfile arguments exist and they are set as appropriate.\nRemediation: Follow the Kubernetes documentation and set up the TLS connection between the apiserver and etcd. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube-apiserver.yaml on the master node and set the etcd certificate and key file parameters. --etcd-certfile=<path/to/client-certificate-file> --etcd-keyfile=<path/to/client-key-file>",
+    "metadata": {
+      "id": "1.2.23",
+      "impact": "TLS and client certificate authentication must be configured for etcd.",
+      "default_value": "By default, --etcd-certfile and --etcd-keyfile arguments are not set",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.24 Ensure that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate (Automated)\nDescription: Setup TLS connection on the API server.\nRationale: API server communication contains sensitive parameters that should remain encrypted in transit. Configure the API server to serve only HTTPS traffic.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --tls-cert-file and --tls-private-key-file arguments exist and they are set as appropriate.\nRemediation: Follow the Kubernetes documentation and set up the TLS connection on the apiserver. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the master node and set the TLS certificate and private key file parameters. --tls-cert-file=<path/to/tls-certificate-file> --tls-private-key-file=<path/to/tls-key-file>",
+    "metadata": {
+      "id": "1.2.24",
+      "impact": "TLS and client certificate authentication must be configured for your Kubernetes cluster deployment.",
+      "default_value": "By default, --tls-cert-file and --tls-private-key-file are presented and created for use.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.25 Ensure that the --client-ca-file argument is set as appropriate (Automated)\nDescription: Setup TLS connection on the API server.\nRationale: API server communication contains sensitive parameters that should remain encrypted in transit. Configure the API server to serve only HTTPS traffic. If --client-ca-file argument is set, any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the CommonName of the client certificate.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --client-ca-file argument exists and it is set as appropriate.\nRemediation: Follow the Kubernetes documentation and set up the TLS connection on the apiserver. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the master node and set the client certificate authority file. --client-ca-file=<path/to/client-ca-file>",
+    "metadata": {
+      "id": "1.2.25",
+      "impact": "TLS and client certificate authentication must be configured for your Kubernetes cluster deployment.",
+      "default_value": "By default, --client-ca-file argument is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.26 Ensure that the --etcd-cafile argument is set as appropriate (Automated)\nDescription: etcd should be configured to make use of TLS encryption for client connections.\nRationale: etcd is a highly-available key value store used by Kubernetes deployments for persistent storage of all of its REST API objects. These objects are sensitive in nature and should be protected by client authentication. This requires the API server to identify itself to the etcd server using a SSL Certificate Authority file.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --etcd-cafile argument exists and it is set as appropriate.\nRemediation: Follow the Kubernetes documentation and set up the TLS connection between the apiserver and etcd. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube-apiserver.yaml on the master node and set the etcd certificate authority file parameter. --etcd-cafile=<path/to/ca-file>",
+    "metadata": {
+      "id": "1.2.26",
+      "impact": "TLS and client certificate authentication must be configured for etcd.",
+      "default_value": "By default, --etcd-cafile is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.27 Ensure that the --encryption-provider-config argument is set as appropriate (Manual)\nDescription: Encrypt etcd key-value store.\nRationale: etcd is a highly available key-value store used by Kubernetes deployments for persistent storage of all of its REST API objects. These objects are sensitive in nature and should be encrypted at rest to avoid any disclosures.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --encryption-provider-config argument is set to a EncryptionConfig file. Additionally, ensure that the EncryptionConfig file has all the desired resources covered especially any secrets.\nRemediation: Follow the Kubernetes documentation and configure a EncryptionConfig file. Then, edit the API server pod specification file /etc/kubernetes/manifests/kube- apiserver.yaml on the master node and set the --encryption-provider-config parameter to the path of that file: --encryption-provider-config=</path/to/EncryptionConfig/File>",
+    "metadata": {
+      "id": "1.2.27",
+      "impact": "None",
+      "default_value": "By default, --encryption-provider-config is not set.",
+      "references": [
+        "1. https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/ 2. https://acotten.com/post/kube17-security 3. https://kubernetes.io/docs/reference/command-line-tools-reference/kube- apiserver/ 4. https://github.com/kubernetes/enhancements/issues/92 Page 116 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.28 Ensure that encryption providers are appropriately configured (Manual)\nDescription: Where etcd encryption is used, appropriate providers should be configured.\nRationale: Where etcd encryption is used, it is important to ensure that the appropriate set of encryption providers is used. Currently, the aescbc, kms, and secretbox are likely to be appropriate options.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Get the EncryptionConfig file set for --encryption-provider-config argument. Verify that aescbc, kms, or secretbox is set as the encryption provider for all the desired resources.\nRemediation: Follow the Kubernetes documentation and configure a EncryptionConfig file. In this file, choose aescbc, kms, or secretbox as the encryption provider.",
+    "metadata": {
+      "id": "1.2.28",
+      "impact": "None",
+      "default_value": "By default, no encryption provider is set.",
+      "references": [
+        "1. https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/ 2. https://acotten.com/post/kube17-security 3. https://kubernetes.io/docs/reference/command-line-tools-reference/kube- apiserver/ 4. https://github.com/kubernetes/enhancements/issues/92 5. https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/#providers Page 118 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.29 Ensure that the API Server only makes use of Strong Cryptographic Ciphers (Manual)\nDescription: Ensure that the API server is configured to only use strong cryptographic ciphers.\nRationale: TLS ciphers have had a number of known vulnerabilities and weaknesses, which can reduce the protection provided by them. By default Kubernetes supports a number of TLS cipher suites including some that have security concerns, weakening the protection provided.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --tls-cipher-suites argument is set as outlined in the remediation procedure below.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube-apiserver.yaml on the Control Plane node and set the below parameter. --tls-cipher-suites=TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256.",
+    "metadata": {
+      "id": "1.2.29",
+      "impact": "API server clients that cannot support modern cryptographic ciphers will not be able to make connections to the API server.",
+      "default_value": "By default the Kubernetes API server supports a wide range of TLS ciphers Page 120 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.2.30 Ensure that the --service-account-extend-token-expiration parameter is set to false (Automated)\nDescription: By default Kubernetes extends service account token lifetimes to one year to aid in transition from the legacy token settings.\nRationale: This default setting is not ideal for security as it ignores other settings related to maximum token lifetime and means that a lost or stolen credential could be valid for an extended period of time.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-apiserver Verify that the --service-account-extend-token-expiration argument is set to false.\nRemediation: Edit the API server pod specification file /etc/kubernetes/manifests/kube-apiserver.yaml on the Control Plane node and set the --service-account-extend-token-expiration parameter to false. --service-account-extend-token-expiration=false",
+    "metadata": {
+      "id": "1.2.30",
+      "impact": "Disabling this setting means that the service account token expiry set in the cluster will be enforced, and service account tokens will expire at the end of that time frame.",
+      "default_value": "By default, this parameter is set to true",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.3.1 Ensure that the --terminated-pod-gc-threshold argument is set as appropriate (Manual)\nDescription: Activate garbage collector on pod termination, as appropriate.\nRationale: Garbage collection is important to ensure sufficient resource availability and avoiding degraded performance and availability. In the worst case, the system might crash or just be unusable for a long period of time. The current setting for garbage collection is 12,500 terminated pods which might be too high for your system to sustain. Based on your system resources and tests, choose an appropriate threshold value to activate garbage collection.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-controller-manager Verify that the --terminated-pod-gc-threshold argument is set as appropriate.\nRemediation: Edit the Controller Manager pod specification file /etc/kubernetes/manifests/kube- controller-manager.yaml on the Control Plane node and set the --terminated- pod-gc-threshold to an appropriate threshold, for example: --terminated-pod-gc-threshold=10",
+    "metadata": {
+      "id": "1.3.1",
+      "impact": "None",
+      "default_value": "By default, --terminated-pod-gc-threshold is set to 12500.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.3.2 Ensure that the --profiling argument is set to false (Automated)\nDescription: Disable profiling, if not needed.\nRationale: Profiling allows for the identification of specific performance bottlenecks. It generates a significant amount of program data that could potentially be exploited to uncover system and program details. If you are not experiencing any bottlenecks and do not need the profiler for troubleshooting purposes, it is recommended to turn it off to reduce the potential attack surface.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-controller-manager Verify that the --profiling argument is set to false.\nRemediation: Edit the Controller Manager pod specification file /etc/kubernetes/manifests/kube- controller-manager.yaml on the Control Plane node and set the below parameter. --profiling=false",
+    "metadata": {
+      "id": "1.3.2",
+      "impact": "Profiling information would not be available.",
+      "default_value": "By default, profiling is enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.3.3 Ensure that the --use-service-account-credentials argument is set to true (Automated)\nDescription: Use individual service account credentials for each controller.\nRationale: The controller manager creates a service account per controller in the kube-system namespace, generates a credential for it, and builds a dedicated API client with that service account credential for each controller loop to use. Setting the --use-service- account-credentials to true runs each control loop within the controller manager using a separate service account credential. When used in combination with RBAC, this ensures that the control loops run with the minimum permissions required to perform their intended tasks.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-controller-manager Verify that the --use-service-account-credentials argument is set to true.\nRemediation: Edit the Controller Manager pod specification file /etc/kubernetes/manifests/kube- controller-manager.yaml on the Control Plane node to set the below parameter. Page 129 Internal Only - General --use-service-account-credentials=true",
+    "metadata": {
+      "id": "1.3.3",
+      "impact": "Whatever authorizer is configured for the cluster, it must grant sufficient permissions to the service accounts to perform their intended tasks. When using the RBAC authorizer, those roles are created and bound to the appropriate service accounts in the kube- system namespace automatically with default roles and rolebindings that are auto- reconciled on startup. If using other authorization methods (ABAC, Webhook, etc), the cluster deployer is responsible for granting appropriate permissions to the service accounts (the required permissions can be seen by inspecting the controller-roles.yaml and controller- role-bindings.yaml files for the RBAC roles.",
+      "default_value": "By default, --use-service-account-credentials is set to false.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.3.4 Ensure that the --service-account-private-key-file argument is set as appropriate (Automated)\nDescription: Explicitly set a service account private key file for service accounts on the controller manager.\nRationale: To ensure that keys for service account tokens can be rotated as needed, a separate public/private key pair should be used for signing service account tokens. The private key should be specified to the controller manager with --service-account-private- key-file as appropriate.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-controller-manager Verify that the --service-account-private-key-file argument is set as appropriate.\nRemediation: Edit the Controller Manager pod specification file /etc/kubernetes/manifests/kube- controller-manager.yaml on the Control Plane node and set the --service- account-private-key-file parameter to the private key file for service accounts. --service-account-private-key-file=<filename>",
+    "metadata": {
+      "id": "1.3.4",
+      "impact": "You would need to securely maintain the key file and rotate the keys based on your organization's key rotation policy.",
+      "default_value": "By default, --service-account-private-key-file it not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.3.5 Ensure that the --root-ca-file argument is set as appropriate (Automated)\nDescription: Allow pods to verify the API server's serving certificate before establishing connections.\nRationale: Processes running within pods that need to contact the API server must verify the API server's serving certificate. Failing to do so could be a subject to man-in-the-middle attacks. Providing the root certificate for the API server's serving certificate to the controller manager with the --root-ca-file argument allows the controller manager to inject the trusted bundle into pods so that they can verify TLS connections to the API server.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-controller-manager Verify that the --root-ca-file argument exists and is set to a certificate bundle file containing the root certificate for the API server's serving certificate.\nRemediation: Edit the Controller Manager pod specification file /etc/kubernetes/manifests/kube- controller-manager.yaml on the Control Plane node and set the --root-ca-file parameter to the certificate bundle file`. --root-ca-file=<path/to/file>",
+    "metadata": {
+      "id": "1.3.5",
+      "impact": "You need to setup and maintain root certificate authority file.",
+      "default_value": "By default, --root-ca-file is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.3.6 Ensure that the RotateKubeletServerCertificate argument is set to true (Automated)\nDescription: Enable kubelet server certificate rotation on controller-manager.\nRationale: RotateKubeletServerCertificate causes the kubelet to both request a serving certificate after bootstrapping its client credentials and rotate the certificate as its existing credentials expire. This automated periodic rotation ensures that the there are no downtimes due to expired certificates and thus addressing availability in the CIA security triad. Note: This recommendation only applies if you let kubelets get their certificates from the API server. In case your kubelet certificates come from an outside authority/tool (e.g. Vault) then you need to take care of rotation yourself.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-controller-manager Verify that RotateKubeletServerCertificate argument exists and is set to true.\nRemediation: Edit the Controller Manager pod specification file /etc/kubernetes/manifests/kube- controller-manager.yaml on the Control Plane node and set the --feature-gates parameter to include RotateKubeletServerCertificate=true. --feature-gates=RotateKubeletServerCertificate=true",
+    "metadata": {
+      "id": "1.3.6",
+      "impact": "None",
+      "default_value": "By default, RotateKubeletServerCertificate is set to \"true\" this recommendation verifies that it has not been disabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.3.7 Ensure that the --bind-address argument is set to 127.0.0.1 (Automated)\nDescription: Do not bind the Controller Manager service to non-loopback insecure addresses.\nRationale: The Controller Manager API service which runs on port 10252/TCP by default is used for health and metrics information and is available without authentication or encryption. As such it should only be bound to a localhost interface, to minimize the cluster's attack surface\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-controller-manager Verify that the --bind-address argument is set to 127.0.0.1\nRemediation: Edit the Controller Manager pod specification file /etc/kubernetes/manifests/kube- controller-manager.yaml on the Control Plane node and ensure the correct value for the --bind-address parameter",
+    "metadata": {
+      "id": "1.3.7",
+      "impact": "None",
+      "default_value": "By default, the --bind-address parameter is set to 0.0.0.0",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.4.1 Ensure that the --profiling argument is set to false (Automated)\nDescription: Disable profiling, if not needed.\nRationale: Profiling allows for the identification of specific performance bottlenecks. It generates a significant amount of program data that could potentially be exploited to uncover system and program details. If you are not experiencing any bottlenecks and do not need the profiler for troubleshooting purposes, it is recommended to turn it off to reduce the potential attack surface.\nAudit: Run the following command on the Control Plane node: ps -ef | grep kube-scheduler Verify that the --profiling argument is set to false.\nRemediation: Edit the Scheduler pod specification file /etc/kubernetes/manifests/kube- scheduler.yaml file on the Control Plane node and set the below parameter. --profiling=false",
+    "metadata": {
+      "id": "1.4.1",
+      "impact": "Profiling information would not be available.",
+      "default_value": "By default, profiling is enabled.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 1.4.2 Ensure that the --bind-address argument is set to 127.0.0.1 (Automated)\nDescription: Use a different certificate authority for etcd from the one used for Kubernetes.\nRationale: etcd is a highly available key-value store used by Kubernetes deployments for persistent storage of all of its REST API objects. Its access should be restricted to specifically designated clients and peers only. Authentication to etcd is based on whether the certificate presented was issued by a trusted certificate authority. There is no checking of certificate attributes such as common name or subject alternative name. As such, if any attackers were able to gain access to any certificate issued by the trusted certificate authority, they would be able to gain full access to the etcd database.\nAudit: Review the CA used by the etcd environment and ensure that it does not match the CA certificate file used for the management of the overall Kubernetes cluster. Run the following command on the master node: ps -ef | grep etcd Note the file referenced by the --trusted-ca-file argument. Run the following command on the master node: ps -ef | grep apiserver Verify that the file referenced by the --client-ca-file for apiserver is different from the --trusted-ca-file used by etcd.\nRemediation: Follow the etcd documentation and create a dedicated certificate authority setup for the etcd service. Then, edit the etcd pod specification file /etc/kubernetes/manifests/etcd.yaml on the master node and set the below parameter. Page 159 Internal Only - General --trusted-ca-file=</path/to/ca-file>",
+    "metadata": {
+      "id": "1.4.2",
+      "impact": "Additional management of the certificates and keys for the dedicated certificate authority will be required.",
+      "default_value": "By default, no etcd certificate is created and used.",
+      "references": [
+        "1. https://coreos.com/etcd/docs/latest/op-guide/security.html"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 3.1.1 Client certificate authentication should not be used for users (Manual)\nDescription: Kubernetes provides the option to use client certificates for user authentication. However as there is no way to revoke these certificates when a user leaves an organization or loses their credential, they are not suitable for this purpose. It is not possible to fully disable client certificate use within a cluster as it is used for component to component authentication.\nRationale: With any authentication mechanism the ability to revoke credentials if they are compromised or no longer required, is a key control. Kubernetes client certificate authentication does not allow for this due to a lack of support for certificate revocation.\nAudit: Review user access to the cluster and ensure that users are not making use of Kubernetes client certificate authentication.\nRemediation: Alternative mechanisms provided by Kubernetes such as the use of OIDC should be implemented in place of client certificates.",
+    "metadata": {
+      "id": "3.1.1",
+      "impact": "External mechanisms for authentication generally require additional software to be deployed.",
+      "default_value": "Client certificate authentication is enabled by default. Additional Information: The lack of certificate revocation was flagged up as a high risk issue in the recent Kubernetes security audit. Without this feature, client certificate authentication is not suitable for end users. Page 162 Internal Only - General"
+    }
+  },
+  {
+    "page_content": "Title: 3.1.2 Service account token authentication should not be used for users (Manual)\nDescription: Kubernetes provides service account tokens which are intended for use by workloads running in the Kubernetes cluster, for authentication to the API server. These tokens are not designed for use by end-users and do not provide for features such as revocation or expiry, making them insecure. A newer version of the feature (Bound service account token volumes) does introduce expiry but still does not allow for specific revocation.\nRationale: With any authentication mechanism the ability to revoke credentials if they are compromised or no longer required, is a key control. Service account token authentication does not allow for this due to the use of JWT tokens as an underlying technology.\nAudit: Review user access to the cluster and ensure that users are not making use of service account token authentication.\nRemediation: Alternative mechanisms provided by Kubernetes such as the use of OIDC should be implemented in place of service account tokens.",
+    "metadata": {
+      "id": "3.1.2",
+      "impact": "External mechanisms for authentication generally require additional software to be deployed.",
+      "default_value": "Service account token authentication is enabled by default. Page 164 Internal Only - General"
+    }
+  },
+  {
+    "page_content": "Title: 3.1.3 Bootstrap token authentication should not be used for users (Manual)\nDescription: Kubernetes provides bootstrap tokens which are intended for use by new nodes joining the cluster These tokens are not designed for use by end-users they are specifically designed for the purpose of bootstrapping new nodes and not for general authentication\nRationale: Bootstrap tokens are not intended for use as a general authentication mechanism and impose constraints on user and group naming that do not facilitate good RBAC design. They also cannot be used with MFA resulting in a weak authentication mechanism being available.\nAudit: Review user access to the cluster and ensure that users are not making use of bootstrap token authentication.\nRemediation: Alternative mechanisms provided by Kubernetes such as the use of OIDC should be implemented in place of bootstrap tokens.",
+    "metadata": {
+      "id": "3.1.3",
+      "impact": "External mechanisms for authentication generally require additional software to be deployed.",
+      "default_value": "Bootstrap token authentication is not enabled by default and requires an API server parameter to be set. Page 166 Internal Only - General"
+    }
+  },
+  {
+    "page_content": "Title: 3.2.1 Ensure that a minimal audit policy is created (Manual)\nDescription: Kubernetes can audit the details of requests made to the API server. The --audit- policy-file flag must be set for this logging to be enabled.\nRationale: Logging is an important detective control for all systems, to detect potential unauthorised access.\nAudit: Run the following command on one of the cluster master nodes: ps -ef | grep kube-apiserver Verify that the --audit-policy-file is set. Review the contents of the file specified and ensure that it contains a valid audit policy.\nRemediation: Create an audit policy file for your cluster.",
+    "metadata": {
+      "id": "3.2.1",
+      "impact": "Audit logs will be created on the master nodes, which will consume disk space. Care should be taken to avoid generating too large volumes of log information as this could impact the available of the cluster nodes.",
+      "default_value": "Unless the --audit-policy-file flag is specified, no auditing will be carried out.",
+      "references": [
+        "1. https://kubernetes.io/docs/tasks/debug-application-cluster/audit/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 3.2.2 Ensure that the audit policy covers key security concerns (Manual)\nDescription: Ensure that the audit policy created for the cluster covers key security concerns.\nRationale: Security audit logs should cover access and modification of key resources in the cluster, to enable them to form an effective part of a security environment.\nAudit: Review the audit policy provided for the cluster and ensure that it covers at least the following areas :- • Access to Secrets managed by the cluster. Care should be taken to only log Metadata for requests to Secrets, ConfigMaps, and TokenReviews, in order to avoid the risk of logging sensitive data. • Modification of pod and deployment objects. • Use of pods/exec, pods/portforward, pods/proxy and services/proxy. For most requests, minimally logging at the Metadata level is recommended (the most basic level of logging).\nRemediation: Consider modification of the audit policy in use on the cluster to include these items, at a minimum.",
+    "metadata": {
+      "id": "3.2.2",
+      "impact": "Increasing audit logging will consume resources on the nodes or other log destination.",
+      "default_value": "By default Kubernetes clusters do not log audit information.",
+      "references": [
+        "1. https://github.com/k8scop/k8s-security- dashboard/blob/master/configs/kubernetes/adv-audit.yaml 2. https://kubernetes.io/docs/tasks/debug-application-cluster/audit/#audit-policy Page 171 Internal Only - General 3. https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure- helper.sh#L735"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.1 Ensure that the kubelet service file permissions are set to 600 or more restrictive (Automated)\nDescription: Ensure that the kubelet service file has permissions of 600 or more restrictive.\nRationale: The kubelet service file controls various parameters that set the behavior of the kubelet service in the worker node. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Automated AAC auditing has been modified to allow CIS-CAT to input a variable for the <PATH>/<FILENAME> of the kubelet service config file. Please set $kubelet_service_config=<PATH> based on the file location on your system for example: export kubelet_service_config=/etc/systemd/system/kubelet.service.d/kubeadm.conf To perform the audit manually: Run the below command (based on the file location on your system) on the each worker node. For example, stat -c %a /etc/systemd/system/kubelet.service.d/10-kubeadm.conf Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the each worker node. For example, chmod 600 /etc/systemd/system/kubelet.service.d/kubeadm.conf",
+    "metadata": {
+      "id": "4.1.1",
+      "impact": "None",
+      "default_value": "By default, the kubelet service file has permissions of 640. Page 174 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.2 Ensure that the kubelet service file ownership is set to root:root (Automated)\nDescription: Ensure that the kubelet service file ownership is set to root:root.\nRationale: The kubelet service file controls various parameters that set the behavior of the kubelet service in the worker node. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Automated AAC auditing has been modified to allow CIS-CAT to input a variable for the <PATH>/<FILENAME> of the kubelet service config file. Please set $kubelet_service_config=<PATH> based on the file location on your system for example: export kubelet_service_config=/etc/systemd/system/kubelet.service.d/kubeadm.conf To perform the audit manually: Run the below command (based on the file location on your system) on the each worker node. For example, stat -c %U:%G /etc/systemd/system/kubelet.service.d/10-kubeadm.conf Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the each worker node. For example, chown root:root /etc/systemd/system/kubelet.service.d/kubeadm.conf",
+    "metadata": {
+      "id": "4.1.2",
+      "impact": "None",
+      "default_value": "By default, kubelet service file ownership is set to root:root. Page 176 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.3 If proxy kubeconfig file exists ensure permissions are set to 600 or more restrictive (Manual)\nDescription: If kube-proxy is running, and if it is using a file-based kubeconfig file, ensure that the proxy kubeconfig file has permissions of 600 or more restrictive.\nRationale: The kube-proxy kubeconfig file controls various parameters of the kube-proxy service in the worker node. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system. It is possible to run kube-proxy with the kubeconfig parameters configured as a Kubernetes ConfigMap instead of a file. In this case, there is no proxy kubeconfig file.\nAudit: Find the kubeconfig file being used by kube-proxy by running the following command: ps -ef | grep kube-proxy If kube-proxy is running, get the kubeconfig file location from the --kubeconfig parameter. To perform the audit: Run the below command (based on the file location on your system) on the each worker node. For example, stat -c %a <path><filename> Verify that a file is specified and it exists with permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the each worker node. For example, chmod 600 <proxy kubeconfig file>",
+    "metadata": {
+      "id": "4.1.3",
+      "impact": "None",
+      "default_value": "By default, proxy file has permissions of 640. Page 178 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.4 If proxy kubeconfig file exists ensure ownership is set to root:root (Manual)\nDescription: If kube-proxy is running, ensure that the file ownership of its kubeconfig file is set to root:root.\nRationale: The kubeconfig file for kube-proxy controls various parameters for the kube-proxy service in the worker node. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Find the kubeconfig file being used by kube-proxy by running the following command: ps -ef | grep kube-proxy If kube-proxy is running, get the kubeconfig file location from the --kubeconfig parameter. To perform the audit: Run the below command (based on the file location on your system) on the each worker node. For example, stat -c %U:%G <path><filename> Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the each worker node. For example, chown root:root <proxy kubeconfig file>",
+    "metadata": {
+      "id": "4.1.4",
+      "impact": "None",
+      "default_value": "By default, proxy file ownership is set to root:root.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.5 Ensure that the --kubeconfig kubelet.conf file permissions are set to 600 or more restrictive (Automated)\nDescription: Ensure that the kubelet.conf file has permissions of 600 or more restrictive.\nRationale: The kubelet.conf file is the kubeconfig file for the node, and controls various parameters that set the behavior and identity of the worker node. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Automated AAC auditing has been modified to allow CIS-CAT to input a variable for the <PATH>/<FILENAME> of the kubelet config file. Please set $kubelet_config=<PATH> based on the file location on your system for example: export kubelet_config=/etc/kubernetes/kubelet.conf To perform the audit manually: Run the below command (based on the file location on your system) on the each worker node. For example, stat -c %a /etc/kubernetes/kubelet.conf Verify that the ownership is set to root:root.Verify that the permissions are 600 or more restrictive.\nRemediation: Run the below command (based on the file location on your system) on the each worker node. For example, chmod 600 /etc/kubernetes/kubelet.conf",
+    "metadata": {
+      "id": "4.1.5",
+      "impact": "None",
+      "default_value": "By default, kubelet.conf file has permissions of 600. Page 182 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.6 Ensure that the --kubeconfig kubelet.conf file ownership is set to root:root (Automated)\nDescription: Ensure that the kubelet.conf file ownership is set to root:root.\nRationale: The kubelet.conf file is the kubeconfig file for the node, and controls various parameters that set the behavior and identity of the worker node. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Automated AAC auditing has been modified to allow CIS-CAT to input a variable for the <PATH>/<FILENAME> of the kubelet config file. Please set $kubelet_config=<PATH> based on the file location on your system for example: export kubelet_config=/etc/kubernetes/kubelet.conf To perform the audit manually: Run the below command (based on the file location on your system) on the each worker node. For example, stat -c %U:%G /etc/kubernetes/kubelet.conf Verify that the ownership is set to root:root.\nRemediation: Run the below command (based on the file location on your system) on the each worker node. For example, chown root:root /etc/kubernetes/kubelet.conf",
+    "metadata": {
+      "id": "4.1.6",
+      "impact": "None",
+      "default_value": "By default, kubelet.conf file ownership is set to root:root.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.7 Ensure that the certificate authorities file permissions are set to 644 or more restrictive (Manual)\nDescription: Ensure that the certificate authorities file has permissions of 644 or more restrictive.\nRationale: The certificate authorities file controls the authorities used to validate API requests. You should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Run the following command: ps -ef | grep kubelet Find the file specified by the --client-ca-file argument. Run the following command: stat -c %a <filename> Verify that the permissions are 644 or more restrictive.\nRemediation: Run the following command to modify the file permissions of the --client-ca-file chmod 644 <filename>",
+    "metadata": {
+      "id": "4.1.7",
+      "impact": "None",
+      "default_value": "By default no --client-ca-file is specified.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.8 Ensure that the client certificate authorities file ownership is set to root:root (Manual)\nDescription: Ensure that the certificate authorities file ownership is set to root:root.\nRationale: The certificate authorities file controls the authorities used to validate API requests. You should set its file ownership to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Run the following command: ps -ef | grep kubelet Find the file specified by the --client-ca-file argument. Run the following command: stat -c %U:%G <filename> Verify that the ownership is set to root:root.\nRemediation: Run the following command to modify the ownership of the --client-ca-file. chown root:root <filename>",
+    "metadata": {
+      "id": "4.1.8",
+      "impact": "None",
+      "default_value": "By default no --client-ca-file is specified.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.9 If the kubelet config.yaml configuration file is being used validate permissions set to 600 or more restrictive (Automated)\nDescription: Ensure that if the kubelet refers to a configuration file with the --config argument, that file has permissions of 600 or more restrictive.\nRationale: The kubelet reads various parameters, including security settings, from a config file specified by the --config argument. If this file is specified you should restrict its file permissions to maintain the integrity of the file. The file should be writable by only the administrators on the system.\nAudit: Automated AAC auditing has been modified to allow CIS-CAT to input a variable for the <PATH>/<FILENAME> of the kubelet config yaml file. Please set $kubelet_config_yaml=<PATH> based on the file location on your system for example: export kubelet_config_yaml=/var/lib/kubelet/config.yaml To perform the audit manually: Run the below command (based on the file location on your system) on the each worker node. For example, stat -c %a /var/lib/kubelet/config.yaml Verify that the permissions are 600 or more restrictive.\nRemediation: Run the following command (using the config file location identified in the Audit step) chmod 600 /var/lib/kubelet/config.yaml",
+    "metadata": {
+      "id": "4.1.9",
+      "impact": "None",
+      "default_value": "By default, the /var/lib/kubelet/config.yaml file as set up by kubeadm has permissions of 600. Page 190 Internal Only - General",
+      "references": [
+        "1. https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.1.10 If the kubelet config.yaml configuration file is being used validate file ownership is set to root:root (Automated)\nDescription: Ensure that if the kubelet refers to a configuration file with the --config argument, that file is owned by root:root.\nRationale: The kubelet reads various parameters, including security settings, from a config file specified by the --config argument. If this file is specified you should restrict its file permissions to maintain the integrity of the file. The file should be owned by root:root.\nAudit: Automated AAC auditing has been modified to allow CIS-CAT to input a variable for the <PATH>/<FILENAME> of the kubelet config yaml file. Please set $kubelet_config_yaml=<PATH> based on the file location on your system for example: export kubelet_config_yaml=/var/lib/kubelet/config.yaml To perform the audit manually: Run the below command (based on the file location on your system) on the each worker node. For example, stat -c %U:%G /var/lib/kubelet/config.yaml ```Verify that the ownership is set to `root:root`.\nRemediation: Run the following command (using the config file location identied in the Audit step) chown root:root /etc/kubernetes/kubelet.conf",
+    "metadata": {
+      "id": "4.1.10",
+      "impact": "None",
+      "default_value": "By default, /var/lib/kubelet/config.yaml file as set up by kubeadm is owned by root:root. Page 192 Internal Only - General",
+      "references": [
+        "1. https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.1 Ensure that the --anonymous-auth argument is set to false (Automated)\nDescription: Disable anonymous requests to the Kubelet server.\nRationale: When enabled, requests that are not rejected by other configured authentication methods are treated as anonymous requests. These requests are then served by the Kubelet server. You should rely on authentication to authorize access and disallow anonymous requests.\nAudit: If using a Kubelet configuration file, check that there is an entry for authentication: anonymous: enabled set to false. Run the following command on each node: ps -ef | grep kubelet Verify that the --anonymous-auth argument is set to false. This executable argument may be omitted, provided there is a corresponding entry set to false in the Kubelet config file.\nRemediation: If using a Kubelet config file, edit the file to set authentication: anonymous: enabled to false. If using executable arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and set the below parameter in KUBELET_SYSTEM_PODS_ARGS variable. --anonymous-auth=false Based on your system, restart the kubelet service. For example: systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.1",
+      "impact": "Anonymous requests will be rejected.",
+      "default_value": "By default, anonymous access is enabled. Page 195 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.2 Ensure that the --authorization-mode argument is not set to AlwaysAllow (Automated)\nDescription: Do not allow all requests. Enable explicit authorization.\nRationale: Kubelets, by default, allow all authenticated requests (even anonymous ones) without needing explicit authorization checks from the apiserver. You should restrict this behavior and only allow explicitly authorized requests.\nAudit: Run the following command on each node: ps -ef | grep kubelet If the --authorization-mode argument is present check that it is not set to AlwaysAllow. If it is not present check that there is a Kubelet config file specified by -- config, and that file sets authorization: mode to something other than AlwaysAllow. It is also possible to review the running configuration of a Kubelet via the /configz endpoint on the Kubelet API port (typically 10250/TCP). Accessing these with appropriate credentials will provide details of the Kubelet's configuration.\nRemediation: If using a Kubelet config file, edit the file to set authorization: mode to Webhook. If using executable arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and set the below parameter in KUBELET_AUTHZ_ARGS variable. --authorization-mode=Webhook Based on your system, restart the kubelet service. For example: Page 197 Internal Only - General systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.2",
+      "impact": "Unauthorized requests will be denied.",
+      "default_value": "By default, --authorization-mode argument is set to AlwaysAllow.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.3 Ensure that the --client-ca-file argument is set as appropriate (Automated)\nDescription: Enable Kubelet authentication using certificates.\nRationale: The connections from the apiserver to the kubelet are used for fetching logs for pods, attaching (through kubectl) to running pods, and using the kubelet’s port-forwarding functionality. These connections terminate at the kubelet’s HTTPS endpoint. By default, the apiserver does not verify the kubelet’s serving certificate, which makes the connection subject to man-in-the-middle attacks, and unsafe to run over untrusted and/or public networks. Enabling Kubelet certificate authentication ensures that the apiserver could authenticate the Kubelet before submitting any requests.\nAudit: Run the following command on each node: ps -ef | grep kubelet Verify that the --client-ca-file argument exists and is set to the location of the client certificate authority file. If the --client-ca-file argument is not present, check that there is a Kubelet config file specified by --config, and that the file sets authentication: x509: clientCAFile to the location of the client certificate authority file.\nRemediation: If using a Kubelet config file, edit the file to set authentication: x509: clientCAFile to the location of the client CA file. If using command line arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and set the below parameter in KUBELET_AUTHZ_ARGS variable. --client-ca-file=<path/to/client-ca-file> Based on your system, restart the kubelet service. For example: Page 199 Internal Only - General systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.3",
+      "impact": "You require TLS to be configured on apiserver as well as kubelets.",
+      "default_value": "By default, --client-ca-file argument is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.4 Verify that if defined, readOnlyPort is set to 0 (Manual)\nDescription: Disable the read-only port.\nRationale: The Kubelet process provides a read-only API in addition to the main Kubelet API. Unauthenticated access is provided to this read-only API which could possibly retrieve potentially sensitive information about the cluster.\nAudit: Run the following command on each node: ps -ef | grep kubelet Verify that the --read-only-port argument exists and is set to 0. If the --read-only-port argument is not present, check that there is a Kubelet config file specified by --config. Check that if there is a readOnlyPort entry in the file, it is set to 0.\nRemediation: If using a Kubelet config file, edit the file to set readOnlyPort to 0. If using command line arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and set the below parameter in KUBELET_SYSTEM_PODS_ARGS variable. --read-only-port=0 Based on your system, restart the kubelet service. For example: systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.4",
+      "impact": "Removal of the read-only port will require that any service which made use of it will need to be re-configured to use the main Kubelet API.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.5 Ensure that the --streaming-connection-idle-timeout argument is not set to 0 (Manual)\nDescription: Do not disable timeouts on streaming connections.\nRationale: Setting idle timeouts ensures that you are protected against Denial-of-Service attacks, inactive connections and running out of ephemeral ports. Note: By default, --streaming-connection-idle-timeout is set to 4 hours which might be too high for your environment. Setting this as appropriate would additionally ensure that such streaming connections are timed out after serving legitimate use cases.\nAudit: Run the following command on each node: ps -ef | grep kubelet Verify that the --streaming-connection-idle-timeout argument is not set to 0. If the argument is not present, and there is a Kubelet config file specified by --config, check that it does not set streamingConnectionIdleTimeout to 0.\nRemediation: If using a Kubelet config file, edit the file to set streamingConnectionIdleTimeout to a value other than 0. If using command line arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and set the below parameter in KUBELET_SYSTEM_PODS_ARGS variable. --streaming-connection-idle-timeout=5m Based on your system, restart the kubelet service. For example: Page 203 Internal Only - General systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.5",
+      "impact": "Long-lived connections could be interrupted.",
+      "default_value": "By default, --streaming-connection-idle-timeout is set to 4 hours.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.6 Ensure that the --make-iptables-util-chains argument is set to true (Automated)\nDescription: Allow Kubelet to manage iptables.\nRationale: Kubelets can automatically manage the required changes to iptables based on how you choose your networking options for the pods. It is recommended to let kubelets manage the changes to iptables. This ensures that the iptables configuration remains in sync with pods networking configuration. Manually configuring iptables with dynamic pod network configuration changes might hamper the communication between pods/containers and to the outside world. You might have iptables rules too restrictive or too open.\nAudit: Run the following command on each node: ps -ef | grep kubelet Verify that if the --make-iptables-util-chains argument exists then it is set to true. If the --make-iptables-util-chains argument does not exist, and there is a Kubelet config file specified by --config, verify that the file does not set makeIPTablesUtilChains to false.\nRemediation: If using a Kubelet config file, edit the file to set makeIPTablesUtilChains: true. If using command line arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and remove the --make- iptables-util-chains argument from the KUBELET_SYSTEM_PODS_ARGS variable. Based on your system, restart the kubelet service. For example: Page 205 Internal Only - General systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.6",
+      "impact": "Kubelet would manage the iptables on the system and keep it in sync. If you are using any other iptables management solution, then there might be some conflicts.",
+      "default_value": "By default, --make-iptables-util-chains argument is set to true.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.7 Ensure that the --hostname-override argument is not set (Manual)\nDescription: Do not override node hostnames.\nRationale: Overriding hostnames could potentially break TLS setup between the kubelet and the apiserver. Additionally, with overridden hostnames, it becomes increasingly difficult to associate logs with a particular node and process them for security analytics. Hence, you should setup your kubelet nodes with resolvable FQDNs and avoid overriding the hostnames with IPs.\nAudit: Run the following command on each node: ps -ef | grep kubelet Verify that --hostname-override argument does not exist. Note This setting is not configurable via the Kubelet config file.\nRemediation: Edit the kubelet service file /etc/systemd/system/kubelet.service.d/10- kubeadm.conf on each worker node and remove the --hostname-override argument from the KUBELET_SYSTEM_PODS_ARGS variable. Based on your system, restart the kubelet service. For example: systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.7",
+      "impact": "Some cloud providers may require this flag to ensure that hostname matches names issued by the cloud provider. In these environments, this recommendation should not apply.",
+      "default_value": "By default, --hostname-override argument is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.8 Ensure that the eventRecordQPS argument is set to a level which ensures appropriate event capture (Manual)\nDescription: Security relevant information should be captured. The eventRecordQPS on the Kubelet configuration can be used to limit the rate at which events are gathered and sets the maximum event creations per second. Setting this too low could result in relevant events not being logged, however the unlimited setting of 0 could result in a denial of service on the kubelet.\nRationale: It is important to capture all events and not restrict event creation. Events are an important source of security information and analytics that ensure that your environment is consistently monitored using the event data.\nAudit: Run the following command on each node: sudo grep \"eventRecordQPS\" /etc/systemd/system/kubelet.service.d/10- kubeadm.conf or If using command line arguments, kubelet service file is located /etc/systemd/system/kubelet.service.d/10-kubelet-args.conf sudo grep \"eventRecordQPS\" /etc/systemd/system/kubelet.service.d/10-kubelet- args.conf Review the value set for the argument and determine whether this has been set to an appropriate level for the cluster. If the argument does not exist, check that there is a Kubelet config file specified by -- config and review the value in this location. If using command line arguments Page 209 Internal Only - General\nRemediation: If using a Kubelet config file, edit the file to set eventRecordQPS: to an appropriate level. If using command line arguments, edit the kubelet service file /etc/systemd/system/kubelet.service.d/10-kubeadm.conf on each worker node and set the below parameter in KUBELET_ARGS variable. Based on your system, restart the kubelet service. For example: systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.8",
+      "impact": "Setting this parameter to 0 could result in a denial of service condition due to excessive events being created. The cluster's event processing and storage systems should be scaled to handle expected event loads.",
+      "default_value": "By default, eventRecordQPS argument is set to 5.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.9 Ensure that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate (Manual)\nDescription: Setup TLS connection on the Kubelets.\nRationale: The connections from the apiserver to the kubelet are used for fetching logs for pods, attaching (through kubectl) to running pods, and using the kubelet’s port-forwarding functionality. These connections terminate at the kubelet’s HTTPS endpoint. By default, the apiserver does not verify the kubelet’s serving certificate, which makes the connection subject to man-in-the-middle attacks, and unsafe to run over untrusted and/or public networks.\nAudit: Run the following command on each node: ps -ef | grep kubelet Verify that the --tls-cert-file and --tls-private-key-file arguments exist and they are set as appropriate. If these arguments are not present, check that there is a Kubelet config specified by -- config and that it contains appropriate settings for tlsCertFile and tlsPrivateKeyFile.\nRemediation: If using a Kubelet config file, edit the file to set tlsCertFile to the location of the certificate file to use to identify this Kubelet, and tlsPrivateKeyFile to the location of the corresponding private key file. If using command line arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and set the below parameters in KUBELET_CERTIFICATE_ARGS variable. --tls-cert-file=<path/to/tls-certificate-file> --tls-private-key-file=<path/to/tls-key-file> Based on your system, restart the kubelet service. For example: Page 211 Internal Only - General systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.9"
+    }
+  },
+  {
+    "page_content": "Title: 4.2.10 Ensure that the --rotate-certificates argument is not set to false (Automated)\nDescription: Enable kubelet client certificate rotation.\nRationale: The --rotate-certificates setting causes the kubelet to rotate its client certificates by creating new CSRs as its existing credentials expire. This automated periodic rotation ensures that the there is no downtime due to expired certificates and thus addressing availability in the CIA security triad. Note: This recommendation only applies if you let kubelets get their certificates from the API server. In case your kubelet certificates come from an outside authority/tool (e.g. Vault) then you need to take care of rotation yourself. Note: This feature also require the RotateKubeletClientCertificate feature gate to be enabled (which is the default since Kubernetes v1.7)\nAudit: Run the following command on each node: ps -ef | grep kubelet Verify that the RotateKubeletServerCertificate argument is not present, or is set to true. If the RotateKubeletServerCertificate argument is not present, verify that if there is a Kubelet config file specified by --config, that file does not contain RotateKubeletServerCertificate: false.\nRemediation: If using a Kubelet config file, edit the file to add the line rotateCertificates: true or remove it altogether to use the default value. If using command line arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and remove --rotate- certificates=false argument from the KUBELET_CERTIFICATE_ARGS variable or set - -rotate-certificates=true . Based on your system, restart the kubelet service. For example: Page 213 Internal Only - General systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.10",
+      "impact": "None",
+      "default_value": "By default, kubelet client certificate rotation is enabled.",
+      "references": [
+        "1. https://github.com/kubernetes/kubernetes/pull/41912 2. https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-tls- bootstrapping/#kubelet-configuration 3. https://kubernetes.io/docs/imported/release/notes/ 4. https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.11 Verify that the RotateKubeletServerCertificate argument is set to true (Manual)\nDescription: Enable kubelet server certificate rotation.\nRationale: RotateKubeletServerCertificate causes the kubelet to both request a serving certificate after bootstrapping its client credentials and rotate the certificate as its existing credentials expire. This automated periodic rotation ensures that the there are no downtimes due to expired certificates and thus addressing availability in the CIA security triad. Note: This recommendation only applies if you let kubelets get their certificates from the API server. In case your kubelet certificates come from an outside authority/tool (e.g. Vault) then you need to take care of rotation yourself.\nAudit: Ignore this check if serverTLSBootstrap is true in the kubelet config file or if the --rotate- server-certificates parameter is set on kubelet Run the following command on each node: ps -ef | grep kubelet Verify that RotateKubeletServerCertificate argument exists and is set to true.\nRemediation: Edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and set the below parameter in KUBELET_CERTIFICATE_ARGS variable. --feature-gates=RotateKubeletServerCertificate=true Based on your system, restart the kubelet service. For example: systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.11",
+      "impact": "None",
+      "default_value": "By default, kubelet server certificate rotation is enabled. Page 215 Internal Only - General",
+      "references": [
+        "1. https://github.com/kubernetes/kubernetes/pull/45059 2. https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/#kubelet-configuration"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.12 Ensure that the Kubelet only makes use of Strong Cryptographic Ciphers (Manual)\nDescription: Ensure that the Kubelet is configured to only use strong cryptographic ciphers.\nRationale: TLS ciphers have had a number of known vulnerabilities and weaknesses, which can reduce the protection provided by them. By default Kubernetes supports a number of TLS ciphersuites including some that have security concerns, weakening the protection provided.\nAudit: The set of cryptographic ciphers currently considered secure is the following: • TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 • TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 • TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 • TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 • TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305 • TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 • TLS_RSA_WITH_AES_256_GCM_SHA384 • TLS_RSA_WITH_AES_128_GCM_SHA256 Run the following command on each node: ps -ef | grep kubelet If the --tls-cipher-suites argument is present, ensure it only contains values included in this set. If it is not present check that there is a Kubelet config file specified by --config, and that file sets tlsCipherSuites: to only include values from this set. Page 217 Internal Only - General\nRemediation: If using a Kubelet config file, edit the file to set tlsCipherSuites: to TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM _SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_ 256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WI TH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES _128_GCM_SHA256 or to a subset of these values. If using executable arguments, edit the kubelet service file /etc/kubernetes/kubelet.conf on each worker node and set the --tls-cipher- suites parameter as follows, or to a subset of these values. --tls-cipher- suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM _SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM _SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM _SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256 Based on your system, restart the kubelet service. For example: systemctl daemon-reload systemctl restart kubelet.service",
+    "metadata": {
+      "id": "4.2.12",
+      "impact": "Kubelet clients that cannot support modern cryptographic ciphers will not be able to make connections to the Kubelet API.",
+      "default_value": "By default the Kubernetes API server supports a wide range of TLS ciphers Additional Information: The list chosen above should be fine for modern clients. It's essentially the list from the Mozilla \"Modern cipher\" option with the ciphersuites supporting CBC mode removed, as CBC has traditionally had a lot of issues"
+    }
+  },
+  {
+    "page_content": "Title: 4.2.13 Ensure that a limit is set on pod PIDs (Manual)\nDescription: Ensure that the Kubelet sets limits on the number of PIDs that can be created by pods running on the node.\nRationale: By default pods running in a cluster can consume any number of PIDs, potentially exhausting the resources available on the node. Setting an appropriate limit reduces the risk of a denial of service attack on cluster nodes.\nAudit: Review the Kubelet's start-up parameters for the value of --pod-max-pids, and check the Kubelet configuration file for the PodPidsLimit . If neither of these values is set, then there is no limit in place.\nRemediation: Decide on an appropriate level for this parameter and set it, either via the --pod-max- pids command line parameter or the PodPidsLimit configuration file setting.",
+    "metadata": {
+      "id": "4.2.13",
+      "impact": "Setting this value will restrict the number of processes per pod. If this limit is lower than the number of PIDs required by a pod it will not operate.",
+      "default_value": "By default the number of PIDs is not limited.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/policy/pid-limiting/#pod-pid-limits Page 219 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.14 Ensure that the --seccomp-default parameter is set to true (Manual)\nDescription: Ensure that the Kubelet enforces the use of the RuntimeDefault seccomp profile\nRationale: By default, Kubernetes disables the seccomp profile which ships with most container runtimes. Setting this parameter will ensure workloads running on the node are protected by the runtime's seccomp profile.\nAudit: Review the Kubelet's start-up parameters for the value of --seccomp-default, and check the Kubelet configuration file for the seccompDefault . If neither of these values is set, then the seccomp profile is not in use.\nRemediation: Set the parameter, either via the --seccomp-default command line parameter or the seccompDefault configuration file setting.",
+    "metadata": {
+      "id": "4.2.14",
+      "impact": "Setting this will remove some rights from pods running on the node.",
+      "default_value": "By default the seccomp profile is not enabled.",
+      "references": [
+        "1. https://kubernetes.io/docs/tutorials/security/seccomp/#enable-the-use-of- runtimedefault-as-the-default-seccomp-profile-for-all-workloads Page 221 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.2.15 Ensure that the --IPAddressDeny is set to any (Manual)\nDescription: Ensuring that --IPAddressDeny is set to \"Any\" will facilitate allowlisting of only IP addresses that are explicitly set with the --IPAddressAllow parameter which will block unspecified IP addresses from communicating with the kubelet component.\nRationale: By default, Kubernetes allows any IP address to communicate with the kubelet component IP restrictions and IP whitelisting are security best practices and reduce the attack surface of the kubelet.\nAudit: Review the Kubelet's start-up parameters for the value of --IPAddressDeny, and check the Kubelet configuration file for IPAddressDeny=any. If this entry is present it should be accompanied by IPAddressAllow={{ kubelet_secure_addresses }} to allow the control plane to communicate with the component.\nRemediation: IPAddressDeny=any IPAddressAllow={{ kubelet_secure_addresses }} *Note kubelet_secure_addresses: \"localhost link-local {{ kube_pods_subnets | regex_replace(',', ' ') }} {{ kube_node_addresses }} {{ loadbalancer_apiserver.address | default('')\"",
+    "metadata": {
+      "id": "4.2.15",
+      "impact": "Configuring the setting IPAddressDeny=any will deny service to any IP address not specified in the complimentary setting IPAddressDeny=any configuration parameter. Applying IPAddressDeny=any alone will completely disable communication with the component.",
+      "default_value": "By default IPAddressDeny is not enabled.",
+      "references": [
+        "1. https://github.com/kubernetes-sigs/kubespray/pull/9194/files 2. https://kubernetes.io/docs/concepts/services-networking/network-policies/ Page 223 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 4.3.1 Ensure that the kube-proxy metrics service is bound to localhost (Manual)\nDescription: Do not bind the kube-proxy metrics port to non-loopback addresses.\nRationale: kube-proxy has two APIs which provided access to information about the service and can be bound to network ports. The metrics API service includes endpoints (/metrics and /configz) which disclose information about the configuration and operation of kube-proxy. These endpoints should not be exposed to untrusted networks as they do not support encryption or authentication to restrict access to the data they provide.\nAudit: review the start-up flags provided to kube proxy Run the following command on each node: ps -ef | grep -i kube-proxy Ensure that the --metrics-bind-address parameter is not set to a value other than 127.0.0.1. From the output of this command gather the location specified in the -- config parameter. Review any file stored at that location and ensure that it does not specify a value other than 127.0.0.1 for metricsBindAddress.\nRemediation: Modify or remove any values which bind the metrics service to a non-localhost address",
+    "metadata": {
+      "id": "4.3.1",
+      "impact": "3rd party services which try to access metrics or configuration information related to kube-proxy will require access to the localhost interface of the node.",
+      "default_value": "The default value is 127.0.0.1:10249",
+      "references": [
+        "1. https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ Page 226 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.1 Ensure that the cluster-admin role is only used where required (Manual)\nDescription: The RBAC role cluster-admin provides wide-ranging powers over the environment and should be used only where and when needed.\nRationale: Kubernetes provides a set of default roles where RBAC is used. Some of these roles such as cluster-admin provide wide-ranging privileges which should only be applied where absolutely necessary. Roles such as cluster-admin allow super-user access to perform any action on any resource. When used in a ClusterRoleBinding, it gives full control over every resource in the cluster and in all namespaces. When used in a RoleBinding, it gives full control over every resource in the rolebinding's namespace, including the namespace itself.\nAudit: Obtain a list of the principals who have access to the cluster-admin role by reviewing the clusterrolebinding output for each role binding that has access to the cluster- admin role. kubectl get clusterrolebindings -o=custom- columns=NAME:.metadata.name,ROLE:.roleRef.name,SUBJECT:.subjects[*].name Review each principal listed and ensure that cluster-admin privilege is required for it.\nRemediation: Identify all clusterrolebindings to the cluster-admin role. Check if they are used and if they need this role or if they could use a role with fewer privileges. Where possible, first bind users to a lower privileged role and then remove the clusterrolebinding to the cluster-admin role : Page 229 Internal Only - General kubectl delete clusterrolebinding [name]",
+    "metadata": {
+      "id": "5.1.1",
+      "impact": "Care should be taken before removing any clusterrolebindings from the environment to ensure they were not required for operation of the cluster. Specifically, modifications should not be made to clusterrolebindings with the system: prefix as they are required for the operation of system components.",
+      "default_value": "By default a single clusterrolebinding called cluster-admin is provided with the system:masters group as its principal.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.2 Minimize access to secrets (Manual)\nDescription: The Kubernetes API stores secrets, which may be service account tokens for the Kubernetes API or credentials used by workloads in the cluster. Access to these secrets should be restricted to the smallest possible group of users to reduce the risk of privilege escalation.\nRationale: Inappropriate access to secrets stored within the Kubernetes cluster can allow for an attacker to gain additional access to the Kubernetes cluster or external resources whose credentials are stored as secrets.\nAudit: Review the users who have get, list, or watch access to secrets objects in the Kubernetes API.\nRemediation: Where possible, restrict access to secret objects in the cluster by removing get, list, and watch permissions.",
+    "metadata": {
+      "id": "5.1.2",
+      "impact": "Care should be taken not to remove access to secrets to system components which require this for their operation",
+      "default_value": "By default in a kubeadm cluster the following list of principals have get privileges on secret objects Page 231 Internal Only - General CLUSTERROLEBINDING SUBJECT TYPE SA-NAMESPACE cluster-admin system:masters Group system:controller:clusterrole-aggregation-controller clusterrole- aggregation-controller ServiceAccount kube-system system:controller:expand-controller expand-controller ServiceAccount kube-system system:controller:generic-garbage-collector generic-garbage- collector ServiceAccount kube-system system:controller:namespace-controller namespace-controller ServiceAccount kube-system system:controller:persistent-volume-binder persistent-volume- binder ServiceAccount kube-system system:kube-controller-manager system:kube-controller- manager User"
+    }
+  },
+  {
+    "page_content": "Title: 5.1.3 Minimize wildcard use in Roles and ClusterRoles (Manual)\nDescription: Kubernetes Roles and ClusterRoles provide access to resources based on sets of objects and actions that can be taken on those objects. It is possible to set either of these to be the wildcard \"*\" which matches all items. Use of wildcards is not optimal from a security perspective as it may allow for inadvertent access to be granted when new resources are added to the Kubernetes API either as CRDs or in later versions of the product.\nRationale: The principle of least privilege recommends that users are provided only the access required for their role and nothing more. The use of wildcard rights grants is likely to provide excessive rights to the Kubernetes API.\nAudit: Retrieve the roles defined across each namespaces in the cluster and review for wildcards kubectl get roles --all-namespaces -o yaml Retrieve the cluster roles defined in the cluster and review for wildcards kubectl get clusterroles -o yaml\nRemediation: Where possible replace any use of wildcards in ClusterRoles and Roles with specific objects or actions.",
+    "metadata": {
+      "id": "5.1.3"
+    }
+  },
+  {
+    "page_content": "Title: 5.1.4 Minimize access to create pods (Manual)\nDescription: The ability to create pods in a namespace can provide a number of opportunities for privilege escalation, such as assigning privileged service accounts to these pods or mounting hostPaths with access to sensitive data (unless Pod Security Policies are implemented to restrict this access) As such, access to create new pods should be restricted to the smallest possible group of users.\nRationale: The ability to create pods in a cluster opens up possibilities for privilege escalation and should be restricted, where possible.\nAudit: Review the users who have create access to pod objects in the Kubernetes API.\nRemediation: Where possible, remove create access to pod objects in the cluster.",
+    "metadata": {
+      "id": "5.1.4",
+      "impact": "Care should be taken not to remove access to pods to system components which require this for their operation",
+      "default_value": "By default in a kubeadm cluster the following list of principals have create privileges on pod objects Page 235 Internal Only - General CLUSTERROLEBINDING SUBJECT TYPE SA-NAMESPACE cluster-admin system:masters Group system:controller:clusterrole-aggregation-controller clusterrole- aggregation-controller ServiceAccount kube-system system:controller:daemon-set-controller daemon-set-controller ServiceAccount kube-system system:controller:job-controller job-controller ServiceAccount kube-system system:controller:persistent-volume-binder persistent-volume- binder ServiceAccount kube-system system:controller:replicaset-controller replicaset-controller ServiceAccount kube-system system:controller:replication-controller replication-controller ServiceAccount kube-system system:controller:statefulset-controller statefulset-controller ServiceAccount kube-system"
+    }
+  },
+  {
+    "page_content": "Title: 5.1.5 Ensure that default service accounts are not actively used. (Manual)\nDescription: The default service account should not be used to ensure that rights granted to applications can be more easily audited and reviewed.\nRationale: Kubernetes provides a default service account which is used by cluster workloads where no specific service account is assigned to the pod. Where access to the Kubernetes API from a pod is required, a specific service account should be created for that pod, and rights granted to that service account. The default service account should be configured to ensure that it does not automatically provide a service account token, and it must not have any non-default role bindings or custom role assignments\nAudit: For each namespace in the cluster, review the rights assigned to the default service account and ensure that it has no roles or cluster roles bound to it apart from the defaults. Additionally ensure that the automountServiceAccountToken: false setting is in place for each default service account.\nRemediation: Create explicit service accounts wherever a Kubernetes workload requires specific access to the Kubernetes API server. Modify the configuration of each default service account to include this value automountServiceAccountToken: false",
+    "metadata": {
+      "id": "5.1.5",
+      "impact": "All workloads which require access to the Kubernetes API will require an explicit service account to be created.",
+      "default_value": "By default the default service account allows for its service account token to be mounted in pods in its namespace. Page 237 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.6 Ensure that Service Account Tokens are only mounted where necessary (Manual)\nDescription: Service accounts tokens should not be mounted in pods except where the workload running in the pod explicitly needs to communicate with the API server\nRationale: Mounting service account tokens inside pods can provide an avenue for privilege escalation attacks where an attacker is able to compromise a single pod in the cluster. Avoiding mounting these tokens removes this attack avenue.\nAudit: Review pod and service account objects in the cluster and ensure that the option below is set, unless the resource explicitly requires this access. automountServiceAccountToken: false\nRemediation: Modify the definition of pods and service accounts which do not need to mount service account tokens to disable it.",
+    "metadata": {
+      "id": "5.1.6",
+      "impact": "Pods mounted without service account tokens will not be able to communicate with the API server, except where the resource is available to unauthenticated principals.",
+      "default_value": "By default, all pods get a service account token mounted in them.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.7 Avoid use of system:masters group (Manual)\nDescription: The special group system:masters should not be used to grant permissions to any user or service account, except where strictly necessary (e.g. bootstrapping access prior to RBAC being fully available)\nRationale: The system:masters group has unrestricted access to the Kubernetes API hard-coded into the API server source code. An authenticated user who is a member of this group cannot have their access reduced, even if all bindings and cluster role bindings which mention it, are removed. When combined with client certificate authentication, use of this group can allow for irrevocable cluster-admin level credentials to exist for a cluster.\nAudit: Review a list of all credentials which have access to the cluster and ensure that the group system:masters is not used.\nRemediation: Remove the system:masters group from all users in the cluster.",
+    "metadata": {
+      "id": "5.1.7",
+      "impact": "Once the RBAC system is operational in a cluster system:masters should not be specifically required, as ordinary bindings from principals to the cluster-admin cluster role can be made where unrestricted access is required.",
+      "default_value": "By default some clusters will create a \"break glass\" client certificate which is a member of this group. Access to this client certificate should be carefully controlled and it should not be used for general cluster operations.",
+      "references": [
+        "1. https://github.com/kubernetes/kubernetes/blob/master/pkg/registry/rbac/escalatio n_check.go#L38 Page 241 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.8 Limit use of the Bind, Impersonate and Escalate permissions in the Kubernetes cluster (Manual)\nDescription: Cluster roles and roles with the impersonate, bind or escalate permissions should not be granted unless strictly required. Each of these permissions allow a particular subject to escalate their privileges beyond those explicitly granted by cluster administrators\nRationale: The impersonate privilege allows a subject to impersonate other users gaining their rights to the cluster. The bind privilege allows the subject to add a binding to a cluster role or role which escalates their effective permissions in the cluster. The escalate privilege allows a subject to modify cluster roles to which they are bound, increasing their rights to that level. Each of these permissions has the potential to allow for privilege escalation to cluster- admin level.\nAudit: Review the users who have access to cluster roles or roles which provide the impersonate, bind, or escalate privileges.\nRemediation: Where possible, remove the impersonate, bind, and escalate rights from subjects.",
+    "metadata": {
+      "id": "5.1.8",
+      "impact": "There are some cases where these permissions are required for cluster service operation, and care should be taken before removing these permissions from system service accounts.",
+      "default_value": "In a default kubeadm cluster, the system:masters group and clusterrole-aggregation- controller service account have access to the escalate privilege. The system:masters group also has access to bind and impersonate.",
+      "references": [
+        "1. https://raesene.github.io/blog/2020/12/12/Escalating_Away/ 2. https://raesene.github.io/blog/2021/01/16/Getting-Into-A-Bind-with-Kubernetes/ Page 243 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.9 Minimize access to create persistent volumes (Manual)\nDescription: The ability to create persistent volumes in a cluster can provide an opportunity for privilege escalation, via the creation of hostPath volumes. As persistent volumes are not covered by Pod Security Admission, a user with access to create persistent volumes may be able to get access to sensitive files from the underlying host even where restrictive Pod Security Admission policies are in place.\nRationale: The ability to create persistent volumes in a cluster opens up possibilities for privilege escalation and should be restricted, where possible.\nAudit: Review the users who have create access to PersistentVolume objects in the Kubernetes API.\nRemediation: Where possible, remove create access to PersistentVolume objects in the cluster.",
+    "metadata": {
+      "id": "5.1.9",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/rbac-good-practices/#persistent- volume-creation"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.10 Minimize access to the proxy sub-resource of nodes (Manual)\nDescription: Users with access to the Proxy sub-resource of Node objects automatically have permissions to use the kubelet API, which may allow for privilege escalation or bypass cluster security controls such as audit logs. The kubelet provides an API which includes rights to execute commands in any container running on the node. Access to this API is covered by permissions to the main Kubernetes API via the node object. The proxy sub-resource specifically allows wide ranging access to the kubelet API. Direct access to the kubelet API bypasses controls like audit logging (there is no audit log of kubelet API access) and admission control.\nRationale: The ability to use the proxy sub-resource of node objects opens up possibilities for privilege escalation and should be restricted, where possible.\nAudit: Review the users who have access to the proxy sub-resource of node objects in the Kubernetes API.\nRemediation: Where possible, remove access to the proxy sub-resource of node objects.",
+    "metadata": {
+      "id": "5.1.10",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/rbac-good-practices/#access-to- proxy-subresource-of-nodes 2. https://kubernetes.io/docs/reference/access-authn-authz/kubelet-authn- authz/#kubelet-authorization Page 246 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.11 Minimize access to the approval sub-resource of certificatesigningrequests objects (Manual)\nDescription: Users with access to the update the approval sub-resource of CertificateSigningRequests objects can approve new client certificates for the Kubernetes API effectively allowing them to create new high-privileged user accounts. This can allow for privilege escalation to full cluster administrator, depending on users configured in the cluster\nRationale: The ability to update certificate signing requests should be limited.\nAudit: Review the users who have access to update the approval sub-resource of CertificateSigningRequests objects in the Kubernetes API.\nRemediation: Where possible, remove access to the approval sub-resource of CertificateSigningRequests objects.",
+    "metadata": {
+      "id": "5.1.11",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/rbac-good-practices/#csrs-and- certificate-issuing"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.12 Minimize access to webhook configuration objects (Manual)\nDescription: Users with rights to create/modify/delete validatingwebhookconfigurations or mutatingwebhookconfigurations can control webhooks that can read any object admitted to the cluster, and in the case of mutating webhooks, also mutate admitted objects. This could allow for privilege escalation or disruption of the operation of the cluster.\nRationale: The ability to manage webhook configuration should be limited\nAudit: Review the users who have access to validatingwebhookconfigurations or mutatingwebhookconfigurations objects in the Kubernetes API.\nRemediation: Where possible, remove access to the validatingwebhookconfigurations or mutatingwebhookconfigurations objects",
+    "metadata": {
+      "id": "5.1.12",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/rbac-good-practices/#control- admission-webhooks"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.1.13 Minimize access to the service account token creation (Manual)\nDescription: Users with rights to create new service account tokens at a cluster level, can create long-lived privileged credentials in the cluster. This could allow for privilege escalation and persistent access to the cluster, even if the users account has been revoked.\nRationale: The ability to create service account tokens should be limited.\nAudit: Review the users who have access to create the token sub-resource of serviceaccount objects in the Kubernetes API.\nRemediation: Where possible, remove access to the token sub-resource of serviceaccount objects.",
+    "metadata": {
+      "id": "5.1.13",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/rbac-good-practices/#token-request"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.1 Ensure that the cluster has at least one active policy control mechanism in place (Manual)\nDescription: Every Kubernetes cluster should have at least one policy control mechanism in place to enforce the other requirements in this section. This could be the in-built Pod Security Admission controller, or a third party policy control system.\nRationale: Without an active policy control mechanism, it is not possible to limit the use of containers with access to underlying cluster nodes, via mechanisms like privileged containers, or the use of hostPath volume mounts.\nAudit: Review the workloads deployed to the cluster to understand if Pod Security Admission or external admission control systems are in place.\nRemediation: Ensure that either Pod Security Admission or an external policy control system is in place for every namespace which contains user workloads.",
+    "metadata": {
+      "id": "5.2.1",
+      "impact": "Where policy control systems are in place, there is a risk that workloads required for the operation of the cluster may be stopped from running. Care is required when implementing admission control policies to ensure that this does not occur.",
+      "default_value": "By default, Pod Security Admission is enabled but no policies are in place.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-admission Page 253 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.2 Minimize the admission of privileged containers (Manual)\nDescription: Do not generally permit containers to be run with the securityContext.privileged flag set to true.\nRationale: Privileged containers have access to all Linux Kernel capabilities and devices. A container running with full privileges can do almost everything that the host can do. This flag exists to allow special use-cases, like manipulating the network stack and accessing devices. There should be at least one admission control policy defined which does not permit privileged containers. If you need to run privileged containers, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: Run the following command: get pods -A -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@..securityContext}\\n{end}' It will produce an inventory of all the privileged use on the cluster, if any (please, refer to a sample below). Further grepping can be done to automate each specific violation detection. calico-kube-controllers-57b57c56f-jtmk4: {} << No Elevated Privileges calico-node- c4xv4: {} {\"privileged\":true} {\"privileged\":true} {\"privileged\":true} {\"privileged\":true} << Violates 5.2.2 dashboard-metrics-scraper-7bc864c59-2m2xw: {\"seccompProfile\":{\"type\":\"RuntimeDefault\"}} {\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":2001,\"ru nAsUser\":1001} Page 255 Internal Only - General\nRemediation: Add policies to each namespace in the cluster which has user workloads to restrict the admission of privileged containers.",
+    "metadata": {
+      "id": "5.2.2",
+      "impact": "Pods defined with spec.containers[].securityContext.privileged: true, spec.initContainers[].securityContext.privileged: true and spec.ephemeralContainers[].securityContext.privileged: true will not be permitted.",
+      "default_value": "By default, there are no restrictions on the creation of privileged containers.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.3 Minimize the admission of containers wishing to share the host process ID namespace (Manual)\nDescription: Do not generally permit containers to be run with the hostPID flag set to true.\nRationale: A container running in the host's PID namespace can inspect processes running outside the container. If the container also has access to ptrace capabilities this can be used to escalate privileges outside of the container. There should be at least one admission control policy defined which does not permit containers to share the host PID namespace. If you need to run containers which require hostPID, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: Fetch hostPID from each pod with get pods -A -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.spec.hostPID}\\n{end}'\nRemediation: Configure the Admission Controller to restrict the admission of hostPID containers.",
+    "metadata": {
+      "id": "5.2.3",
+      "impact": "Pods defined with spec.hostPID: true will not be permitted unless they are run under a specific policy.",
+      "default_value": "By default, there are no restrictions on the creation of hostPID containers.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ Page 257 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.4 Minimize the admission of containers wishing to share the host IPC namespace (Manual)\nDescription: Do not generally permit containers to be run with the hostIPC flag set to true.\nRationale: A container running in the host's IPC namespace can use IPC to interact with processes outside the container. There should be at least one admission control policy defined which does not permit containers to share the host IPC namespace. If you need to run containers which require hostIPC, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: To fetch hostIPC from each pod. get pods -A -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.spec.hostIPC}\\n{end}'\nRemediation: Add policies to each namespace in the cluster which has user workloads to restrict the admission of hostIPC containers.",
+    "metadata": {
+      "id": "5.2.4",
+      "impact": "Pods defined with spec.hostIPC: true will not be permitted unless they are run under a specific policy.",
+      "default_value": "By default, there are no restrictions on the creation of hostIPC containers.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ Page 259 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.5 Minimize the admission of containers wishing to share the host network namespace (Manual)\nDescription: Do not generally permit containers to be run with the hostNetwork flag set to true.\nRationale: A container running in the host's network namespace could access the local loopback device, and could access network traffic to and from other pods. There should be at least one admission control policy defined which does not permit containers to share the host network namespace. If you need to run containers which require access to the host's network namespaces, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: To fetch hostNetwork from each pod. get pods -A -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.spec.hostNetwork}\\n{end}'\nRemediation: Add policies to each namespace in the cluster which has user workloads to restrict the admission of hostNetwork containers.",
+    "metadata": {
+      "id": "5.2.5",
+      "impact": "Pods defined with spec.hostNetwork: true will not be permitted unless they are run under a specific policy.",
+      "default_value": "By default, there are no restrictions on the creation of hostNetwork containers.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ Page 261 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.6 Minimize the admission of containers with allowPrivilegeEscalation (Manual)\nDescription: Do not generally permit containers to be run with the allowPrivilegeEscalation flag set to true. Allowing this right can lead to a process running a container getting more rights than it started with. It's important to note that these rights are still constrained by the overall container sandbox, and this setting does not relate to the use of privileged containers.\nRationale: A container running with the allowPrivilegeEscalation flag set to true may have processes that can gain more privileges than their parent. There should be at least one admission control policy defined which does not permit containers to allow privilege escalation. The option exists (and is defaulted to true) to permit setuid binaries to run. If you have need to run containers which use setuid binaries or require privilege escalation, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: List the policies in use for each namespace in the cluster, ensure that each policy disallows the admission of containers which allow privilege escalation. To fetch a list of pods which allowPrivilegeEscalation run this command :- get pods -A -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@..securityContext}\\n{end}'\nRemediation: Add policies to each namespace in the cluster which has user workloads to restrict the admission of containers with securityContext: allowPrivilegeEscalation: true Page 263 Internal Only - General",
+    "metadata": {
+      "id": "5.2.6",
+      "impact": "Pods defined with securityContext: allowPrivilegeEscalation: true will not be permitted unless they are run under a specific policy.",
+      "default_value": "By default, there are no restrictions on contained process ability to escalate privileges, within the context of the container.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.7 Minimize the admission of root containers (Manual)\nDescription: Do not generally permit containers to be run as the root user.\nRationale: Containers may run as any Linux user. Containers which run as the root user, whilst constrained by Container Runtime security features still have a escalated likelihood of container breakout. Ideally, all containers should run as a defined non-UID 0 user. There should be at least one admission control policy defined which does not permit root containers. If you need to run root containers, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: List the policies in use for each namespace in the cluster, ensure that each policy restricts the use of root containers by setting MustRunAsNonRoot or MustRunAs with the range of UIDs not including 0.\nRemediation: Create a policy for each namespace in the cluster, ensuring that either MustRunAsNonRoot or MustRunAs with the range of UIDs not including 0, is set.",
+    "metadata": {
+      "id": "5.2.7",
+      "impact": "Pods with containers which run as the root user will not be permitted.",
+      "default_value": "By default, there are no restrictions on the use of root containers and if a User is not specified in the image, the container will run as root.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ Page 265 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.8 Minimize the admission of containers with the NET_RAW capability (Manual)\nDescription: Do not generally permit containers with the potentially dangerous NET_RAW capability.\nRationale: Containers run with a default set of capabilities as assigned by the Container Runtime. By default this can include potentially dangerous capabilities. With Docker as the container runtime the NET_RAW capability is enabled which may be misused by malicious containers. Ideally, all containers should drop this capability. There should be at least one admission control policy defined which does not permit containers with the NET_RAW capability. If you need to run containers with this capability, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: List the policies in use for each namespace in the cluster, ensure that at least one policy disallows the admission of containers with the NET_RAW capability.\nRemediation: Add policies to each namespace in the cluster which has user workloads to restrict the admission of containers with the NET_RAW capability.",
+    "metadata": {
+      "id": "5.2.8",
+      "impact": "Pods with containers which run with the NET_RAW capability will not be permitted.",
+      "default_value": "By default, there are no restrictions on the creation of containers with the NET_RAW capability.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ 2. https://www.nccgroup.trust/uk/our-research/abusing-privileged-and-unprivileged- linux-containers/ Page 267 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.9 Minimize the admission of containers with added capabilities (Manual)\nDescription: Do not generally permit containers with capabilities assigned beyond the default set.\nRationale: Containers run with a default set of capabilities as assigned by the Container Runtime. Capabilities outside this set can be added to containers which could expose them to risks of container breakout attacks. There should be at least one policy defined which prevents containers with capabilities beyond the default set from launching. If you need to run containers with additional capabilities, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: Ensure that allowedCapabilities is not present in policies for the cluster unless it is set to an empty array. get pods -A -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@..securityContext}\\n{end}'\nRemediation: Ensure that allowedCapabilities is not present in policies for the cluster unless it is set to an empty array.",
+    "metadata": {
+      "id": "5.2.9",
+      "impact": "Pods with containers which require capabilities outwith the default set will not be permitted.",
+      "default_value": "By default, there are no restrictions on adding capabilities to containers.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ 2. https://www.nccgroup.trust/uk/our-research/abusing-privileged-and-unprivileged- linux-containers/ Page 269 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.10 Minimize the admission of containers with capabilities assigned (Manual)\nDescription: Do not generally permit containers with capabilities\nRationale: Containers run with a default set of capabilities as assigned by the Container Runtime. Capabilities are parts of the rights generally granted on a Linux system to the root user. In many cases applications running in containers do not require any capabilities to operate, so from the perspective of the principal of least privilege use of capabilities should be minimized.\nAudit: List the policies in use for each namespace in the cluster, ensure that at least one policy requires that capabilities are dropped by all containers.\nRemediation: Review the use of capabilities in applications running on your cluster. Where a namespace contains applications which do not require any Linux capabilities to operate consider adding a policy which forbids the admission of containers which do not drop all capabilities.",
+    "metadata": {
+      "id": "5.2.10",
+      "impact": "Pods with containers require capabilities to operate will not be permitted.",
+      "default_value": "By default, there are no restrictions on the creation of containers with additional capabilities",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ 2. https://www.nccgroup.trust/uk/our-research/abusing-privileged-and-unprivileged- linux-containers/ Page 271 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.11 Minimize the admission of Windows HostProcess Containers (Manual)\nDescription: Do not generally permit Windows containers to be run with the hostProcess flag set to true.\nRationale: A Windows container making use of the hostProcess flag can interact with the underlying Windows cluster node. As per the Kubernetes documentation, this provides \"privileged access\" to the Windows node. Where Windows containers are used inside a Kubernetes cluster, there should be at least one admission control policy which does not permit hostProcess Windows containers. If you need to run Windows containers which require hostProcess, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: List the policies in use for each namespace in the cluster, ensure that each policy disallows the admission of hostProcess containers\nRemediation: Add policies to each namespace in the cluster which has user workloads to restrict the admission of hostProcess containers.",
+    "metadata": {
+      "id": "5.2.11",
+      "impact": "Pods defined with securityContext.windowsOptions.hostProcess: true will not be permitted unless they are run under a specific policy.",
+      "default_value": "By default, there are no restrictions on the creation of hostProcess containers.",
+      "references": [
+        "1. https://kubernetes.io/docs/tasks/configure-pod-container/create-hostprocess-pod/ 2. https://kubernetes.io/docs/concepts/security/pod-security-standards/ Page 273 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.12 Minimize the admission of HostPath volumes (Manual)\nDescription: Do not generally admit containers which make use of hostPath volumes.\nRationale: A container which mounts a hostPath volume as part of its specification will have access to the filesystem of the underlying cluster node. The use of hostPath volumes may allow containers access to privileged areas of the node filesystem. There should be at least one admission control policy defined which does not permit containers to mount hostPath volumes. If you need to run containers which require hostPath volumes, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: List the policies in use for each namespace in the cluster, ensure that each policy disallows the admission of containers with hostPath volumes.\nRemediation: Add policies to each namespace in the cluster which has user workloads to restrict the admission of containers which use hostPath volumes.",
+    "metadata": {
+      "id": "5.2.12",
+      "impact": "Pods defined which make use of hostPath volumes will not be permitted unless they are run under a specific policy.",
+      "default_value": "By default, there are no restrictions on the creation of hostPath volumes.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ Page 275 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.2.13 Minimize the admission of containers which use HostPorts (Manual)\nDescription: Do not generally permit containers which require the use of HostPorts.\nRationale: Host ports connect containers directly to the host's network. This can bypass controls such as network policy. There should be at least one admission control policy defined which does not permit containers which require the use of HostPorts. If you need to run containers which require HostPorts, this should be defined in a separate policy and you should carefully check to ensure that only limited service accounts and users are given permission to use that policy.\nAudit: List the policies in use for each namespace in the cluster, ensure that each policy disallows the admission of containers which have hostPort sections.\nRemediation: Add policies to each namespace in the cluster which has user workloads to restrict the admission of containers which use hostPort sections.",
+    "metadata": {
+      "id": "5.2.13",
+      "impact": "Pods defined with hostPort settings in either the container, initContainer or ephemeralContainer sections will not be permitted unless they are run under a specific policy.",
+      "default_value": "By default, there are no restrictions on the use of HostPorts.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/security/pod-security-standards/ Page 277 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.3.1 Ensure that the CNI in use supports Network Policies (Manual)\nDescription: There are a variety of CNI plugins available for Kubernetes. If the CNI in use does not support Network Policies it may not be possible to effectively restrict traffic in the cluster.\nRationale: Kubernetes network policies are enforced by the CNI plugin in use. As such it is important to ensure that the CNI plugin supports both Ingress and Egress network policies.\nAudit: Review the documentation of CNI plugin in use by the cluster, and confirm that it supports Ingress and Egress network policies.\nRemediation: If the CNI plugin in use does not support network policies, consideration should be given to making use of a different plugin, or finding an alternate mechanism for restricting traffic in the Kubernetes cluster.",
+    "metadata": {
+      "id": "5.3.1",
+      "impact": "None",
+      "default_value": "This will depend on the CNI plugin in use.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.3.2 Ensure that all Namespaces have Network Policies defined (Manual)\nDescription: Use network policies to isolate traffic in your cluster network.\nRationale: Running different applications on the same Kubernetes cluster creates a risk of one compromised application attacking a neighboring application. Network segmentation is important to ensure that containers can communicate only with those they are supposed to. A network policy is a specification of how selections of pods are allowed to communicate with each other and other network endpoints. Network Policies are namespace scoped. When a network policy is introduced to a given namespace, all traffic not allowed by the policy is denied. However, if there are no network policies in a namespace all traffic will be allowed into and out of the pods in that namespace.\nAudit: Run the below command and review the NetworkPolicy objects created in the cluster. kubectl get networkpolicy --all-namespaces Ensure that each namespace defined in the cluster has at least one Network Policy.\nRemediation: Follow the documentation and create NetworkPolicy objects as you need them.",
+    "metadata": {
+      "id": "5.3.2",
+      "impact": "Once network policies are in use within a given namespace, traffic not explicitly allowed by a network policy will be denied. As such it is important to ensure that, when introducing network policies, legitimate traffic is not blocked.",
+      "default_value": "By default, network policies are not created.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/services-networking/networkpolicies/ 2. https://octetz.com/posts/k8s-network-policy-apis 3. https://kubernetes.io/docs/tasks/configure-pod-container/declare-network-policy/ Page 282 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.4.1 Prefer using secrets as files over secrets as environment variables (Manual)\nDescription: Kubernetes supports mounting secrets as data volumes or as environment variables. Minimize the use of environment variable secrets.\nRationale: It is reasonably common for application code to log out its environment (particularly in the event of an error). This will include any secret values passed in as environment variables, so secrets can easily be exposed to any user or entity who has access to the logs.\nAudit: Run the following command to find references to objects which use environment variables defined from secrets. kubectl get all -o jsonpath='{range .items[?(@..secretKeyRef)]} {.kind} {.metadata.name} {\"\\n\"}{end}' -A\nRemediation: If possible, rewrite application code to read secrets from mounted secret files, rather than from environment variables.",
+    "metadata": {
+      "id": "5.4.1",
+      "impact": "Application code which expects to read secrets in the form of environment variables would need modification",
+      "default_value": "By default, secrets are not defined",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets Additional Information: Mounting secrets as volumes has the additional benefit that secret values can be updated without restarting the pod Page 285 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.4.2 Consider external secret storage (Manual)\nDescription: Consider the use of an external secrets storage and management system, instead of using Kubernetes Secrets directly, if you have more complex secret management needs. Ensure the solution requires authentication to access secrets, has auditing of access to and use of secrets, and encrypts secrets. Some solutions also make it easier to rotate secrets.\nRationale: Kubernetes supports secrets as first-class objects, but care needs to be taken to ensure that access to secrets is carefully limited. Using an external secrets provider can ease the management of access to secrets, especially where secrests are used across both Kubernetes and non-Kubernetes environments.\nAudit: Review your secrets management implementation.\nRemediation: Refer to the secrets management options offered by your cloud provider or a third-party secrets management solution.",
+    "metadata": {
+      "id": "5.4.2",
+      "impact": "None",
+      "default_value": "By default, no external secret management is configured."
+    }
+  },
+  {
+    "page_content": "Title: 5.5.1 Configure Image Provenance using ImagePolicyWebhook admission controller (Manual)\nDescription: Configure Image Provenance for your deployment.\nRationale: Kubernetes supports plugging in provenance rules to accept or reject the images in your deployments. You could configure such rules to ensure that only approved images are deployed in the cluster.\nAudit: Review the pod definitions in your cluster and verify that image provenance is configured as appropriate.\nRemediation: Follow the Kubernetes documentation and setup image provenance.",
+    "metadata": {
+      "id": "5.5.1",
+      "impact": "You need to regularly maintain your provenance configuration based on container image updates.",
+      "default_value": "By default, image provenance is not set.",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.6.1 Create administrative boundaries between resources using namespaces (Manual)\nDescription: Use namespaces to isolate your Kubernetes objects.\nRationale: Limiting the scope of user permissions can reduce the impact of mistakes or malicious activities. A Kubernetes namespace allows you to partition created resources into logically named groups. Resources created in one namespace can be hidden from other namespaces. By default, each resource created by a user in Kubernetes cluster runs in a default namespace, called default. You can create additional namespaces and attach resources and users to them. You can use Kubernetes Authorization plugins to create policies that segregate access to namespace resources between different users.\nAudit: Run the below command and review the namespaces created in the cluster. kubectl get namespaces Ensure that these namespaces are the ones you need and are adequately administered as per your requirements.\nRemediation: Follow the documentation and create namespaces for objects in your deployment as you need them.",
+    "metadata": {
+      "id": "5.6.1",
+      "impact": "You need to switch between namespaces for administration.",
+      "default_value": "By default, Kubernetes starts with 4 initial namespaces: 1. default - The default namespace for objects with no other namespace 2. kube-system - The namespace for objects created by the Kubernetes system 3. kube-node-lease - Namespace used for node heartbeats 4. kube-public - Namespace used for public information in a cluster Page 292 Internal Only - General",
+      "references": [
+        "https://kubernetes.io/docs/home/"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.6.2 Ensure that the seccomp profile is set to docker/default in your pod definitions (Manual)\nDescription: Enable docker/default seccomp profile in your pod definitions.\nRationale: Seccomp (secure computing mode) is used to restrict the set of system calls applications can make, allowing cluster administrators greater control over the security of workloads running in the cluster. Kubernetes disables seccomp profiles by default for historical reasons. You should enable it to ensure that the workloads have restricted actions available within the container.\nAudit: Review the pod definitions in your cluster. It should create a line as below: securityContext: seccompProfile: type: RuntimeDefault\nRemediation: Use security context to enable the docker/default seccomp profile in your pod definitions. An example is as below: securityContext: seccompProfile: type: RuntimeDefault",
+    "metadata": {
+      "id": "5.6.2",
+      "impact": "If the docker/default seccomp profile is too restrictive for you, you would have to create/manage your own seccomp profiles.",
+      "default_value": "By default, seccomp profile is set to unconfined which means that no seccomp profiles are enabled.",
+      "references": [
+        "1. https://kubernetes.io/docs/tutorials/clusters/seccomp/ 2. https://docs.docker.com/engine/security/seccomp/ Page 294 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.6.3 Apply Security Context to Your Pods and Containers (Manual)\nDescription: Apply Security Context to Your Pods and Containers\nRationale: A security context defines the operating system security settings (uid, gid, capabilities, SELinux role, etc..) applied to a container. When designing your containers and pods, make sure that you configure the security context for your pods, containers, and volumes. A security context is a property defined in the deployment yaml. It controls the security parameters that will be assigned to the pod/container/volume. There are two levels of security context: pod level security context, and container level security context.\nAudit: Review the pod definitions in your cluster and verify that you have security contexts defined as appropriate.\nRemediation: Follow the Kubernetes documentation and apply security contexts to your pods. For a suggested list of security contexts, you may refer to the CIS Security Benchmark for Docker Containers.",
+    "metadata": {
+      "id": "5.6.3",
+      "impact": "If you incorrectly apply security contexts, you may have trouble running the pods.",
+      "default_value": "By default, no security contexts are automatically applied to pods.",
+      "references": [
+        "1. https://kubernetes.io/docs/concepts/policy/security-context/ 2. https://learn.cisecurity.org/benchmarks Page 296 Internal Only - General"
+      ]
+    }
+  },
+  {
+    "page_content": "Title: 5.6.4 The default namespace should not be used (Manual)\nDescription: Kubernetes provides a default namespace, where objects are placed if no namespace is specified for them. Placing objects in this namespace makes application of RBAC and other controls more difficult.\nRationale: Resources in a Kubernetes cluster should be segregated by namespace, to allow for security controls to be applied at that level and to make it easier to manage resources.\nAudit: Run this command to list objects in default namespace kubectl get $(kubectl api-resources --verbs=list --namespaced=true -o name | paste -sd, -) --ignore-not-found -n default The only entries there should be system managed resources such as the kubernetes service\nRemediation: Ensure that namespaces are created to allow for appropriate segregation of Kubernetes resources and that all new resources are created in a specific namespace.",
+    "metadata": {
+      "id": "5.6.4",
+      "impact": "None",
+      "default_value": "Unless a namespace is specific on object creation, the default namespace will be used"
+    }
+  },
+  {
+    "page_content": "Title: 5.2.6 to reflect new verbiage\nDescription: \nRationale: \nAudit: \nRemediation:",
+    "metadata": {
+      "id": "5.2.6"
+    }
+  },
+  {
+    "page_content": "Title: 1.1.19 to provide a\nDescription: \nRationale: \nAudit: \nRemediation:",
+    "metadata": {
+      "id": "1.1.19"
+    }
+  },
+  {
+    "page_content": "Title: 5.3.2 moved flags in audit\nDescription: \nRationale: \nAudit: \nRemediation:",
+    "metadata": {
+      "id": "5.3.2"
+    }
+  }
+]

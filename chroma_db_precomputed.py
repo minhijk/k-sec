@@ -43,7 +43,6 @@ def load_vectors(file_path: str) -> list[list[float]]:
 
 def main():
     # --- 파일 경로 설정 ---
-    # 'vectors.json'을 만들기 위해 사용했던 원본 텍스트+메타데이터 파일을 지정합니다.
     original_documents_file = 'pre_vectors.json'
     precomputed_vectors_file = 'vectors.json'
 
@@ -69,9 +68,6 @@ def main():
     print("-" * 50)
 
     # --- 3. 임베딩 모델 준비 (검색용) ---
-    # DB에 데이터를 '넣을 때'는 사전 계산된 벡터를 사용하므로 임베딩이 필요 없습니다.
-    # 하지만, ChromaDB는 나중에 검색할 때를 대비해 어떤 임베딩 함수를 쓸지 알아야 하므로,
-    # 데이터를 생성할 때 사용했던 것과 "동일한" 임베딩 모델을 지정해주어야 합니다.
     print("단계 3: 검색 쿼리를 임베딩할 모델을 로드합니다.")
     model_name = "jhgan/ko-sroberta-multitask"
     embeddings_model = HuggingFaceEmbeddings(model_name=model_name)
@@ -82,20 +78,23 @@ def main():
     print("단계 4: 사전 계산된 벡터와 문서를 ChromaDB에 직접 추가합니다.")
     db_path = "./chroma_db_precomputed"
     
-    # LangChain의 Chroma 클래스를 사용하여 텍스트와 벡터를 함께 추가합니다.
-    # .from_embeddings를 사용하여 임베딩 과정 없이 바로 데이터를 저장합니다.
-    Chroma.from_embeddings(
-        texts=texts,
-        embedding=embeddings_model, # 검색 시 쿼리 임베딩을 위해 필요
-        embeddings=vectors,         # 여기에 사전 계산된 벡터를 전달
-        metadatas=metadatas,
-        collection_name="my_precomputed_db",
-        persist_directory=db_path
+    # 수정된 부분:
+    # 1. 먼저 비어있는 Chroma DB 인스턴스를 생성합니다.
+    db = Chroma(
+        persist_directory=db_path,
+        embedding_function=embeddings_model,
+        collection_name="my_precomputed_db"
     )
     
+    # 2. .add_texts() 메서드를 사용하여 텍스트와 함께 사전 계산된 벡터를 추가합니다.
+    db.add_texts(
+        texts=texts,
+        embeddings=vectors,  # 여기에 사전 계산된 벡터를 전달
+        metadatas=metadatas
+    )
+
     print("\n벡터 데이터베이스 구축 및 저장 완료!")
     print(f"저장 위치: {db_path}")
 
 if __name__ == "__main__":
     main()
-

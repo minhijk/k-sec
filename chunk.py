@@ -57,7 +57,7 @@ Remediation: {item.get('remediation', 'N/A')}"""
 
 
 if __name__ == "__main__":
-    file_path = '1.json'
+    file_path = 'structured_cis_benchmark_v1.11.1.json'
 
     chunk = json_to_chunk(file_path)
 

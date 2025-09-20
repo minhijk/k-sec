@@ -1,8 +1,20 @@
 import json
 import re
+import requests
+from bs4 import BeautifulSoup
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 
+
+# 특정 URL의 title을 가져오는 함수
+def get_page_title(url: str) -> str:
+    try:
+        response = requests.get(url, timeout=5)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "html.parser")
+        return soup.title.string.strip() if soup.title else ""
+    except Exception:
+        return ""
 
 
 # JSON 파일을 Document 객체 리스트로 변환하는 함수
@@ -27,9 +39,29 @@ Remediation: {item.get('remediation', 'N/A')}"""
 
         # 벡터화 하지 않는 메타데이터
         metadata = {
-            'id': item.get('id', ''), 'impact': item.get('impact', ''),
-            'default_value': item.get('default_value', ''), 'references': item.get('references', ''),
+            'id': item.get('id', ''), 
+            'impact': item.get('impact', ''),
+            'default_value': item.get('default_value', ''), 
+            'references': item.get('references', ''),
         }
+
+        # references가 여러개일 경우 처리
+        if metadata.get('references'):
+            refs = metadata['references']
+            if isinstance(refs, str):
+                refs = [refs]
+            elif not isinstance(refs, list):
+                refs = []
+
+            new_refs = []
+            for ref in refs:
+                title = get_page_title(ref)
+                if "404 Page not found" in title:
+                    new_refs.append("https://kubernetes.io/docs/home/")
+                else:
+                    new_refs.append(ref)
+            metadata['references'] = new_refs
+
         metadata = {k: v for k, v in metadata.items() if v}
         doc = Document(page_content=page_content.strip(), metadata=metadata)
         documents.append(doc)

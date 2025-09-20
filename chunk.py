@@ -6,11 +6,13 @@ from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 
 
-# 특정 URL의 title을 가져오는 함수
+# 특정 URL의 title을 가져오는 함수 (404, Error 등도 체크)
 def get_page_title(url: str) -> str:
     try:
         response = requests.get(url, timeout=5)
-        response.raise_for_status()
+        # 상태코드가 404면 강제로 "404 Page not found" 반환
+        if response.status_code == 404:
+            return "404 Page not found"
         soup = BeautifulSoup(response.text, "html.parser")
         return soup.title.string.strip() if soup.title else ""
     except Exception:
@@ -56,7 +58,8 @@ Remediation: {item.get('remediation', 'N/A')}"""
             new_refs = []
             for ref in refs:
                 title = get_page_title(ref)
-                if "404 Page not found" in title:
+                # title에 404 관련 문자열이 있거나, Error/Not Found 포함시 교체
+                if any(err in title for err in ["404", "Not Found", "Error"]):
                     new_refs.append("https://kubernetes.io/docs/home/")
                 else:
                     new_refs.append(ref)
@@ -93,6 +96,12 @@ if __name__ == "__main__":
         vectors = embeddings_model.embed_documents(texts_to_embed)
         print("임베딩 완료")
         print(f"\n총 {len(vectors)}개의 벡터 생성\n")
+
+        # 임베딩 결과 저장
+        output_file = 'vectors.json'
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(vectors, f, ensure_ascii=False, indent=2)
+        print(f"임베딩 결과를 '{output_file}'에 저장 완료")
      
     else:
         print("문서 변환 실패")

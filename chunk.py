@@ -1,7 +1,7 @@
 import json
 import re
 from langchain_core.documents import Document
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
 # CIS_controls에서 불필요한 데이터 제외 및 구조화
 def parse_cis_controls(text: str) -> dict:

@@ -96,6 +96,28 @@ Remediation: {item.get('remediation', 'N/A')}"""
     return documents
 
 
+def embed_in_batches(embeddings_model, texts, batch_size=100):
+    all_vectors = []
+    total_batches = (len(texts) + batch_size - 1) // batch_size
+    
+    print(f"총 {len(texts)}개 텍스트를 {batch_size} 크기로 {total_batches}개 배치로 처리합니다.")
+    
+    for i in range(0, len(texts), batch_size):
+        batch_num = (i // batch_size) + 1
+        batch = texts[i:i+batch_size]
+        
+        print(f"배치 {batch_num}/{total_batches} 임베딩 중... ({len(batch)}개 항목)")
+        
+        try:
+            batch_vectors = embeddings_model.embed_documents(batch)
+            all_vectors.extend(batch_vectors)
+        except Exception as e:
+            print(f"배치 {batch_num} 임베딩 실패: {e}")
+            continue
+    
+    return all_vectors
+
+
 if __name__ == "__main__":
     # JSON 파일 경로를 설정해주세요.
     # 예시: structured_cis_benchmark_v1.11.1.json
@@ -143,7 +165,7 @@ if __name__ == "__main__":
         
         # 임베딩 실행
         print("임베딩 시작...")
-        vectors = embeddings_model.embed_documents(texts_to_embed)
+        vectors = embed_in_batches(embeddings_model, texts_to_embed, batch_size=100)
         print("임베딩 완료")
         print(f"\n총 {len(vectors)}개의 벡터 생성\n")
 

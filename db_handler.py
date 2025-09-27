@@ -3,96 +3,17 @@ import subprocess
 import json
 import tempfile
 import os
-import textwrap
+import sys  # <<< 추가된 부분 (1/2) >>>
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_core.vectorstores import VectorStoreRetriever
 
+# --- 설정 변수 ---
 DB_PATH = "./chroma_db_precomputed"
 COLLECTION_NAME = "my_precomputed_db"
 MODEL_NAME = "jhgan/ko-sroberta-multitask"
 
-# <<< 수정됨 >>>: 현실적인 취약점을 포함한 YAML로 교체
-SAMPLE_INSECURE_YAML = """
-# --- 취약한 웹 애플리케이션 배포 예제 ---
-# 이 YAML은 일반적인 보안 설정 오류를 다수 포함하고 있습니다.
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: insecure-webapp-deployment
-  labels:
-    app: insecure-webapp
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: insecure-webapp
-  template:
-    metadata:
-      labels:
-        app: insecure-webapp
-    spec:
-      containers:
-      - name: web-server-container
-        # 문제점 1: 알려진 취약점이 있는 오래된 버전의 이미지 및 'latest' 태그 사용
-        image: nginx:1.18-alpine 
-        
-        ports:
-        - containerPort: 80
-
-        # 문제점 2: 리소스 요청만 있고 상한(limit)이 없어 DoS 공격에 취약
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "250m"
-        
-        # 문제점 3: 중요 정보(비밀)를 환경 변수에 하드코딩
-        env:
-        - name: API_KEY
-          value: "abc123-very-secret-key-do-not-use"
-        - name: DATABASE_URL
-          value: "prod-db-host:5432"
-
-        # 문제점 4: 컨테이너에 과도한 권한 부여 (가장 심각한 설정 오류들)
-        securityContext:
-          runAsUser: 0 # root 유저로 실행
-          privileged: false # privileged는 피했지만...
-          allowPrivilegeEscalation: true # 권한 상승 허용
-          readOnlyRootFilesystem: false # 루트 파일 시스템을 쓰기 가능 상태로 둠
-          capabilities:
-            add:
-            - "NET_ADMIN" # 불필요하고 위험한 커널 기능 추가
-
-        # 문제점 5: 민감한 호스트의 디렉터리를 컨테이너 내부에 마운트 (컨테이너 탈출 경로)
-        volumeMounts:
-        - name: host-etc
-          mountPath: /host/etc
-          readOnly: true # 읽기 전용이라도 호스트의 설정 정보 유출에 매우 위험
-      
-      volumes:
-      - name: host-etc
-        hostPath:
-          path: /etc # 호스트의 /etc 디렉터리
-
----
-# --- 외부 노출을 위한 서비스 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: insecure-webapp-service
-spec:
-  # 문제점 6: 내부용 서비스일 수 있는데 외부 IP로 접근 가능한 NodePort 사용
-  type: NodePort 
-  selector:
-    app: insecure-webapp
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-    nodePort: 30080 # 고정된 포트를 외부에 노출
-"""
-
 def run_trivy_scan(file_path: str) -> dict:
+    """Trivy를 실행하여 YAML 설정 파일의 취약점을 스캔하고 결과를 JSON으로 반환합니다."""
     command = ['trivy', 'config', '--format', 'json', file_path]
     try:
         print(f" -> Trivy 스캔 실행: {' '.join(command)}")
@@ -111,112 +32,123 @@ def run_trivy_scan(file_path: str) -> dict:
         return None
 
 def extract_queries_from_trivy_results(trivy_json: dict) -> list[str]:
+    """Trivy 스캔 결과(JSON)에서 RAG 검색에 사용할 쿼리들을 추출합니다."""
     queries = []
-    if not trivy_json or 'Results' not in trivy_json or not trivy_json['Results']:
+    if not trivy_json or 'Results' not in trivy_json:
         return queries
-
     for result in trivy_json.get('Results', []):
         for misconfig in result.get('Misconfigurations', []):
-            title = misconfig.get('Title')
-            if title:
+            if title := misconfig.get('Title'):
                 queries.append(title)
-                
     return list(set(queries))
 
-def run_trivy_based_retriever():
-    print("=" * 70)
-    print("[시작] Trivy 연동 보안 RAG 검색기")
-    print("=" * 70)
-
+def get_trivy_and_rag_analysis(yaml_content: str) -> dict:
+    """
+    YAML 내용을 입력받아 Trivy 스캔과 RAG 검색을 수행하고,
+    그 결과를 정렬하여 구조화된 딕셔너리(JSON 변환용)로 반환하는 메인 함수.
+    이 함수가 pipeline.py에서 호출할 최종 결과물입니다.
+    """
     if not os.path.exists(DB_PATH):
-        print(f"\n[오류] DB 경로를 찾을 수 없습니다: '{DB_PATH}'")
-        print(" -> 먼저 DB 구축 스크립트를 실행하여 벡터 DB를 생성해주세요.")
-        return
+        return {"error": f"DB 경로를 찾을 수 없습니다: '{DB_PATH}'"}
 
+    trivy_results = None
     try:
-        print("\n[1-2단계] Trivy 스캔 및 DB 검색용 쿼리 추출")
         with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix=".yaml", encoding='utf-8') as temp_file:
-            temp_file.write(SAMPLE_INSECURE_YAML)
+            temp_file.write(yaml_content)
             temp_file_path = temp_file.name
-        
         trivy_results = run_trivy_scan(temp_file_path)
-        os.remove(temp_file_path)
+    finally:
+        if 'temp_file_path' in locals() and os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
 
-        if not trivy_results:
-            print(" -> Trivy 스캔에 실패했거나 결과가 없습니다."); return
+    if not trivy_results:
+        return {"error": "Trivy 스캔에 실패했거나 결과가 없습니다."}
 
-        security_queries = extract_queries_from_trivy_results(trivy_results)
-        
-        if not security_queries:
-            print(" -> Trivy가 보안 문제점을 발견하지 못했습니다."); return
-            
-        print(f" -> 총 {len(security_queries)}개의 고유한 보안 관련 쿼리 생성 완료")
-        
-        print("\n[3단계] DB 연결 및 검색기 생성")
-        embedding_model = HuggingFaceEmbeddings(model_name=MODEL_NAME)
-        vector_db = Chroma(persist_directory=DB_PATH, embedding_function=embedding_model, collection_name=COLLECTION_NAME)
-        retriever = VectorStoreRetriever(vectorstore=vector_db, search_kwargs={'k': 1})
-        print(f" -> DB '{DB_PATH}' 에서 검색기 생성 완료 (k=1)")
+    security_queries = extract_queries_from_trivy_results(trivy_results)
+    if not security_queries:
+        return {"error": "Trivy가 보안 문제점을 발견하지 못했습니다."}
 
-        print(f"\n[4단계] {len(security_queries)}개 쿼리로 DB 검색 및 결과 통합")
-        
-        unique_docs_with_queries = {} 
-        
-        for i, query in enumerate(security_queries, 1):
-            print(f" -> {i}/{len(security_queries)}번째 쿼리 검색: \"{query}\"")
-            retrieved_docs = retriever.invoke(query)
-            if retrieved_docs:
-                doc = retrieved_docs[0]
-                doc_content_key = doc.page_content
-                
-                if doc_content_key not in unique_docs_with_queries:
-                    unique_docs_with_queries[doc_content_key] = {
-                        'doc': doc,
-                        'queries': [query]
-                    }
-                else:
-                    unique_docs_with_queries[doc_content_key]['queries'].append(query)
-        
-        print("\n" + "=" * 28, " [최종 검색 결과] ", "=" * 28)
-        
-        final_results = list(unique_docs_with_queries.values())
-        if not final_results:
-            print("\n -> 모든 쿼리에 대해 검색된 결과가 없습니다.")
-        
-        for i, result_item in enumerate(final_results, 1):
-            doc = result_item['doc']
-            queries = result_item['queries']
-            
-            print(f"\n--- [결과 {i}] ---")
-            
-            print("🔍 검색된 쿼리 목록:")
-            for q in queries:
-                print(f"  - \"{q}\"")
-            print("-" * 25)
+    embedding_model = HuggingFaceEmbeddings(model_name=MODEL_NAME)
+    vector_db = Chroma(persist_directory=DB_PATH, embedding_function=embedding_model, collection_name=COLLECTION_NAME)
+    retriever = vector_db.as_retriever(search_kwargs={'k': 1})
 
-            metadata_parts = []
-            if doc.metadata and 'source' in doc.metadata:
-                metadata_parts.append(f"출처: {doc.metadata['source']}")
-            if doc.metadata and 'page' in doc.metadata:
-                 metadata_parts.append(f"페이지: {doc.metadata['page']}")
-            
-            if metadata_parts:
-                print(f"📄 관련 정보: {', '.join(metadata_parts)}")
+    unique_docs_with_queries = {}
+    for query in security_queries:
+        retrieved_docs = retriever.invoke(query)
+        if retrieved_docs:
+            doc = retrieved_docs[0]
+            doc_content_key = doc.page_content
+            if doc_content_key not in unique_docs_with_queries:
+                unique_docs_with_queries[doc_content_key] = {
+                    'doc': doc,
+                    'queries': [query]
+                }
+            else:
+                unique_docs_with_queries[doc_content_key]['queries'].append(query)
+    
+    analysis_results_list = []
+    for item in unique_docs_with_queries.values():
+        doc = item['doc']
+        sorted_queries = sorted(item['queries'])
+        analysis_results_list.append({
+            "retrieved_for_queries": sorted_queries,
+            "source_document": {
+                "content": doc.page_content,
+                "metadata": doc.metadata
+            }
+        })
+    
+    analysis_results_list.sort(key=lambda x: x['source_document']['metadata'].get('id', ''))
 
-            print("\n📝 문서 내용:")
-            wrapped_content = textwrap.fill(
-                doc.page_content,
-                width=90,
-                initial_indent="  ",
-                subsequent_indent="  "
-            )
-            print(wrapped_content)
+    final_output = {
+        "analyzed_yaml_content": yaml_content,
+        "trivy_scan_summary": {
+            "total_queries_generated": len(security_queries),
+            "unique_documents_found": len(analysis_results_list)
+        },
+        "analysis_results": analysis_results_list
+    }
 
-        print("\n" + "=" * 70)
-        print("[종료] 모든 과정이 완료되었습니다.")
+    return final_output
 
-    except Exception as e:
-        print(f"\n[치명적 오류] 실행 중 예기치 못한 문제가 발생했습니다: {e}")
-
+# --- 이 파일을 직접 실행할 때를 위한 테스트 코드 ---
 if __name__ == "__main__":
-    run_trivy_based_retriever()
+    # <<< 수정된 부분 (2/2) >>>
+    # 커맨드 라인에서 파일 경로를 인자로 받도록 수정
+    
+    # 1. 인자가 제대로 주어졌는지 확인
+    if len(sys.argv) != 2:
+        print("사용법: python3 db_handler.py <분석할_YAML_파일_경로>")
+        # 스크립트 이름(sys.argv[0])과 파일 경로(sys.argv[1]), 총 2개여야 함
+        sys.exit(1) # 오류 코드 1과 함께 종료
+
+    # 2. 파일 경로를 변수에 저장
+    yaml_file_path = sys.argv[1]
+
+    # 3. 파일이 실제로 존재하는지 확인
+    if not os.path.exists(yaml_file_path):
+        print(f"[오류] 파일을 찾을 수 없습니다: {yaml_file_path}")
+        sys.exit(1)
+
+    print("=" * 70)
+    print(f"[시작] '{yaml_file_path}' 파일 분석 후 JSON 출력 테스트")
+    print("=" * 70)
+
+    # 4. 파일을 읽어서 내용을 변수에 저장
+    try:
+        with open(yaml_file_path, 'r', encoding='utf-8') as f:
+            yaml_content_from_file = f.read()
+    except Exception as e:
+        print(f"[오류] 파일을 읽는 중 문제가 발생했습니다: {e}")
+        sys.exit(1)
+
+    # 5. 파일 내용을 인자로 하여 핵심 분석 함수 호출
+    results_dict = get_trivy_and_rag_analysis(yaml_content_from_file)
+
+    # 6. 반환된 딕셔너리를 JSON으로 변환하여 출력
+    json_output = json.dumps(results_dict, indent=2, ensure_ascii=False)
+    
+    print("\n" + "=" * 28, " [최종 생성된 JSON] ", "=" * 28)
+    print(json_output)
+    print("\n" + "=" * 70)
+    print("[종료] 이 JSON 출력을 pipeline.py로 전달하면 됩니다.")

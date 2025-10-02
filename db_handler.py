@@ -3,7 +3,7 @@ import subprocess
 import json
 import tempfile
 import os
-import sys  # <<< 추가된 부분 (1/2) >>>
+import sys
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -42,31 +42,33 @@ def extract_queries_from_trivy_results(trivy_json: dict) -> list[str]:
                 queries.append(title)
     return list(set(queries))
 
-def get_trivy_and_rag_analysis(yaml_content: str) -> dict:
+def get_trivy_and_rag_analysis(yaml_content: str):
     """
     YAML 내용을 입력받아 Trivy 스캔과 RAG 검색을 수행하고,
-    그 결과를 정렬하여 구조화된 딕셔너리(JSON 변환용)로 반환하는 메인 함수.
-    이 함수가 pipeline.py에서 호출할 최종 결과물입니다.
+    결과를 JSON 문자열 또는 0(정상)으로 반환하는 메인 함수.
     """
     if not os.path.exists(DB_PATH):
-        return {"error": f"DB 경로를 찾을 수 없습니다: '{DB_PATH}'"}
+        return json.dumps({"error": f"DB 경로를 찾을 수 없습니다: '{DB_PATH}'"}, indent=2, ensure_ascii=False)
 
     trivy_results = None
+    temp_file_path = ''
     try:
         with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix=".yaml", encoding='utf-8') as temp_file:
             temp_file.write(yaml_content)
             temp_file_path = temp_file.name
         trivy_results = run_trivy_scan(temp_file_path)
     finally:
-        if 'temp_file_path' in locals() and os.path.exists(temp_file_path):
+        if temp_file_path and os.path.exists(temp_file_path):
             os.remove(temp_file_path)
 
     if not trivy_results:
-        return {"error": "Trivy 스캔에 실패했거나 결과가 없습니다."}
+        return json.dumps({"error": "Trivy 스캔에 실패했거나 결과가 없습니다."}, indent=2, ensure_ascii=False)
 
     security_queries = extract_queries_from_trivy_results(trivy_results)
+    
+    # 요구사항 2: 취약점이 없으면 숫자 0을 반환
     if not security_queries:
-        return {"error": "Trivy가 보안 문제점을 발견하지 못했습니다."}
+        return 0
 
     embedding_model = HuggingFaceEmbeddings(model_name=MODEL_NAME)
     vector_db = Chroma(persist_directory=DB_PATH, embedding_function=embedding_model, collection_name=COLLECTION_NAME)
@@ -109,23 +111,18 @@ def get_trivy_and_rag_analysis(yaml_content: str) -> dict:
         "analysis_results": analysis_results_list
     }
 
-    return final_output
+    # 요구사항 1: 최종 결과를 JSON 문자열로 변환하여 반환
+    json_output = json.dumps(final_output, indent=2, ensure_ascii=False)
+    return json_output
 
 # --- 이 파일을 직접 실행할 때를 위한 테스트 코드 ---
 if __name__ == "__main__":
-    # <<< 수정된 부분 (2/2) >>>
-    # 커맨드 라인에서 파일 경로를 인자로 받도록 수정
-    
-    # 1. 인자가 제대로 주어졌는지 확인
     if len(sys.argv) != 2:
         print("사용법: python3 db_handler.py <분석할_YAML_파일_경로>")
-        # 스크립트 이름(sys.argv[0])과 파일 경로(sys.argv[1]), 총 2개여야 함
-        sys.exit(1) # 오류 코드 1과 함께 종료
+        sys.exit(1)
 
-    # 2. 파일 경로를 변수에 저장
     yaml_file_path = sys.argv[1]
 
-    # 3. 파일이 실제로 존재하는지 확인
     if not os.path.exists(yaml_file_path):
         print(f"[오류] 파일을 찾을 수 없습니다: {yaml_file_path}")
         sys.exit(1)
@@ -134,21 +131,25 @@ if __name__ == "__main__":
     print(f"[시작] '{yaml_file_path}' 파일 분석 후 JSON 출력 테스트")
     print("=" * 70)
 
-    # 4. 파일을 읽어서 내용을 변수에 저장
     try:
         with open(yaml_file_path, 'r', encoding='utf-8') as f:
             yaml_content_from_file = f.read()
     except Exception as e:
         print(f"[오류] 파일을 읽는 중 문제가 발생했습니다: {e}")
         sys.exit(1)
-
-    # 5. 파일 내용을 인자로 하여 핵심 분석 함수 호출
-    results_dict = get_trivy_and_rag_analysis(yaml_content_from_file)
-
-    # 6. 반환된 딕셔너리를 JSON으로 변환하여 출력
-    json_output = json.dumps(results_dict, indent=2, ensure_ascii=False)
     
-    print("\n" + "=" * 28, " [최종 생성된 JSON] ", "=" * 28)
-    print(json_output)
-    print("\n" + "=" * 70)
-    print("[종료] 이 JSON 출력을 pipeline.py로 전달하면 됩니다.")
+    # 핵심 분석 함수를 호출하고 결과(JSON 문자열 또는 0)를 받음
+    result = get_trivy_and_rag_analysis(yaml_content_from_file)
+
+    # 실제 환경에서 RAG로 넘길 때 사용
+    # return result
+    
+    if result == 0:
+        print("\n" + "=" * 25, " [분석 결과: 정상] ", "=" * 26)
+        print("Trivy 스캔 결과, 보안 문제점이 발견되지 않았습니다.")
+        print("=" * 70)
+    elif isinstance(result, str):
+        print("\n" + "=" * 28, " [최종 생성된 JSON] ", "=" * 28)
+        print(result)
+        print("\n" + "=" * 70)
+        print("[종료] 이 JSON 출력을 pipeline.py로 전달하면 됩니다.")

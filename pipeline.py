@@ -1,10 +1,10 @@
 import os
 import sys
+import json # json 라이브러리를 임포트합니다.
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
-# 1. '전문 기술자' 함수들을 각 핸들러 파일에서 import 합니다.
 try:
     from db_handler import get_trivy_and_rag_analysis
     from llm_handler import get_llm
@@ -12,8 +12,7 @@ except ImportError:
     print("[오류] db_handler.py 또는 llm_handler.py를 찾을 수 없습니다. 파일 구조를 확인해주세요.")
     sys.exit(1)
 
-
-# --- 애플리케이션 시작 시, LLM과 RAG 체인(뼈대)을 한 번만 로드 ---
+# --- LLM 및 RAG 체인 초기화 (변경 없음) ---
 try:
     print(" -> [Pipeline] LLM 및 RAG 체인 구성을 시작합니다...")
     LLM = get_llm()
@@ -64,7 +63,6 @@ try:
     
     prompt = ChatPromptTemplate.from_template(RAG_PROMPT_TEMPLATE)
 
-    # 2. RAG 체인은 준비된 데이터를 받아 프롬프트와 LLM을 연결하는 '보고서 작성' 역할만 수행합니다.
     RAG_CHAIN = (
         RunnablePassthrough()
         | prompt
@@ -77,8 +75,8 @@ except Exception as e:
     print(f"\n[오류] 파이프라인 초기화 중 문제가 발생했습니다: {e}")
     RAG_CHAIN = None
 
+# --- format_analysis_results 함수 (변경 없음) ---
 def format_analysis_results(analysis_results: list) -> str:
-    """db_handler에서 받은 analysis_results 리스트를 LLM이 이해하기 좋은 문자열로 포맷합니다."""
     if not analysis_results:
         return "관련된 보안 지침이나 벤치마크 문서를 찾을 수 없습니다."
         
@@ -100,7 +98,7 @@ def format_analysis_results(analysis_results: list) -> str:
         
     return "\n\n" + "="*20 + "\n\n".join(lines)
 
-
+# --- main 함수 (✨ 핵심 수정 ✨) ---
 def main():
     if RAG_CHAIN is None:
         print("\n초기화 실패. 프로그램을 종료합니다.")
@@ -126,17 +124,29 @@ def main():
             if not question:
                 question = "이 YAML 파일의 내용을 분석하고, 주요 설정과 잠재적인 보안 취약점에 대해 종합적으로 설명해 줘."
             
-            # --- 3. 올바른 시점에, 올바른 인자로 db_handler 함수 호출 ---
             print("\n -> [Pipeline] db_handler를 호출하여 YAML을 분석합니다...")
-            analysis_data = get_trivy_and_rag_analysis(yaml_content)
-            # -------------------------------------------------------------
+            # db_handler는 JSON '문자열' 또는 숫자 0을 반환합니다.
+            raw_result = get_trivy_and_rag_analysis(yaml_content)
             
-            # db_handler에서 오류가 발생했는지 확인
+            # ✨ 1. 취약점 없을 시 (숫자 0 반환) 처리
+            if raw_result == 0:
+                print("\n[전문가 분석 답변]\n" + "-" * 20)
+                print("분석 결과, 보안상 발견된 문제점이 없습니다. YAML 파일이 안전합니다.")
+                print("-" * 20)
+                continue # 다음 입력을 위해 루프 계속
+
+            # ✨ 2. 택배 상자(JSON 문자열)를 열어서 내용물(딕셔너리)을 꺼냅니다.
+            try:
+                analysis_data = json.loads(raw_result)
+            except json.JSONDecodeError:
+                print(f" -> [오류] db_handler로부터 받은 결과를 파싱할 수 없습니다: {raw_result}")
+                continue
+
+            # 이제 analysis_data는 진짜 딕셔너리이므로, 아래 코드가 정상 작동합니다.
             if 'error' in analysis_data:
                 print(f" -> [오류] db_handler에서 문제가 발생했습니다: {analysis_data['error']}")
                 continue
 
-            # db_handler의 결과(딕셔너리)를 사용하여 LLM에 전달할 최종 데이터 생성
             formatted_context = format_analysis_results(analysis_data.get("analysis_results", []))
             
             input_data = {

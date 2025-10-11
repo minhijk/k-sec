@@ -1,0 +1,262 @@
+[
+    {
+        "id": "NIST-3.1.1",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Image Risks",
+        "title": "Image vulnerabilities",
+        "content_description": "Because images are effectively static archive files that include all the components used to run a given app, components within an image may be missing critical security updates or are otherwise outdated. An image created with fully up-to-date components may be free of known vulnerabilities for days or weeks after its creation, but at some time vulnerabilities will be discovered in one or more image components, and thus the image will no longer be up-to-date. Unlike traditional operational patterns in which deployed software is updated ‘in the field’ on the hosts it runs on, with containers these updates must be made upstream in the images themselves, which are then redeployed. Thus, a common risk in containerized environments is deployed containers having vulnerabilities because the version of the image used to generate the containers has vulnerabilities.",
+        "content_remediation": "There is a need for container technology-specific vulnerability management tools and processes. Traditional vulnerability management tools make many assumptions about host durability and app update mechanisms and frequencies that are fundamentally misaligned with a containerized model. These tools are often unable to detect vulnerabilities within containers, leading to a false sense of safety. Organizations should use tools that take the pipeline-based build approach and immutable nature of containers and images into their design to provide more actionable and reliable results. Key aspects of effective tools and processes include: 1. Integration with the entire lifecycle of images, from the beginning of the build process, to whatever registries the organization is using, to runtime. 2. Visibility into vulnerabilities at all layers of the image, not just the base layer of the image but also application frameworks and custom software the organization is using. Visibility should be centralized across the organization and provide flexible reporting and monitoring views aligned with organizations’ business processes. 3. Policy-driven enforcement; organizations should be able to create “quality gates” at each stage of the build and deployment process to ensure that only images that meet the organization’s vulnerability and configuration policies are allowed to progress. For example, organizations should be able to configure a rule in the build process to prevent the progression of images that include vulnerabilities with Common Vulnerability Scoring System (CVSS) [18] ratings above a selected threshold.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.1.2",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Image Risks",
+        "title": "Image configuration defects",
+        "content_description": "In addition to software defects, images may also have configuration defects. For example, an image may not be configured with a specific user account to “run as” and thus run with greater privileges than needed. As another example, an image may include an SSH daemon, which exposes the container to unnecessary network risk. Much like in a traditional server or VM, where a poor configuration can still expose a fully up-to-date system to attack, so too can a poorly configured image increase risk even if all the included components are up-to-date.",
+        "content_remediation": "Organizations should adopt tools and processes to validate and enforce compliance with secure configuration best practices. For example, images should be configured to run as non-privileged users. Tools and processes that should be adopted include: 1. Validation of image configuration settings, including vendor recommendations and third- party best practices. 2. Ongoing, continuously updated, centralized reporting and monitoring of image compliance state to identify weaknesses and risks at the organizational level. 3. Enforcement of compliance requirements by optionally preventing the running of non- compliant images. 4. Use of base layers from trusted sources only, frequent updates of base layers, and selection of base layers from minimalistic technologies like Alpine Linux and Windows Nano Server to reduce attack surface areas.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.1.3",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Image Risks",
+        "title": "Embedded malware",
+        "content_description": "Because images are just collections of files packaged together, malicious files could be included intentionally or inadvertently within them. Such malware would have the same capabilities as any other component within the image and thus could be used to attack other containers or hosts within the environment. A possible source of embedded malware is the use of base layers and other images provided by third parties of which the full provenance is not known.",
+        "content_remediation": "Organizations should continuously monitor all images for embedded malware. The monitoring processes should include the use of malware signature sets and behavioral detection heuristics based largely on actual “in the wild” attacks.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.1.4",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Image Risks",
+        "title": "Embedded clear text secrets",
+        "content_description": "Many apps require secrets to enable secure communication between components. For example, a web app may need a username and password to connect to a backend database. Other examples of embedded secrets include connection strings, SSH private keys, and X.509 private keys. When an app is packaged into an image, these secrets can be embedded directly into the image file system. However, this practice creates a security risk because anyone with access to the image can easily parse it to learn these secrets.",
+        "content_remediation": "Secrets should be stored outside of images and provided dynamically at runtime as needed. Most orchestrators, such as Docker Swarm and Kubernetes, include native management of secrets. These orchestrators not only provide secure storage of secrets and ‘just in time’ injection to containers, but also make it much simpler to integrate secret management into the build and deployment processes. For example, an organization could use these tools to securely provision the database connection string into a web application container. The orchestrator can ensure that only the web application container had access to this secret, that it is not persisted to disk, and that anytime the web app is deployed, the secret is provisioned into it. Organizations may also integrate their container deployments with existing enterprise secret management systems that are already in use for storing secrets in non-container environments. These tools typically provide APIs to retrieve secrets securely as containers are deployed, which eliminates the need to persist them within images. Regardless of the tool chosen, organizations should ensure that secrets are only provided to the specific containers that require them, based on a pre-defined and administrator-controlled setting, and that secrets are always encrypted at rest and in transit using Federal Information Processing Standard (FIPS) 140 approved cryptographic algorithms5 contained in validated cryptographic modules.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.1.5",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Image Risks",
+        "title": "Use of untrusted images",
+        "content_description": "One of the most common high-risk scenarios in any environment is the execution of untrusted software. The portability and ease of reuse of containers increase the temptation for teams to run images from external sources that may not be well validated or trustworthy. For example, when troubleshooting a problem with a web app, a user may find another version of that app available in an image provided by a third party. Using this externally provided image results in the same types of risks that external software traditionally has, such as introducing malware, leaking data, or including components with vulnerabilities. 3.2 Registry Risks",
+        "content_remediation": "Organizations should maintain a set of trusted images and registries and ensure that only images from this set are allowed to run in their environment, thus mitigating the risk of untrusted or malicious components being deployed. To mitigate these risks, organizations should take a multilayered approach that includes: For more information on NIST-validated cryptographic implementations, see the Cryptographic Module Validation Program (CMVP) page at https://csrc.nist.gov/groups/STM/cmvp/.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.2.1",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Registry Risks",
+        "title": "Insecure connections to registries",
+        "content_description": "Images often contain sensitive components like an organization’s proprietary software and embedded secrets. If connections to registries are performed over insecure channels, the contents of images are subject to the same confidentiality risks as any other data transmitted in the clear. There is also an increased risk of man-in-the-middle attacks that could intercept network traffic intended for registries and steal developer or administrator credentials within that traffic, provide fraudulent or outdated images to orchestrators, etc.",
+        "content_remediation": "Organizations should configure their development tools, orchestrators, and container runtimes to only connect to registries over encrypted channels. The specific steps vary between tools, but the key goal is to ensure that all data pushed to and pulled from a registry occurs between trusted endpoints and is encrypted in transit.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.2.2",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Registry Risks",
+        "title": "Stale images in registries",
+        "content_description": "Because registries are typically the source location for all the images an organization deploys, over time the set of images they store can include many vulnerable, out-of-date versions. While these vulnerable images do not directly pose a threat simply by being stored in the registry, they increase the likelihood of accidental deployment of a known-vulnerable version.",
+        "content_remediation": "The risk of using stale images can be mitigated through two primary methods. First, organizations can prune registries of unsafe, vulnerable images that should no longer be used. This process can be automated based on time triggers and labels associated with images. Second, operational practices should emphasize accessing images using immutable names that specify discrete versions of images to be used. For example, rather than configuring a deployment job to use the image called my-app, configure it to deploy specific versions of the image, such as my-app:2.3 and my-app:2.4 to ensure that specific, known good instances of images are deployed as part of each job. Another option is using a “latest” tag for images and referencing this tag in deployment automation. However, because this tag is only a label attached to the image and not a guarantee of freshness, organizations should be cautious to not overly trust it. Regardless of whether an organization chooses to use discrete names or to use a “latest” tag, it is critical that processes be put in place to ensure that either the automation is using the most recent unique name or the images tagged “latest” actually do represent the most up-to-date versions.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.2.3",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Registry Risks",
+        "title": "Insufficient authentication and authorization restrictions",
+        "content_description": "Because registries may contain images used to run sensitive or proprietary apps and to access sensitive data, insufficient authentication and authorization requirements can lead to intellectual",
+        "content_remediation": "All access to registries that contain proprietary or sensitive images should require authentication. Any write access to a registry should require authentication to ensure that only images from trusted entities can be added to it. For example, only allow developers to push images to the specific repositories they are responsible for, rather than being able to update any repository. For more information on NIST-validated cryptographic implementations, see the Cryptographic Module Validation Program (CMVP) page at https://csrc.nist.gov/projects/cryptographic-module-validation-program.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.3.1",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Orchestrator Risks",
+        "title": "Unbounded administrative access",
+        "content_description": "Historically, many orchestrators were designed with the assumption that all users interacting with them would be administrators and those administrators should have environment-wide control. However, in many cases, a single orchestrator may run many different apps, each managed by different teams, and with different sensitivity levels. If the access provided to users and groups is not scoped to their specific needs, a malicious or careless user could affect or subvert the operation of other containers managed by the orchestrator.",
+        "content_remediation": "Especially because of their wide-ranging span of control, orchestrators should use a least privilege access model in which users are only granted the ability to perform the specific actions on the specific hosts, containers, and images their job roles require. For example, members of the test team should only be given access to the images used in testing and the hosts used for running them, and should only be able to manipulate the containers they created. Test team members should have limited or no access to containers used in production.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.3.2",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Orchestrator Risks",
+        "title": "Unauthorized access",
+        "content_description": "Orchestrators often include their own authentication directory service, which may be separate from the typical directories already in use within an organization. This can lead to weaker account management practices and ‘orphaned’ accounts in the orchestrator because these systems are less rigorously managed. Because many of these accounts are highly privileged within the orchestrator, compromise of them can lead to systemwide compromise. Containers typically use data storage volumes that are managed by the orchestration tool and are not host specific. Because a container may run on any given node within a cluster, the data required by the app within the container must be available to the container regardless of which host it is running on. At the same time, many organizations manage data that must be encrypted at rest to prevent unauthorized access.",
+        "content_remediation": "Access to cluster-wide administrative accounts should be tightly controlled as these accounts provide ability to affect all resources in the environment. Organizations should use strong authentication methods, such as requiring multifactor authentication instead of just a password. Organizations should implement single sign-on to existing directory systems where applicable. Single sign-on simplifies the orchestrator authentication experience, makes it easier for users to use strong authentication credentials, and centralizes auditing of access, making anomaly detection more effective. Traditional approaches for data at rest encryption often involve the use of host-based capabilities that may be incompatible with containers. Thus, organizations should use tools for encrypting data used with containers that allow the data to be accessed properly from containers regardless of the node they are running on. Such encryption tools should provide the same barriers to unauthorized access and tampering, using the same cryptographic approaches as those defined in NIST SP 800-111 [19].",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.3.3",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Orchestrator Risks",
+        "title": "Poorly separated inter-container network traffic",
+        "content_description": "In most containerized environments, traffic between individual nodes is routed over a virtual overlay network. This overlay network is typically managed by the orchestrator and is often opaque to existing network security and management tools. For example, instead of seeing database queries being sent from a web server container to a database container on another host, traditional network filters would only see encrypted packets flowing between two hosts, with no visibility into the actual container endpoints, nor the traffic being sent. Although an encrypted overlay network provides many operational and security benefits, it can also create a security ‘blindness’ scenario in which organizations are unable to effectively monitor traffic within their own networks. Potentially even more critical is the risk of traffic from different apps sharing the same virtual networks. If apps of different sensitivity levels, such as a public-facing web site and an internal treasury management app, are using the same virtual network, sensitive internal apps may be exposed to greater risk from network attack. For example, if the public-facing web site is compromised, attackers may be able to use shared networks to attack the treasury app.",
+        "content_remediation": "Orchestrators should be configured to separate network traffic into discrete virtual networks by sensitivity level. While per-app segmentation is also possible, for most organizations and use cases, simply defining networks by sensitivity level provides sufficient mitigation of risk with a manageable degree of complexity. For example, public-facing apps can share a virtual network,",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.3.4",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Orchestrator Risks",
+        "title": "Mixing of workload sensitivity levels",
+        "content_description": "Orchestrators are typically focused primarily on driving the scale and density of workloads. This means that, by default, they can place workloads of differing sensitivity levels on the same host. For example, in a default configuration, an orchestrator may place a container running a public- facing web server on the same host as one processing sensitive financial data, simply because that host happens to have the most available resources at the time of deployment. In the case of a critical vulnerability in the web server, this can put the container processing sensitive financial data at significantly greater risk of compromise.",
+        "content_remediation": "Orchestrators should be configured to isolate deployments to specific sets of hosts by sensitivity levels. The particular approach for implementing this varies depending on the orchestrator in use, but the general model is to define rules that prevent high sensitivity workloads from being placed on the same host as those running lower sensitivity workloads. This can be accomplished through the use of host ‘pinning’ within the orchestrator or even simply by having separate, individually managed clusters for each sensitivity level. While most container runtime environments do an effective job of isolating containers from each other and from the host OS, in some cases it may be an unnecessary risk to run apps of different sensitivity levels together on the same host OS. Segmenting containers by purpose, sensitivity, and threat posture provides additional defense in depth. Concepts such as application tiering and network and host segmentation should be taken into consideration when planning app deployments. For example, suppose a host is running containers for both a financial database and a public-facing blog. While normally the container runtime will effectively isolate these environments from each other, there is also a shared responsibility amongst the DevOps teams for each app to operate them securely and eliminate unnecessary risk. If the blog app were to be compromised by an attacker, there would be far fewer layers of defense to protect the database if the two apps are running on the same host. Thus, a best practice is to group containers together by relative sensitivity and to ensure that a given host kernel only runs containers of a single sensitivity level. This segmentation may be provided by using multiple physical servers, but modern hypervisors also provide strong enough isolation to effectively mitigate these risks. From the previous example, this may mean that the organization has two sensitivity levels for their containers. One is for financial apps and the database is included in that group. The other is for web apps and the blog is included in that group. The organization would then have two pools of VMs that would each host containers of a single severity level. For example, the host called vm-financial may host the containers running the financial database as well as the tax reporting software, while a host called vm-web may host the blog and the public website. By segmenting containers in this manner, it will be much more difficult for an attacker who compromises one of the segments to expand that compromise to other segments. An attacker who compromises a single server would have limited capabilities to perform reconnaissance and attacks on other containers of a similar sensitivity level and not have any additional access beyond it. This approach also ensures that any residual data, such as caches or local volumes mounted for temp files, stays within the data’s security zone. From the previous example, this zoning would ensure that any financial data cached locally and residually after container termination would never be available on a host running an app at a lower sensitivity level. In larger-scale environments with hundreds of hosts and thousands of containers, this segmentation must be automated to be practical to operationalize. Fortunately, common orchestration platforms typically include some notion of being able to group apps together, and",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.3.5",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Orchestrator Risks",
+        "title": "Orchestrator node trust",
+        "content_description": "Maintenance of trust between the nodes in the environment requires special care. The orchestrator is the most foundational node. Weak orchestrator configurations can expose the orchestrator and all other container technology components to increased risk. Examples of possible consequences include: • Unauthorized hosts joining the cluster and running containers • The compromise of a single cluster host implying compromise of the entire cluster—for example, if the same key pairs used for authentication are shared across all nodes • Communications between the orchestrator and DevOps personnel, administrators, and hosts being unencrypted and unauthenticated 3.4 Container Risks",
+        "content_remediation": "Orchestration platforms should be configured to provide features that create a secure environment for all the apps they run. Orchestrators should ensure that nodes are securely introduced to the cluster, have a persistent identity throughout their lifecycle, and can also provide an accurate inventory of nodes and their connectivity states. Organizations should ensure that orchestration platforms are designed specifically to be resilient to compromise of individual nodes without compromising the overall security of the cluster. A compromised node must be able to be isolated and removed from the cluster without disrupting or degrading overall cluster operations. Finally, organizations should choose orchestrators that provide mutually authenticated network connections between cluster members and end-to-end encryption of intra- cluster traffic. Because of the portability of containers, many deployments may occur across networks organizations do not directly control, so a secure-by-default posture is particularly important for this scenario. 4.4 Container Countermeasures",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.4.1",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Container Risks",
+        "title": "Vulnerabilities within the runtime software",
+        "content_description": "While relatively uncommon, vulnerabilities within the runtime software are particularly dangerous if they allow ‘container escape’ scenarios in which malicious software can attack resources in other containers and the host OS itself. An attacker may also be able to exploit vulnerabilities to compromise the runtime software itself, and then alter that software so it allows the attacker to access other containers, monitor container-to-container communications, etc.",
+        "content_remediation": "The container runtime must be carefully monitored for vulnerabilities, and when problems are detected, they must be remediated quickly. A vulnerable runtime exposes all containers it supports, as well as the host itself, to potentially significant risk. Organizations should use tools to look for Common Vulnerabilities and Exposures (CVEs) vulnerabilities in the runtimes deployed, to upgrade any instances at risk, and to ensure that orchestrators only allow deployments to properly maintained runtimes.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.4.2",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Container Risks",
+        "title": "Unbounded network access from containers",
+        "content_description": "By default in most container runtimes, individual containers are able to access each other and the host OS over the network. If a container is compromised and acting maliciously, allowing this network traffic may expose other resources in the environment to risk. For example, a compromised container may be used to scan the network it is connected to in order to find other weaknesses for an attacker to exploit. This risk is related to that from poorly separated virtual networks, as discussed in Section 3.3.3, but different because it is focused more on flows from containers to any outbound destination, not on app “cross talk” scenarios. Egress network access is more complex to manage in a containerized environment because so much of the connection is virtualized between containers. Thus, traffic from one container to another may appear simply as encapsulated packets on the network without directly indicating the ultimate source, destination, or payload. Tools and operational processes that are not container aware are not able to inspect this traffic or determine whether it represents a threat.",
+        "content_remediation": "Organizations should control the egress network traffic sent by containers. At minimum, these controls should be in place at network borders, ensuring containers are not able to send traffic across networks of differing sensitivity levels, such as from an environment hosting secure data to the internet, similar to the patterns used for traditional architectures. However, the virtualized networking model of inter-container traffic poses an additional challenge. Because containers deployed across multiple hosts typically communicate over a virtual, encrypted network, traditional network devices are often blind to this traffic. Additionally, containers are typically assigned dynamic IP addresses automatically when deployed by orchestrators, and these addresses change continuously as the app is scaled and load balanced. Thus, ideally, organizations should use a combination of existing network level devices and more app-aware network filtering. App-aware tools should be able to not just see the inter- container traffic, but also to dynamically generate the rules used to filter this traffic based on the",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.4.3",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Container Risks",
+        "title": "Insecure container runtime configurations",
+        "content_description": "Container runtimes typically expose many configurable options to administrators. Setting them improperly can lower the relative security of the system. For example, on Linux container hosts, the set of allowed system calls is often limited by default to only those required for safe operation of containers. If this list is widened, it may expose containers and the host OS to increased risk from a compromised container. Similarly, if a container is run in privileged mode, it has access to all the devices on the host, thus allowing it to essentially act as part of the host OS and impact all other containers running on it. Another example of an insecure runtime configuration is allowing containers to mount sensitive directories on the host. Containers should rarely make changes to the host OS file system and should almost never make changes to locations that control the basic functionality of the host OS (e.g., /boot or /etc for Linux containers, C:\\Windows for Windows containers). If a compromised container is allowed to make changes to these paths, it could be used to elevate privileges and attack the host itself as well as other containers running on the host.",
+        "content_remediation": "Organizations should automate compliance with container runtime configuration standards. Documented technical implementation guidance, such as the Center for Internet Security Docker Benchmark [20], provides details on options and recommended settings, but operationalizing this guidance depends on automation. Organizations can use a variety of tools to “scan” and assess their compliance at a point in time, but such approaches do not scale. Instead, organizations should use tools or processes that continuously assess configuration settings across the environment and actively enforce them. Additionally, mandatory access control (MAC) technologies like SELinux [21] and AppArmor [22] provide enhanced control and isolation for containers running Linux OSs. For example, these technologies can be used to provide additional segmentation and assurance that containers should only be able to access specific file paths, processes, and network sockets, further constraining the ability of even a compromised container to impact the host or other containers. MAC technologies provide protection at the host OS layer, ensuring that only specific files, paths, and processes are accessible to containerized apps. Organizations are encouraged to use the MAC technologies provided by their host OSs in all container deployments. Secure computing (seccomp)7 profiles are another mechanism that can be used to constrain the system-level capabilities containers are allocated at runtime. Common container runtimes like Docker include default seccomp profiles that drop system calls that are unsafe and typically unnecessary for container operation. Additionally, custom profiles can be created and passed to container runtimes to further limit their capabilities. At a minimum, organizations should ensure that containers are run with the default profiles provided by their runtime and should consider using additional profiles for high-risk apps.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.4.4",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Container Risks",
+        "title": "App vulnerabilities",
+        "content_description": "Even when organizations are taking the precautions recommended in this guide, containers may still be compromised due to flaws in the apps they run. This is not a problem with containers themselves, but instead is just the manifestation of typical software flaws within a container environment. For example, a containerized web app may be vulnerable to cross-site scripting vulnerabilities, and a database front end container may be subject to Structured Query Language (SQL) injection. When a container is compromised, it can be misused in many ways, such as granting unauthorized access to sensitive information or enabling attacks against other containers or the host OS.",
+        "content_remediation": "Existing host-based intrusion detection processes and tools are often unable to detect and prevent attacks within containers due to the differing technical architecture and operational practices For more information on seccomp, see https://www.kernel.org/doc/Documentation/prctl/seccomp_filter.txt.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.4.5",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Container Risks",
+        "title": "Rogue containers",
+        "content_description": "Rogue containers are unplanned or unsanctioned containers in an environment. This can be a common occurrence, especially in development environments, where app developers may launch containers as a means of testing their code. If these containers are not put through the rigors of vulnerability scanning and proper configuration, they may be more susceptible to exploits. Rogue containers therefore pose additional risk to the organization, especially when they persist in the environment without the awareness of development teams and security administrators. 3.5 Host OS Risks",
+        "content_remediation": "Organizations should institute separate environments for development, test, production, and other scenarios, each with specific controls to provide role-based access control for container deployment and management activities. All container creation should be associated with individual user identities and logged to provide a clear audit trail of activity. Further, organizations are encouraged to use security tools that can enforce baseline requirements for vulnerability management and compliance prior to allowing an image to be run. 4.5 Host OS Countermeasures",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.5.1",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Host OS Risks",
+        "title": "Large attack surface",
+        "content_description": "Every host OS has an attack surface, which is the collection of all ways attackers can attempt to access and exploit the host OS’s vulnerabilities. For example, any network-accessible service provides a potential entry point for attackers, adding to the attack surface. The larger the attack surface is, the better the odds are that an attacker can find and access a vulnerability, leading to a compromise of the host OS and the containers running on top of it.",
+        "content_remediation": "For organizations using container-specific OSs, the threats are typically more minimal to start with since the OSs are specifically designed to host containers and have other services and functionality disabled. Further, because these optimized OSs are designed specifically for hosting containers, they typically feature read-only file systems and employ other hardening practices by default. Whenever possible, organizations should use these minimalistic OSs to reduce their attack surfaces and mitigate the typical risks and hardening activities associated with general-purpose OSs. Organizations that cannot use a container-specific OS should follow the guidance in NIST SP 800-123, Guide to General Server Security [23] to reduce the attack surface of their hosts as much as possible. For example, hosts that run containers should only run containers and not run other apps, like a web server or database, outside of containers. The host OS should not run unnecessary system services, such as a print spooler, that increase its attack and patching surface areas. Finally, hosts should be continuously scanned for vulnerabilities and updates applied",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.5.2",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Host OS Risks",
+        "title": "Shared kernel",
+        "content_description": "Container-specific OSs have a much smaller attack surface than that of general-purpose OSs. For example, they do not contain libraries and package managers that enable a general-purpose OS to directly run database and web server apps. However, although containers provide strong software-level isolation of resources, the use of a shared kernel invariably results in a larger inter-object attack surface than seen with hypervisors, even for container-specific OSs. In other words, the level of isolation provided by container runtimes is not as high as that provided by hypervisors.",
+        "content_remediation": "In addition to grouping container workloads onto hosts by sensitivity level, organizations should not mix containerized and non-containerized workloads on the same host instance. For example, if a host is running a web server container, it should not also run a web server (or any other app) as a regularly installed component directly within the host OS. Keeping containerized workloads isolated to container-specific hosts makes it simpler and safer to apply countermeasures and defenses that are optimized for protecting containers.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.5.3",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Host OS Risks",
+        "title": "Host OS component vulnerabilities",
+        "content_description": "All host OSs, even container-specific ones, provide foundational system components—for example, the cryptographic libraries used to authenticate remote connections and the kernel primitives used for general process invocation and management. Like any other software, these components can have vulnerabilities and, because they exist low in the container technology architecture, they can impact all the containers and apps that run on these hosts.",
+        "content_remediation": "Organizations should implement management practices and tools to validate the versioning of components provided for base OS management and functionality. Even though container- specific OSs have a much more minimal set of components than general-purpose OSs, they still do have vulnerabilities and still require remediation. Organizations should use tools provided by the OS vendor or other trusted organizations to regularly check for and apply updates to all software components used within the OS. The OS should be kept up to date not only with security updates, but also the latest component updates recommended by the vendor. This is particularly important for the kernel and container runtime components as newer releases of these components often add additional security protections and capabilities beyond simply correcting vulnerabilities. Some organizations may choose to simply redeploy new OS instances with the necessary updates, rather than updating existing systems. This approach is also valid, although it often requires more sophisticated operational practices. Host OSs should be operated in an immutable manner with no data or state stored uniquely and persistently on the host and no application-level dependencies provided by the host. Instead, all app components and dependencies should be packaged and deployed in containers. This enables the host to be operated in a nearly stateless manner with a greatly reduced attack surface. Additionally, it provides a more trustworthy way to identify anomalies and configuration drift.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.5.4",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Host OS Risks",
+        "title": "Improper user access rights",
+        "content_description": "Container-specific OSs are typically not optimized to support multiuser scenarios since interactive user logon should be rare. Organizations are exposed to risk when users log on directly to hosts to manage containers, rather than going through an orchestration layer. Direct management enables wide-ranging changes to the system and all containers on it, and can potentially enable a user that only needs to manage a specific app’s containers to impact many others.",
+        "content_remediation": "Though most container deployments rely on orchestrators to distribute jobs across hosts, organizations should still ensure that all authentication to the OS is audited, login anomalies are monitored, and any escalation to perform privileged operations is logged. This makes it possible to identify anomalous access patterns such as an individual logging on to a host directly and running privileged commands to manipulate containers.",
+        "details": {}
+    },
+    {
+        "id": "NIST-3.5.5",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Major Risks and Countermeasures",
+        "category_l2": "Host OS Risks",
+        "title": "Host OS file system tampering",
+        "content_description": "Insecure container configurations can expose host volumes to greater risk of file tampering. For example, if a container is allowed to mount sensitive directories on the host OS, that container can then change files in those directories. These changes could impact the stability and security of the host and all other containers running on it.",
+        "content_remediation": "Ensure that containers are run with the minimal set of file system permissions required. Very rarely should containers mount local file systems on a host. Instead, any file changes that containers need to persist to disk should be made within storage volumes specifically allocated for this purpose. In no case should containers be able to mount sensitive directories on a host’s file system, especially those containing configuration settings for the operating system.",
+        "details": {}
+    },
+    {
+        "id": "NIST-5.1",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Container Threat Scenarios",
+        "category_l2": "Exploit of a Vulnerability within an Image",
+        "title": "Exploit of a Vulnerability within an Image",
+        "content_description": "One of the most common threats to a containerized environment is application-level vulnerabilities in the software within containers. For example, an organization may build an image based on a common web app. If that app has a vulnerability, it may be used to subvert the app within the container. Once compromised, the attacker may be able to map other systems in the environment, attempt to elevate privileges within the compromised container, or abuse the container for use in attacks on other systems (such as acting as a file dropper or command and control endpoint). Organizations that adopt the recommended countermeasures would have multiple layers of defense in depth against such threats: 1. Detecting the vulnerable image early in the deployment process and having controls in place to prevent vulnerable images from being deployed would prevent the vulnerability from being introduced into production. 2. Container-aware network monitoring and filtering would detect anomalous connections to other containers during the attempt to map other systems. 3. Container-aware process monitoring and malware detection would detect the running of invalid or unexpected malicious processes and the data they introduce into the environment.",
+        "content_remediation": "",
+        "details": {}
+    },
+    {
+        "id": "NIST-5.2",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Container Threat Scenarios",
+        "category_l2": "Exploit of the Container Runtime",
+        "title": "Exploit of the Container Runtime",
+        "content_description": "While an uncommon occurrence, if a container runtime were compromised, an attacker could utilize this access to attack all the containers on the host and even the host itself.",
+        "content_remediation": "Relevant mitigations for this threat scenario include: 1. The usage of mandatory access control capabilities can provide additional barriers to ensure that process and file system activity is still segmented within the defined boundaries. 2. Segmentation of workloads ensures that the scope of the compromise would be limited to apps of a common sensitivity level that are sharing the host. For example, a compromised runtime on a host only running web apps would not impact runtimes on other hosts running containers for financial apps. 3. Security tools that can report on the vulnerability state of runtimes and prevent the deployment of images to vulnerable runtimes can prevent workloads from running there.",
+        "details": {}
+    },
+    {
+        "id": "NIST-5.3",
+        "source": "NIST.SP.800-190.pdf",
+        "category_l1": "Container Threat Scenarios",
+        "category_l2": "Running a Poisoned Image",
+        "title": "Running a Poisoned Image",
+        "content_description": "Because images are easily sourced from public locations, often with unknown provenance, an attacker may embed malicious software within images known to be used by a target. For 31 example, if an attacker determines that a target is active on a discussion board about a particular project and uses images provided by that project’s web site, the attacker may seek to craft malicious versions of these images for use in an attack.",
+        "content_remediation": "Relevant mitigations include: 1. Ensuring that only vetted, tested, validated, and digitally signed images are allowed to be uploaded to an organization’s registries. 2. Ensuring that only trusted images are allowed to run, which will prevent images from external, unvetted sources from being used. 3. Automatically scanning images for vulnerabilities and malware, which may detect malicious code such as rootkits embedded within an image. 4. Implementing runtime controls that limit the container's ability to abuse resources, escalate privileges, and run executables. 5. Using container-level network segmentation to limit the “blast radius” of what the poisoned image might do. 6. Validating a container runtime operates following least-privilege and least-access principles. 7. Building a threat profile of the container's runtime. This includes, but is not limited to, processes, network calls, and filesystem changes. 8. Validating the integrity of images before runtime by leveraging hashes and digital signatures. 9. Restrict images from being run based on rules establishing acceptable vulnerability severity levels. For example, prevent images with vulnerabilities that have a Moderate or higher CVSS rating from being run.",
+        "details": {}
+    }
+]

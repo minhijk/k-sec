@@ -1,5 +1,7 @@
 import streamlit as st
 import requests
+import time
+from concurrent.futures import ThreadPoolExecutor
 
 # --- 페이지 설정 ---
 st.set_page_config(
@@ -24,17 +26,44 @@ if "initial_analysis_result" not in st.session_state:
 if "analysis_complete" not in st.session_state:
     st.session_state.analysis_complete = False
 
-# --- 로직 함수 ---
+
+# --- 로직 함수 (백엔드 요청) ---
+def perform_analysis_request(task_id, question):
+    """백엔드에 분석을 요청하는 블로킹 호출"""
+    start_req_time = time.time()
+    try:
+        payload = {"task_id": task_id, "question": question}
+        response = requests.post(BACKEND_GENERATE_URL, json=payload, timeout=300)
+        response.raise_for_status()
+        result_data = response.json()
+        end_req_time = time.time()
+        elapsed_time = end_req_time - start_req_time
+        return result_data, elapsed_time
+    except requests.exceptions.RequestException as e:
+        return {"error": f"백엔드 서버와 통신 중 오류가 발생했습니다: {e}"}, 0
+
+def perform_chat_request(chat_payload):
+    """백엔드에 챗 응답을 요청하는 블로킹 호출"""
+    start_req_time = time.time()
+    try:
+        response = requests.post(BACKEND_CHAT_URL, json=chat_payload, timeout=300)
+        response.raise_for_status()
+        result_text = response.json().get("result", "답변을 받아오지 못했습니다.")
+        end_req_time = time.time()
+        elapsed_time = end_req_time - start_req_time
+        return result_text, elapsed_time
+    except requests.exceptions.RequestException as e:
+        return f"백엔드 서버와 통신 중 오류가 발생했습니다: {e}", 0
+
 def handle_file_upload():
     """파일 업로더의 on_change 콜백. 백엔드에 사전 분석을 요청합니다."""
     if st.session_state.file_uploader_key:
         uploaded_file = st.session_state.file_uploader_key
         try:
-            # 사전 분석이 이미 시작되었다면 다시 요청하지 않음
             if st.session_state.analysis_task_id is None:
                 st.info("파일을 수신했습니다. 백그라운드에서 분석을 준비합니다...")
                 files = {'file': (uploaded_file.name, uploaded_file.getvalue(), 'application/x-yaml')}
-                response = requests.post(BACKEND_PREPARE_URL, files=files)
+                response = requests.post(BACKEND_PREPARE_URL, files=files, timeout=60)
                 response.raise_for_status()
                 task_id = response.json().get("task_id")
                 st.session_state.analysis_task_id = task_id
@@ -48,9 +77,8 @@ with st.sidebar:
     st.markdown("---")
 
     if st.session_state.analysis_complete:
-        st.info("현재 분석이 완료되었습니다.")
+        st.success("분석이 완료되었습니다. 이제 자유롭게 질문하세요.")
         if st.button("🔄️ 새 분석 시작하기", use_container_width=True):
-            # 모든 세션 상태 초기화
             keys_to_delete = list(st.session_state.keys())
             for key in keys_to_delete:
                 del st.session_state[key]
@@ -67,61 +95,164 @@ with st.sidebar:
     
     default_question = "이 YAML 파일의 내용을 분석하고, 주요 설정과 잠재적인 보안 취약점에 대해 종합적으로 설명해 줘."
     question = st.text_area(
-        "분석 요청 또는 질문:",
-        value=default_question, height=100,
-        disabled=st.session_state.analysis_complete
+        label="분석 요청 또는 질문:",
+        value=default_question,
+        disabled=st.session_state.analysis_complete,
+        label_visibility="visible" # Label을 DOM에서 찾기 위해 명시적으로 설정
     )
+
+    # Text Area 자동 높이 조절을 위한 JS
+    auto_resize_script = """
+    <script>
+    const tx = parent.document.querySelector('textarea[aria-label="분석 요청 또는 질문:"]');
+    if (tx) {
+        function autoResize() {
+            tx.style.height = 'auto';
+            tx.style.height = (tx.scrollHeight) + 'px';
+        }
+        tx.addEventListener("input", autoResize, false);
+        // 페이지 로드 시 초기 높이 조절
+        setTimeout(autoResize, 200);
+    }
+    </script>
+    """
+    st.components.v1.html(auto_resize_script, height=0)
+
 
     if st.button("🚀 분석 시작!", type="primary", use_container_width=True, disabled=st.session_state.analysis_complete):
         if st.session_state.analysis_task_id and question:
-            with st.spinner("전문가가 최종 분석 보고서를 작성 중입니다... (사전 분석 결과에 따라 더 빠를 수 있습니다)"):
-                try:
-                    payload = {"task_id": st.session_state.analysis_task_id, "question": question}
-                    response = requests.post(BACKEND_GENERATE_URL, json=payload)
-                    response.raise_for_status()
-                    result_data = response.json()
+            progress_placeholder = st.empty()
+            start_time = time.time()
+            
+            analysis_steps = [
+                "YAML 유효성 검사 및 구문 분석",
+                "컨테이너 취약점 분석",
+                "보안 벤치마크 및 가이드라인 검색 (RAG)",
+                "사전 분석 결과 취합",
+                "LLM을 통한 종합 보안 보고서 생성",
+                "최종 보고서 포맷팅 및 완료"
+            ]
+            
+            with ThreadPoolExecutor() as executor:
+                future = executor.submit(perform_analysis_request, st.session_state.analysis_task_id, question)
+                
+                total_duration_estimate = 30  # 전체 분석 과정에 대한 예상 시간
+                step_duration = total_duration_estimate / len(analysis_steps)
 
-                    if "error" in result_data:
-                        st.error(result_data["error"])
-                    else:
-                        st.session_state.analysis_complete = True
-                        st.session_state.initial_analysis_result = result_data.get("result", "")
-                        st.session_state.messages = [{"role": "user", "content": question}, {"role": "assistant", "content": st.session_state.initial_analysis_result}]
-                        st.rerun()
+                with st.spinner("전문가가 최종 분석 보고서를 작성 중입니다..."):
+                    while not future.done():
+                        elapsed = time.time() - start_time
+                        
+                        # 경과 시간에 따라 현재 단계를 계산하되, 마지막 단계를 넘지 않도록 수정
+                        current_step_index = min(int(elapsed / step_duration), len(analysis_steps) - 1)
+                        
+                        progress_message = f"""
+                        <div style="font-size: 1rem; color: #333; line-height: 1.6;">
+                            <div>⏳ **분석 진행 중...** (경과 시간: <b>{elapsed:.1f}초</b>)</div>
+                            <div style="margin-top: 8px;">⚙️ 현재 단계: <strong>{analysis_steps[current_step_index]}...</strong></div>
+                        </div>
+                        """
+                        progress_placeholder.markdown(progress_message, unsafe_allow_html=True)
+                        time.sleep(0.1)
+                
+                progress_placeholder.empty()
+                result_data, elapsed_time = future.result()
 
-                except requests.exceptions.RequestException as e:
-                    st.error(f"백엔드 서버와 통신 중 오류가 발생했습니다: {e}")
+                if "error" in result_data:
+                    st.error(result_data["error"])
+                else:
+                    st.session_state.analysis_complete = True
+                    raw_result = result_data.get("result", "")
+                    st.session_state.initial_analysis_result = raw_result
+                    
+                    formatted_report = (
+                        f"### 🛡️ 초기 분석 보고서\n\n"
+                        f"{raw_result}\n\n"
+                        f"---\n"
+                        f"_*분석 소요 시간: **{elapsed_time:.2f}초**_"
+                    )
+                    st.session_state.messages = [
+                        {"role": "user", "content": question},
+                        {"role": "assistant", "content": formatted_report}
+                    ]
+                    st.rerun()
         else:
             st.warning("먼저 YAML 파일을 업로드하고 질문을 입력해주세요.")
 
 # --- 메인 화면 UI ---
 if not st.session_state.messages:
-    st.header("K-SEC Copilot에 오신 것을 환영합니다!")
-    st.info("👈 왼쪽 사이드바에 분석할 YAML 파일을 업로드하여 보안 분석을 시작하세요.")
+    st.header("🛡️ K-SEC Copilot에 오신 것을 환영합니다!")
+    st.markdown("쿠버네티스 보안 분석, 이제 전문가에게 맡기세요.")
+    with st.container(border=True):
+        st.markdown("""
+        #### **🚀 시작 가이드**
+        1.  👈 **왼쪽 사이드바**에 분석할 `YAML` 파일을 업로드하세요.
+        2.  📝 기본 분석 요청을 확인하거나 직접 질문을 수정하세요.
+        3.  🚀 **분석 시작!** 버튼을 눌러 종합 보안 분석 보고서를 받아보세요.
+        4.  💬 분석 완료 후, 채팅을 통해 궁금한 점을 추가로 질문할 수 있습니다.
+        """)
+    st.info("보안 분석을 시작하려면 왼쪽 사이드바에서 파일을 업로드하세요.")
 else:
     st.header("💬 분석 채팅")
-    for msg in st.session_state.messages:
-        with st.chat_message(msg["role"], avatar="👤" if msg["role"] == "user" else "🛡️"):
-            st.markdown(msg["content"])
     
-    if prompt := st.chat_input("분석 결과에 대해 추가 질문을 입력하세요...", disabled=not st.session_state.analysis_complete):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user", avatar="👤"):
-            st.markdown(prompt)
+    chat_container = st.container(height=600)
+    for msg in st.session_state.messages:
+        with chat_container.chat_message(msg["role"], avatar="👤" if msg["role"] == "user" else "🛡️"):
+            st.markdown(msg["content"], unsafe_allow_html=True)
+            # 어시스턴트의 답변 중 time 키가 있는 경우(후속 채팅)에만 소요 시간을 별도로 표시
+            if msg.get("role") == "assistant" and "time" in msg:
+                st.markdown(f"_*<small>답변 소요 시간: {msg['time']:.2f}초</small>*_", unsafe_allow_html=True)
 
+
+    if st.session_state.messages and st.session_state.messages[-1]["role"] != "user":
+        if prompt := st.chat_input("분석 결과에 대해 추가 질문을 입력하세요...", disabled=not st.session_state.analysis_complete):
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+
+    if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
+        user_prompt = st.session_state.messages[-1]["content"]
+        
         with st.chat_message("assistant", avatar="🛡️"):
-            with st.spinner("답변을 생각하는 중..."):
-                try:
-                    chat_payload = {
-                        "initial_analysis": st.session_state.initial_analysis_result,
-                        "chat_history": st.session_state.messages[:-1],
-                        "new_question": prompt
-                    }
-                    response = requests.post(BACKEND_CHAT_URL, json=chat_payload)
-                    response.raise_for_status()
-                    result_text = response.json().get("result", "답변을 받아오지 못했습니다.")
-                    st.markdown(result_text)
-                    st.session_state.messages.append({"role": "assistant", "content": result_text})
-                except requests.exceptions.RequestException as e:
-                    st.error(f"백엔드 서버와 통신 중 오류가 발생했습니다: {e}")
+            message_container = st.empty()
+            start_time = time.time()
+            
+            # 백엔드로 보낼 채팅 기록에서 time 같은 추가 정보를 제외하고 순수 대화 내용만 추출
+            history_for_payload = [
+                {"role": m["role"], "content": m["content"]} for m in st.session_state.messages[:-1]
+            ]
 
+            chat_payload = {
+                "initial_analysis": st.session_state.initial_analysis_result,
+                "chat_history": history_for_payload,
+                "new_question": user_prompt
+            }
+
+            with ThreadPoolExecutor() as executor:
+                future = executor.submit(perform_chat_request, chat_payload)
+                
+                while not future.done():
+                    elapsed = time.time() - start_time
+                    message_container.markdown(f"**답변 생성 중...** ⏱️ `{elapsed:.1f}`초")
+                    time.sleep(0.1)
+                
+                result_text, elapsed_time = future.result()
+
+                # 답변 내용과 소요 시간을 UI에 임시로 함께 표시
+                display_content = (
+                    f"{result_text}\n\n"
+                    f"_*<small>답변 소요 시간: {elapsed_time:.2f}초</small>*_"
+                )
+                message_container.markdown(display_content, unsafe_allow_html=True)
+                
+                # 세션 상태에는 답변 내용과 소요 시간을 분리하여 저장
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": result_text,
+                    "time": elapsed_time
+                })
+
+                if 'response_sent' not in st.session_state or not st.session_state.response_sent:
+                    st.session_state.response_sent = True
+                    st.rerun()
+    else:
+        st.session_state.response_sent = False

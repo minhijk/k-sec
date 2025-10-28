@@ -147,7 +147,7 @@ if __name__ == "__main__":
 
         pre_vector_data = [{"page_content": doc.page_content, "metadata": doc.metadata} for doc in chunk]
         
-        pre_vector_file = 'pre_vectors.json'
+        pre_vector_file = 'vector/pre_vectors.json'
         with open(pre_vector_file, 'w', encoding='utf-8') as f:
             json.dump(pre_vector_data, f, ensure_ascii=False, indent=2)
         print(f"벡터화 전 Document 내용을 '{pre_vector_file}'에 저장 완료")
@@ -163,7 +163,7 @@ if __name__ == "__main__":
         print("임베딩 완료")
         print(f"\n총 {len(vectors)}개의 벡터 생성\n")
 
-        output_file = 'vectors.json'
+        output_file = 'vector/vectors.json'
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(vectors, f, ensure_ascii=False, indent=2)
         print(f"임베딩 결과를 '{output_file}'에 저장 완료")

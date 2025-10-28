@@ -40,8 +40,8 @@ def load_vectors(file_path: str) -> list[list[float]]:
     return []
 
 def main():
-    original_documents_file = 'pre_vectors.json'
-    precomputed_vectors_file = 'vectors.json'
+    original_documents_file = 'vector/pre_vectors.json'
+    precomputed_vectors_file = 'vector/vectors.json'
 
     print("단계 1: 원본 문서(텍스트, 메타데이터)와 사전 계산된 벡터를 로드합니다.")
     texts, metadatas = load_texts_and_metadata(original_documents_file)

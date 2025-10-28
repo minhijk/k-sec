@@ -11,7 +11,7 @@ def get_llm():
         # 이곳에 API 키와 Base URL을 직접 입력합니다.
         # 환경 변수를 더 이상 사용하지 않습니다.
         
-        api_key = "sk-b45c7a88eb304c4fba997b63c084cadf"
+        api_key = "sk-2a4f43c6815f45648c5285b4fe877fde"
         base_url = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
 
         # API 키가 비어 있는지 확인

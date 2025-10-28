@@ -4,10 +4,15 @@ from fastapi import FastAPI, BackgroundTasks, UploadFile, File, Form
 from pydantic import BaseModel
 from typing import Dict
 
+from dotenv import load_dotenv
+from langsmith import traceable
+
 from fastapi.middleware.cors import CORSMiddleware
 from rag_pipeline import prepare_analysis, generate_analysis_answer, continue_chat
 
 app = FastAPI()
+
+load_dotenv()
 
 # --- CORS 설정 ---
 origins = ["http://localhost:8501"]
@@ -33,6 +38,7 @@ class ChatRequest(BaseModel):
     new_question: str
 
 # --- 백그라운드에서 실행될 실제 분석 함수 ---
+@traceable(run__type="chain")
 def run_prepare_in_background(task_id: str, yaml_content: str):
     """[백그라운드] YAML 사전 분석만 수행하여 결과를 저장합니다."""
     print(f" -> [BackgroundTask] Prepare Task {task_id}: 사전 분석 시작...")

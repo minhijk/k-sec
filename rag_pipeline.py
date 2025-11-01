@@ -57,11 +57,17 @@ def format_analysis_results(analysis_results: list) -> str:
     for i, result in enumerate(analysis_results, start=1):
         doc = result.get('source_document', {}) or {}
         header = f"[{i}]"
+
+        es_hit = doc.get('metadata', {}) or {}
+        source_field = doc.get('_source', {}) or {}
+        metadata = source_field.get('metadata') or {}
+        content = source_field.get('content', '내용 없음')
+
         metadata_lines = []
-        metadata = doc.get('metadata') or {}
         for key, value in metadata.items():
             metadata_lines.append(f"  - {key}: {value}")
         metadata_str = "\n".join(metadata_lines)
+
         content = doc.get('content', '내용 없음')
         full_doc_str = f"{header}\n[METADATA]\n{metadata_str}\n[CONTENT]\n{content}"
         lines.append(full_doc_str)
@@ -77,11 +83,40 @@ def debug_source_counts(analysis_results: list):
         return
     c = Counter()
     for r in analysis_results:
-        meta = ((r.get('source_document', {}) or {}).get('metadata') or {})
+        doc = r.get('source_document', {}) or {}
+        es_hit = doc.get('metadata', {}) or {}
+        source_field = doc.get('_source', {}) or {}
+
+        meta = source_field.get('metadata') or {}
         src = meta.get('source') or 'UNKNOWN'
         c[src] += 1
     print("[RAG] source counts:", dict(c))
 
+def format_references(analysis_results: list) -> str:
+    """
+    [NEW] RAG 검색 결과에서 참고 자료 리스트를 [n]: source (ID: id) 형태로 생성.
+    """
+    if not analysis_results:
+        return "참고 자료를 찾을 수 없습니다."
+    
+    lines = []
+    for i, result in enumerate(analysis_results, start=1):
+        # 'source_document'는 ES 'hit' 전체로 보임
+        doc = result.get('source_document', {}) or {}
+        
+        # ES _source 필드 내부의 metadata에 접근
+        es_hit = doc.get('metadata', {}) or {}
+        source_field = es_hit.get('_source', {}) or {}
+        metadata = source_field.get('metadata') or {}
+        
+        # 중첩된 metadata 필드에서 'source'와 'id' 추출
+        source_file = metadata.get('source', 'UNKNOWN_SOURCE')
+        doc_id = metadata.get('id', 'UNKNOWN_ID') 
+        
+        # 프롬프트 템플릿의 예시 형식([1]: source (ID: id))과 일치시킴
+        lines.append(f"{i}. {source_file} (ID: {doc_id})")
+        
+    return "\n".join(lines)
 
 # 금지/교정 패턴: 틀린 결론 나오면 1회 재시도 트리거
 FORBIDDEN_PATTERNS = [
@@ -140,11 +175,13 @@ def prepare_analysis(yaml_content: str) -> dict:
         if 'error' in analysis_data:
             return {"error": f"db_handler 오류: {analysis_data['error']}"}
 
+        analysis_results = analysis_data.get("analysis_results", [])
         # 출처 편향 진단 로그
-        debug_source_counts(analysis_data.get("analysis_results", []))
+        debug_source_counts(analysis_results)
 
         # 검색된 컨텍스트를 LLM에게 전달할 형태로 포맷팅
         formatted_context = format_analysis_results(analysis_data.get("analysis_results", []))
+        formatted_references = format_references(analysis_results)
 
         # 컨텍스트 내 주제 존재 여부 플래그(주제 가드 보조)
         ctx_lower = formatted_context.lower()
@@ -167,6 +204,7 @@ def prepare_analysis(yaml_content: str) -> dict:
             "retrieved_context": formatted_context,
             "yaml_content": analysis_data.get("analyzed_yaml_content", ""),
             "policy_facts": policy_facts,
+            "formatted_references": formatted_references,
         }
         return {"status": "success", "prepared_data": prepared_data}
     except Exception as e:

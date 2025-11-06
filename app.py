@@ -25,14 +25,16 @@ if "initial_analysis_result" not in st.session_state:
     st.session_state.initial_analysis_result = ""
 if "analysis_complete" not in st.session_state:
     st.session_state.analysis_complete = False
+if "selected_mode" not in st.session_state:
+    st.session_state.selected_mode = "user"
 
 
 # --- 로직 함수 (백엔드 요청) ---
-def perform_analysis_request(task_id, question):
+def perform_analysis_request(task_id, question, mode):
     """백엔드에 분석을 요청하는 블로킹 호출"""
     start_req_time = time.time()
     try:
-        payload = {"task_id": task_id, "question": question}
+        payload = {"task_id": task_id, "question": question, "mode": mode}  # ⭐ mode 추가
         response = requests.post(BACKEND_GENERATE_URL, json=payload, timeout=300)
         response.raise_for_status()
         result_data = response.json()
@@ -63,10 +65,20 @@ def handle_file_upload():
             if st.session_state.analysis_task_id is None:
                 st.info("파일을 수신했습니다. 백그라운드에서 분석을 준비합니다...")
                 files = {'file': (uploaded_file.name, uploaded_file.getvalue(), 'application/x-yaml')}
-                response = requests.post(BACKEND_PREPARE_URL, files=files, timeout=60)
+                data = {
+                    'mode': st.session_state.get('selected_mode', 'user')
+                }
+
+                response = requests.post(
+                    BACKEND_PREPARE_URL,
+                    files=files,
+                    data=data,
+                    timeout=60
+                )
                 response.raise_for_status()
                 task_id = response.json().get("task_id")
                 st.session_state.analysis_task_id = task_id
+                st.session_state.analysis_mode = data['mode']
         except requests.exceptions.RequestException as e:
             st.error(f"파일 준비 중 오류가 발생했습니다: {e}")
             st.session_state.analysis_task_id = None
@@ -77,7 +89,11 @@ with st.sidebar:
     st.markdown("---")
 
     if st.session_state.analysis_complete:
-        st.success("분석이 완료되었습니다. 이제 자유롭게 질문하세요.")
+        # ⭐ 분석 완료 시 사용된 모드 표시
+        completed_mode = st.session_state.get("analysis_mode", "user")
+        mode_name = "전문가 모드" if completed_mode == "expert" else "일반 사용자 모드"
+        st.success(f"✅ {mode_name}로 분석이 완료되었습니다.")
+        
         if st.button("🔄️ 새 분석 시작하기", use_container_width=True):
             keys_to_delete = list(st.session_state.keys())
             for key in keys_to_delete:
@@ -85,6 +101,36 @@ with st.sidebar:
             st.rerun()
     
     st.header("1. 분석 설정")
+
+    # 모드 선택 토글
+    mode_label = "분석 모드 선택"
+    new_mode = st.radio(
+        label=mode_label,
+        options=["user", "expert"],
+        index=0 if st.session_state.get("selected_mode", "user") == "user" else 1,
+        format_func=lambda x: "일반 사용자 모드" if x == "user" else "전문가 모드",
+        help="일반 모드는 보고서 중심, 전문가 모드는 Diff 기반 상세 분석을 제공합니다.",
+        disabled=st.session_state.analysis_complete
+    )
+    
+    st.session_state.selected_mode = new_mode
+    
+    # 모드별 설명
+    if st.session_state.selected_mode == "expert":
+        st.info("""
+        🔧 **전문가 모드**
+        - Diff 형식의 상세 코드 수정안 제공
+        - 보안 영향 분석 포함
+        - 기술적 깊이 중심
+        """)
+    else:
+        st.info("""
+        📊 **일반 사용자 모드**
+        - 이해하기 쉬운 보고서 형식
+        - 위험도별 요약 제공
+        - 친절한 설명 중심
+        """)
+
     uploaded_file = st.file_uploader(
         "분석할 쿠버네티스 YAML 파일을 업로드하세요.",
         type=["yaml", "yml"],
@@ -98,7 +144,7 @@ with st.sidebar:
         label="분석 요청 또는 질문:",
         value=default_question,
         disabled=st.session_state.analysis_complete,
-        label_visibility="visible" # Label을 DOM에서 찾기 위해 명시적으로 설정
+        label_visibility="visible"
     )
 
     # Text Area 자동 높이 조절을 위한 JS
@@ -111,7 +157,6 @@ with st.sidebar:
             tx.style.height = (tx.scrollHeight) + 'px';
         }
         tx.addEventListener("input", autoResize, false);
-        // 페이지 로드 시 초기 높이 조절
         setTimeout(autoResize, 200);
     }
     </script>
@@ -121,6 +166,12 @@ with st.sidebar:
 
     if st.button("🚀 분석 시작!", type="primary", use_container_width=True, disabled=st.session_state.analysis_complete):
         if st.session_state.analysis_task_id and question:
+            # ⭐ 현재 모드 표시 및 저장
+            current_mode = st.session_state.get("selected_mode", "user")
+            st.session_state.analysis_mode = current_mode  # ← 최신 모드 저장!
+            mode_name = "전문가 모드" if current_mode == "expert" else "일반 사용자 모드"
+            st.info(f"🔍 {mode_name}로 분석을 시작합니다...")
+            
             progress_placeholder = st.empty()
             start_time = time.time()
             
@@ -134,16 +185,14 @@ with st.sidebar:
             ]
             
             with ThreadPoolExecutor() as executor:
-                future = executor.submit(perform_analysis_request, st.session_state.analysis_task_id, question)
+                future = executor.submit(perform_analysis_request, st.session_state.analysis_task_id, question, current_mode)
                 
-                total_duration_estimate = 30  # 전체 분석 과정에 대한 예상 시간
+                total_duration_estimate = 30
                 step_duration = total_duration_estimate / len(analysis_steps)
 
                 with st.spinner("전문가가 최종 분석 보고서를 작성 중입니다..."):
                     while not future.done():
                         elapsed = time.time() - start_time
-                        
-                        # 경과 시간에 따라 현재 단계를 계산하되, 마지막 단계를 넘지 않도록 수정
                         current_step_index = min(int(elapsed / step_duration), len(analysis_steps) - 1)
                         
                         progress_message = f"""
@@ -221,10 +270,12 @@ else:
                 {"role": m["role"], "content": m["content"]} for m in st.session_state.messages[:-1]
             ]
 
+            # ⭐ 채팅 요청에 mode 추가
             chat_payload = {
                 "initial_analysis": st.session_state.initial_analysis_result,
                 "chat_history": history_for_payload,
-                "new_question": user_prompt
+                "new_question": user_prompt,
+                "mode": st.session_state.get("analysis_mode", "user")  # ⭐ 추가
             }
 
             with ThreadPoolExecutor() as executor:

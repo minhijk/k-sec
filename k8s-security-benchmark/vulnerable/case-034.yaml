@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vuln-complex-09-hostpath-job
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: host-writer
+        image: busybox:1.36
+        command: ["echo", "test"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /host-data
+          name: host-vol
+      volumes:
+      - name: host-vol
+        hostPath:
+          path: /tmp/data

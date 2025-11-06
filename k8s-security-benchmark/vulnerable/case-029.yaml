@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: vuln-complex-04-namespace-admin
+  namespace: production
+rules:
+- apiGroups: ["", "apps", "extensions", "batch"]
+  resources: ["*"]
+  verbs: ["*"]

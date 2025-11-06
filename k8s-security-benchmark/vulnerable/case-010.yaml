@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vuln-single-10-writable-fs
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: writer
+        image: busybox:1.36
+        command: ["touch", "/testfile"]
+        securityContext:
+          readOnlyRootFilesystem: false

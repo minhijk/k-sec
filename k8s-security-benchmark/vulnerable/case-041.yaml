@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: vuln-complex-16-all-host-access
+spec:
+  selector:
+    matchLabels:
+      app: host-agent
+  template:
+    metadata:
+      labels:
+        app: host-agent
+    spec:
+      hostPID: true
+      hostIPC: true
+      hostNetwork: true
+      containers:
+      - name: agent
+        image: agent:1.0

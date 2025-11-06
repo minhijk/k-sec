@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vuln-complex-01-privileged-host-pod
+spec:
+  hostPID: true
+  hostNetwork: true
+  containers:
+  - name: full-access-container
+    image: nicolaka/netshoot:latest
+    command: ["sleep", "3600"]
+    securityContext:
+      privileged: true

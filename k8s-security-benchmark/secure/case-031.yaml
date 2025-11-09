@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vuln-complex-06-statefulset
+spec:
+  serviceName: "app"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: my-app:1.0.0
+        imagePullPolicy: Always
+        securityContext:
+          runAsNonRoot: true

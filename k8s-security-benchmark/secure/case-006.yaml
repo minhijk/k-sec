@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: vuln-single-06-hostnetwork
+spec:
+  selector:
+    matchLabels:
+      app: net-monitor
+  template:
+    metadata:
+      labels:
+        app: net-monitor
+    spec:
+      hostNetwork: false
+      containers:
+      - name: network-agent
+        image: nicolaka/netshoot:latest
+        command: ["sleep", "3600"]

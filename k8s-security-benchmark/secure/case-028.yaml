@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: vuln-complex-03-admin-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-agent
+  template:
+    metadata:
+      labels:
+        app: monitoring-agent
+    spec:
+      hostNetwork: false
+      containers:
+      - name: agent
+        image: agent:1.2.0
+        ports:
+        - containerPort: 9100

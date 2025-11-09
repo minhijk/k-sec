@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vuln-complex-12-host-net-port
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: custom-proxy
+  template:
+    metadata:
+      labels:
+        app: custom-proxy
+    spec:
+      hostNetwork: false
+      containers:
+      - name: proxy
+        image: proxy:1.0
+        ports:
+        - containerPort: 443

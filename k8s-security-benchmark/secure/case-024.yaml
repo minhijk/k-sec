@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vuln-single-24-docker-sock
+spec:
+  containers:
+  - name: dind
+    image: docker:dind

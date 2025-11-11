@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subtle-46-strategy-missing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "25%"
+      maxSurge: "25%"
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web-server
+        image: nginx:1.25.3

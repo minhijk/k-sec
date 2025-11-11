@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: subtle-27-hostnet-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: net-agent
+  template:
+    metadata:
+      labels:
+        app: net-agent
+    spec:
+      hostNetwork: false
+      containers:
+      - name: main
+        image: agent:1.0

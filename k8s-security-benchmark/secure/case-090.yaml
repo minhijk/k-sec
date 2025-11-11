@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: subtle-40-cluster-admin-binding
+  namespace: staging
+subjects:
+- kind: ServiceAccount
+  name: build-bot-sa
+roleRef:
+  kind: ClusterRole
+  name: edit
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: subtle-26-statefulset-hostpath
+spec:
+  selector:
+    matchLabels:
+      app: my-db
+  serviceName: "my-db-svc"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-db
+    spec:
+      containers:
+      - name: main
+        image: mysql:8.0
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: data
+      volumes:
+      - name: data
+        emptyDir: {}

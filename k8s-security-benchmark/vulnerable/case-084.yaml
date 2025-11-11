@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: subtle-34-impersonator
+rules:
+- apiGroups: [""]
+  resources: ["users", "groups"]
+  verbs: ["impersonate"]

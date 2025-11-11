@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: subtle-49-job-backoff-default
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      containers:
+      - name: main
+        image: busybox:1.36
+        command: ["sh", "-c", "exit 1"]
+      restartPolicy: Never

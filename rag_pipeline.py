@@ -9,7 +9,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 
 from llm_handler import get_llm
 from db_handler_es import get_trivy_and_rag_analysis
-
+from utils.diff_handler import apply_diff, save_temp_patch, save_temp_yaml, parse_line_suggestions
 
 LLM = get_llm()
 
@@ -227,6 +227,23 @@ def generate_analysis_answer(prepared_data: dict, question: str, mode: str = "us
         input_data["question"] = question
 
         response = chain.invoke(input_data)
+
+        # ✅ 전문가 모드인 경우 라인별 수정 제안 파싱 시도
+        if mode == "expert":
+            print("[RAG] 🔍 전문가 모드 감지 — 라인별 수정 제안 파싱 시도")
+            
+            # 1. LLM 응답 텍스트에서 '수정 제안 리스트' 파싱 (utils에서 import한 함수 사용)
+            parsed_suggestions = parse_line_suggestions(response)
+            
+            # 2. 원본 YAML 가져오기
+            original_yaml = prepared_data.get("yaml_content", "")
+
+            # 3. 프론트엔드(app.py)로 전달할 결과 객체 생성
+            return {
+                "llm_full_response": response,     # LLM의 전체 응답 (설명 포함)
+                "line_suggestions": parsed_suggestions, # 파싱된 제안 목록 (JSON 리스트)
+                "original_yaml": original_yaml,   # 원본 YAML
+            }
 
         if needs_retry(response):
             correction_hint = (

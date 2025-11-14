@@ -2,9 +2,9 @@
 
 import uuid
 import asyncio
-from fastapi import FastAPI, BackgroundTasks, UploadFile, File, Form
+from fastapi import FastAPI, BackgroundTasks, UploadFile, File, Form, HTTPException, Body
 from pydantic import BaseModel
-
+from typing import List, Dict, Any
 from dotenv import load_dotenv
 from langsmith import traceable
 
@@ -13,6 +13,8 @@ from rag_pipeline import prepare_analysis, generate_analysis_answer, continue_ch
 
 # 메모리 관리 함수 import
 from db_handler_es import shutdown_handler
+from utils.diff_handler import apply_selected_suggestions
+import yaml as pyyaml
 
 app = FastAPI()
 
@@ -43,7 +45,40 @@ class ChatRequest(BaseModel):
     new_question: str
     mode: str = "user"  # ⭐ 추가
 
+class ApplyPatchPayload(BaseModel):
+    original_yaml: str
+    selected_suggestions: List[Dict[str, Any]]
 
+
+@app.post("/apply-patch")
+async def apply_patch(payload: ApplyPatchPayload):
+    """
+    사용자가 선택한 '수정 제안' 목록만 원본 YAML에 적용하여
+    최종 수정된 YAML 텍스트를 반환합니다. (유효성 검증 포함)
+    """
+    try:
+        final_yaml = apply_selected_suggestions(
+            payload.original_yaml,
+            payload.selected_suggestions
+        )
+        
+        # ⭐️ 2. 최종 YAML 유효성 검증
+        try:
+            pyyaml.safe_load(final_yaml)
+            print("[ApplyPatch] ✅ 최종 YAML 구문 유효성 검증 성공.")
+        except pyyaml.YAMLError as e:
+            print(f"[ApplyPatch] ❌ 최종 YAML 구문 오류 발생: {e}")
+            raise HTTPException(
+                status_code=400, # Bad Request
+                detail=f"패치 적용 후 YAML 구문 오류가 발생했습니다: {e}"
+            )
+            
+        return {"status": "success", "final_yaml": final_yaml}
+        
+    except Exception as e:
+        print(f"[API Error /apply-patch] {e}")
+        raise HTTPException(status_code=500, detail=f"패치 적용 중 오류 발생: {e}")
+    
 # 서버 시작 이벤트
 @app.on_event("startup")
 async def startup_event():
@@ -116,7 +151,9 @@ async def generate_answer_endpoint(request: GenerateAnswerRequest):
         return {"result": "Trivy 스캔 결과, 보안 문제점이 발견되지 않았습니다."}
 
     # ⭐ 최종 답변 생성 시 요청의 mode 사용
-    return generate_analysis_answer(prepared_data, question, mode=mode)
+    response = generate_analysis_answer(prepared_data, question, mode=mode)
+    response["yaml_content"] = prepared_data.get("yaml_content", "")
+    return response
 
 
 @app.post("/chat")

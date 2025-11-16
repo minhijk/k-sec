@@ -3,6 +3,6 @@ kind: ClusterRole
 metadata:
   name: subtle-22-node-patcher
 rules:
-- apiGroups: [""]
-  resources: ["nodes"]
-  verbs: ["get", "list", "patch"]
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]

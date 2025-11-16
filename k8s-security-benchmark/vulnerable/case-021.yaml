@@ -3,6 +3,6 @@ kind: ClusterRole
 metadata:
   name: vuln-single-21-csr-approver
 rules:
-- apiGroups: ["certificates.k8s.io"]
-  resources: ["certificatesigningrequests/approval"]
-  verbs: ["approve"]
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]

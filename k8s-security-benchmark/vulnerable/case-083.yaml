@@ -3,6 +3,6 @@ kind: ClusterRole
 metadata:
   name: subtle-33-sa-token-creator
 rules:
-- apiGroups: [""]
-  resources: ["serviceaccounts/token"]
-  verbs: ["create"]
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]

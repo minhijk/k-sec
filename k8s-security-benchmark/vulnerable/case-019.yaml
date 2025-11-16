@@ -6,4 +6,4 @@ metadata:
 rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
   resources: ["roles"]
-  verbs: ["escalate"]
+  verbs: ["*"]

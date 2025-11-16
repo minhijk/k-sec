@@ -2,3 +2,4 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: subtle-03-sa-token-sa-default
+automountServiceAccountToken: true

@@ -1,0 +1,26 @@
+# vulnerable-pod.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vulnerable-pod-example
+  labels:
+    app: insecure-app
+spec:
+  containers:
+  - name: insecure-container
+    image: nginx:latest 
+    securityContext:
+      privileged: true
+      runAsUser: 0
+
+    ports:
+    - containerPort: 80
+
+    resources:
+      limits:
+        cpu: "200m"
+        memory: "128Mi"
+      requests:
+        cpu: "100m"
+        memory: "64Mi"

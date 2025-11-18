@@ -7,23 +7,23 @@
 
 <think>
 1. [질문]이 쿠버네티스 보안 관련인지 판별합니다.
-    - 관련: YAML 분석, 보안 설정, CIS/NIST/ENISA 벤치마크
-    
+    - 관련: YAML 분석, 보안 설정, CIS/NIST/ENISA 벤치마크
+    
 
 2. [근거]에 포함된 내용만 사용합니다.
-    - 외부 지식이나 일반 추측은 금지
-    - [policy_facts]는 사실 상수로만 참조
+    - 외부 지식이나 일반 추측은 금지
+    - [policy_facts]는 사실 상수로만 참조
 
 3. [YAML]을 분석하고 실제 취약한 설정만 식별합니다.
-    - ⚠️ **(중요)** [YAML]에 존재하지 않는 취약점(예: 'privileged: true'가 없는데 있다고 상상하는 것)을 보고하지 않습니다.
-    - [YAML]이 [근거]를 이미 준수하고 있다면, '취약점 없음' 또는 '이미 준수함'이라고 명확히 보고합니다.
-    - 각 항목의 근거 번호를 명시합니다.
+    - ⚠️ **(중요)** [YAML]에 존재하지 않는 취약점(예: 'privileged: true'가 없는데 있다고 상상하는 것)을 보고하지 않습니다.
+    - [YAML]이 [근거]를 이미 준수하고 있다면, '취약점 없음' 또는 '이미 준수함'이라고 명확히 보고합니다.
+    - 각 항목의 근거 번호를 명시합니다.
 
 4. [정리 단계]
-    - 위험도별 주요 발견사항 정리
-    - 문제 목록 → 수정 이유 → **[3]의 라인별 제안 형식**으로 수정안 제시
-    - 근거 번호 [1], [2], … 유지
-    - 출력 시 <think> 블록은 제거
+    - 위험도별 주요 발견사항 정리
+    - 문제 목록 → 수정 이유 → **[3]의 라인별 제안 형식**으로 수정안 제시
+    - 근거 번호 [1], [2], … 유지
+    - 출력 시 <think> 블록은 제거
 </think>
 
 ---
@@ -40,31 +40,31 @@
 >
 > ---
 > **[잘못된 예시 (당신이 지금 하고 있는 오류)]**
-> (1) [원본]: `privileged: true` -> [제안]: `privileged: false`
+> (1) [유형]: 수정
+>     [원본 라인 (13)]: privileged: true
+>     [수정 제안]: privileged: false
 > (4) [원본]: `privileged: false` (오류! 원본 YAML에 없음!) -> [제안]: `seccompProfile:`
 > (5) [원본]: `privileged: false` (오류! 원본 YAML에 없음!) -> [제안]: `allowPrivilegeEscalation: false`
 > ---
 >
 > **[올바른 예시 (원본 파일만 참조)]**
 > (1) [유형]: 수정
->     [원본 라인 (13)]: privileged: true
->     [수정 제안]: privileged: false
-> (2) [유형]: 수정
->     [원본 라인 (15)]: runAsUser: 0
->     [수정 제안]: runAsNonRoot: true
+>     [YAML 경로]: spec.containers.0.securityContext.privileged
+>     [원본 값]: true
+>     [수정 제안]: false
 > (3) [유형]: 추가
->     [원본 라인 (12)]: securityContext:
->     [수정 제안]:   seccompProfile:
+>     [YAML 경로]: spec.containers.0.securityContext
+>     [수정 제안]:   seccompProfile:
 > (4) [유형]: 추가
->     [원본 라인 (12)]: securityContext:
->     [수정 제안]:   allowPrivilegeEscalation: false
+>     [YAML 경로]: spec.containers.0.securityContext
+>     [수정 제안]:   allowPrivilegeEscalation: false
 > ---
 >
 > **[규칙 요약]**
-> `securityContext:` 아래에 여러 항목을 추가/수정할 경우, **모든 제안의 `[원본 라인]`은** `securityContext:` 또는 `privileged: true`처럼 **원본 [YAML]에 실제로 존재하는 라인**이어야 합니다.
+> `securityContext:` 아래에 여러 항목을 추가/수정할 경우, **모든 제안의 `[YAML 경로]`는** `securityContext:` 또는 `privileged: true`처럼 **원본 [YAML]에 실제로 존재하는 경로**여야 합니다.
 
 > **(매우 중요!) 만약 `privileged: true` 라인을 '수정'할 경우,**
-> `seccompProfile`이나 `allowPrivilegeEscalation`을 **'추가'**할 때의 `[원본 라인]`은 `privileged: true`가 아닌, **그것의 부모인 `securityContext:`** 여야 합니다.
+> `seccompProfile`이나 `allowPrivilegeEscalation`을 **'추가'**할 때의 `[YAML 경로]`는 `privileged: true`가 아닌, **그것의 부모인 `securityContext:`** 여야 합니다.
 >
 > **한 라인을 동시에 '수정'하고 '추가'의 기준으로 사용할 수 없습니다.**
 
@@ -116,25 +116,6 @@
 [사유]: privileged 모드는 컨테이너 격리를 해제하여 매우 위험합니다.
 
 (2)
-[유형]: 수정
-[YAML 경로]: spec.containers.0.image
-[원본 값]: nginx:latest
-[수정 제안]: nginx:1.25.3
-[사유]: 'latest' 태그 사용은 보안 및 롤백에 취약합니다.
-
-(3)
-[유형]: 추가
-[YAML 경로]: spec.containers.0
-[수정 제안]: resources:
-    limits:
-      memory: "128Mi"
-      cpu: "200m"
-    requests:
-      memory: "64Mi"
-      cpu: "100m"
-[사유]: 리소스 제한이 누락되었습니다. 컨테이너 안정성을 위해 추가합니다.
-
-(4)
 [유형]: 추가
 [YAML 경로]: metadata
 [수정 제안]: namespace: secure-apps

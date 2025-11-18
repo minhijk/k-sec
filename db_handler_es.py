@@ -45,7 +45,6 @@ def initialize_elasticsearch():
     """Elasticsearch 연결을 초기화합니다 (Trivy 스캔 시에만 필요)"""
     global VECTOR_STORE, ENSEMBLE_RETRIEVER, EMBEDDING_MODEL
     
-    #os.environ["HUGGING_FACE_HUB_TOKEN"] = "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"
 
     if ENSEMBLE_RETRIEVER is not None:
         return True

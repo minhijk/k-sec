@@ -5,4 +5,4 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["users", "groups", "serviceaccounts"]
-  verbs: ["impersonate"]
+  verbs: ["*"]

@@ -50,6 +50,8 @@ class ApplyPatchPayload(BaseModel):
     selected_suggestions: List[Dict[str, Any]]
 
 
+# main.py 파일
+
 @app.post("/apply-patch")
 async def apply_patch(payload: ApplyPatchPayload):
     """
@@ -62,10 +64,12 @@ async def apply_patch(payload: ApplyPatchPayload):
             payload.selected_suggestions
         )
         
-        # ⭐️ 2. 최종 YAML 유효성 검증
+        # ⭐️ 2. 최종 YAML 유효성 검증 (수정)
         try:
-            pyyaml.safe_load(final_yaml)
-            print("[ApplyPatch] ✅ 최종 YAML 구문 유효성 검증 성공.")
+            # [수정] safe_load() 대신 safe_load_all() 사용
+            # load_all()은 제너레이터를 반환하므로, list()로 감싸서 실제 로드를 수행
+            list(pyyaml.safe_load_all(final_yaml)) 
+            print("[ApplyPatch] ✅ 최종 YAML(다중 문서) 구문 유효성 검증 성공.")
         except pyyaml.YAMLError as e:
             print(f"[ApplyPatch] ❌ 최종 YAML 구문 오류 발생: {e}")
             raise HTTPException(

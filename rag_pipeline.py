@@ -177,47 +177,76 @@ def post_validate(text: str, mode: str = "user") -> str:
         return banner + text
     return text
 
-
 def prepare_analysis(yaml_content: str, mode: str = "user") -> dict:
-    """[사전 처리] YAML 파일을 받아 Trivy 스캔 및 RAG 검색을 미리 수행하고 결과를 반환합니다."""
+    """[사전 처리] YAML 파일을 받아 Trivy/KICS 스캔 및 RAG 검색을 수행하고 결과를 반환합니다."""
     try:
         analysis_data = get_trivy_and_rag_analysis(yaml_content)
 
         if analysis_data == 0:
             return {"status": "no_issues", "prepared_data": None}
-        if 'error' in analysis_data:
-            return {"error": f"db_handler 오류: {analysis_data['error']}"}
+        
+        # [수정] db_handler의 모든 에러 상태 통합 처리
+        if 'error' in analysis_data or analysis_data.get("status") == "KICS_ERROR":
+            error_msg = analysis_data.get('error', analysis_data.get('summary', '알 수 없는 오류'))
+            return {"error": f"db_handler 오류: {error_msg}"}
 
-        analysis_results = analysis_data.get("analysis_results", [])
-        debug_source_counts(analysis_results)
+        # --- [!!! 신규 로직: KICS 탐지 처리 !!!] ---
+        if analysis_data.get("status") == "KICS_DETECTED":
+            print("[RAG] KICS 스캔 결과 감지됨 (RAG 비활성)")
+            
+            # KICS는 RAG를 안 쓰므로, data가 바로 LLM 컨텍스트(텍스트)임
+            formatted_context = analysis_data.get("data")
+            formatted_references = "KICS 정적 분석 도구의 직접 결과입니다."
+            policy_facts = "KICS가 탐지한 보안 설정 오류입니다. (2차 검증)"
 
-        formatted_context = format_analysis_results(analysis_data.get("analysis_results", []))
-        formatted_references = format_references(analysis_results)
+            prepared_data = {
+                "retrieved_context": formatted_context,
+                "yaml_content": yaml_content, # [버그 수정] 원본 YAML을 그대로 전달
+                "policy_facts": policy_facts,
+                "formatted_references": formatted_references,
+            }
+            return {"status": "success", "prepared_data": prepared_data}
 
-        ctx_lower = formatted_context.lower()
-        has_seccomp = ("seccomp" in ctx_lower) or ("runtimedefault" in ctx_lower)
-        has_netbind = ("net_bind_service" in ctx_lower) or ("cap_net_bind_service" in ctx_lower)
+        # --- [기존 로직: Trivy 탐지 처리 (버그 수정)] ---
+        if analysis_data.get("status") == "TRIVY_DETECTED":
+            print("[RAG] Trivy 스캔 결과 감지됨 (RAG 활성)")
+            
+            # [버그 수정] 'analysis_results'가 아니라 'data' 키를 사용합니다.
+            analysis_results = analysis_data.get("data", [])
+            debug_source_counts(analysis_results)
 
-        policy_facts = (
-            "- seccompProfile.type: RuntimeDefault 는 권장(OK)이며 취약 아님.\n"
-            "- Localhost 제안은 실제 커스텀 프로파일 파일 경로/이름이 근거/입력에 있을 때만.\n"
-            "- NET_BIND_SERVICE 는 80/443 직접 바인딩 필요 없으면 제거 권장, "
-            "필요하면 유지 + (고포트→Service/Ingress 매핑) 대안 병기.\n"
-            "- NET_BIND_SERVICE 는 1024 미만(≤1023) 포트 바인딩 권한.\n"
-            f"- 컨텍스트에 seccomp 근거 존재: {has_seccomp}.\n"
-            f"- 컨텍스트에 NET_BIND_SERVICE 근거 존재: {has_netbind}."
-        )
+            # [버그 수정] 'analysis_data.get("analysis_results", [])'가 아닌
+            # 'analysis_results' 변수를 format 함수에 전달합니다.
+            formatted_context = format_analysis_results(analysis_results)
+            formatted_references = format_references(analysis_results)
 
-        prepared_data = {
-            "retrieved_context": formatted_context,
-            "yaml_content": analysis_data.get("analyzed_yaml_content", ""),
-            "policy_facts": policy_facts,
-            "formatted_references": formatted_references,
-        }
-        return {"status": "success", "prepared_data": prepared_data}
+            ctx_lower = formatted_context.lower()
+            has_seccomp = ("seccomp" in ctx_lower) or ("runtimedefault" in ctx_lower)
+            has_netbind = ("net_bind_service" in ctx_lower) or ("cap_net_bind_service" in ctx_lower)
+
+            policy_facts = (
+                "- seccompProfile.type: RuntimeDefault 는 권장(OK)이며 취약 아님.\n"
+                "- Localhost 제안은 실제 커스텀 프로파일 파일 경로/이름이 근거/입력에 있을 때만.\n"
+                "- NET_BIND_SERVICE 는 80/443 직접 바인딩 필요 없으면 제거 권장, "
+                "필요하면 유지 + (고포트→Service/Ingress 매핑) 대안 병기.\n"
+                "- NET_BIND_SERVICE 는 1024 미만(≤1023) 포트 바인딩 권한.\n"
+                f"- 컨텍스트에 seccomp 근거 존재: {has_seccomp}.\n"
+                f"- 컨텍스트에 NET_BIND_SERVICE 근거 존재: {has_netbind}."
+            )
+
+            prepared_data = {
+                "retrieved_context": formatted_context,
+                "yaml_content": yaml_content, # [버그 수정] 원본 YAML을 그대로 전달
+                "policy_facts": policy_facts,
+                "formatted_references": formatted_references,
+            }
+            return {"status": "success", "prepared_data": prepared_data}
+        
+        # 알 수 없는 상태 값
+        return {"error": f"알 수 없는 db_handler 상태: {analysis_data.get('status')}"}
+
     except Exception as e:
         return {"error": f"분석 준비 중 오류 발생: {str(e)}"}
-
 
 def generate_analysis_answer(prepared_data: dict, question: str, mode: str = "user") -> dict:
     """[실시간 답변] 미리 준비된 데이터와 사용자의 질문으로 LLM 답변을 생성합니다."""

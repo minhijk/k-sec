@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: subtle-36-deployment-scaler
+  name: secure-36-deployment-viewer
   namespace: production
 rules:
 - apiGroups: ["apps"]
   resources: ["deployments"]
-  verbs: ["get", "list", "patch"]
+  verbs: ["get", "list"]

@@ -1,9 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: subtle-31-secret-creater
-  namespace: production
+  name: subtle-31-secret-creater-global
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
-  verbs: ["get", "list", "create"]
+  verbs: ["*"]

@@ -1,9 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: vuln-complex-11-pod-exec
-  namespace: kube-system
+  name: vuln-complex-11-pod-exec-global
 rules:
 - apiGroups: [""]
   resources: ["pods/exec"]
-  verbs: ["create", "get"]
+  verbs: ["*"]

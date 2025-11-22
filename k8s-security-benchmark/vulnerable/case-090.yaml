@@ -1,11 +1,11 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: subtle-40-cluster-admin-binding
-  namespace: staging
+  name: subtle-40-cluster-admin-binding-global
 subjects:
 - kind: ServiceAccount
-  name: build-bot-sa
+  name: default
+  namespace: default
 roleRef:
   kind: ClusterRole
   name: cluster-admin

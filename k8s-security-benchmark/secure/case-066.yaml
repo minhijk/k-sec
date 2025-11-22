@@ -9,6 +9,9 @@ spec:
     command: ["sleep", "3600"]
     securityContext:
       runAsUser: 1001
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
     volumeMounts:
     - mountPath: /logs
       name: varlog
@@ -16,3 +19,7 @@ spec:
   - name: varlog
     hostPath:
       path: /var/log
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault

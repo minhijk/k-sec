@@ -8,3 +8,9 @@ spec:
     image: nginx:1.25.3
     securityContext:
       privileged: false
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      seccompProfile:
+        type: RuntimeDefault

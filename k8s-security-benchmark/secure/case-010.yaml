@@ -12,3 +12,9 @@ spec:
         command: ["touch", "/testfile"]
         securityContext:
           readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault

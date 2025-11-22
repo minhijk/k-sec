@@ -10,7 +10,17 @@ spec:
         spec:
           securityContext:
             runAsUser: 1001
+            seccompProfile:
+              type: RuntimeDefault
+            allowPrivilegeEscalation: false
           containers:
           - name: main
             image: alpine:3.18
+            securityContext:
+              capabilities:
+                drop:
+                - ALL
+              allowPrivilegeEscalation: false
+              seccompProfile:
+                type: RuntimeDefault
           restartPolicy: OnFailure

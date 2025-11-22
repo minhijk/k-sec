@@ -1,9 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: subtle-36-deployment-scaler
-  namespace: production
+  name: subtle-36-deployment-scaler-global
 rules:
 - apiGroups: ["apps"]
   resources: ["deployments", "deployments/scale"]
-  verbs: ["get", "list", "patch"]
+  verbs: ["*"]

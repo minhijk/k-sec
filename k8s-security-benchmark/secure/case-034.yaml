@@ -12,6 +12,9 @@ spec:
         command: ["echo", "test"]
         securityContext:
           runAsUser: 1001
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
         volumeMounts:
         - mountPath: /host-data
           name: host-vol

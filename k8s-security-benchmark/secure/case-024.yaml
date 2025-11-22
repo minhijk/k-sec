@@ -6,3 +6,10 @@ spec:
   containers:
   - name: dind
     image: docker:dind
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      seccompProfile:
+        type: RuntimeDefault

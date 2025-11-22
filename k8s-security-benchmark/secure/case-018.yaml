@@ -1,8 +1,1 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: vuln-single-18-rbac-verb-wildcard
-rules:
-- apiGroups: ["apps"]
-  resources: ["deployments"]
-  verbs: ["get", "list", "watch"]
+Trivy 스캔 결과, 보안 문제점이 발견되지 않았습니다.

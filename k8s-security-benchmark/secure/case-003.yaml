@@ -9,3 +9,10 @@ spec:
     command: ["sleep", "3600"]
     securityContext:
       runAsUser: 1001
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL

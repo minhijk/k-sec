@@ -1,11 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: subtle-11-netpol-egress-default-allow
+  name: secure-11-netpol-egress-default-deny
+  namespace: kube-system
 spec:
-  podSelector:
-    matchLabels:
-      app: db
+  podSelector: {}
   policyTypes:
   - Egress
-  egress: []

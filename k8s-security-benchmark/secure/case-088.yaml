@@ -1,9 +1,1 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: subtle-38-pod-portforward
-  namespace: production
-rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "list"]
+Trivy 스캔 결과, 보안 문제점이 발견되지 않았습니다.

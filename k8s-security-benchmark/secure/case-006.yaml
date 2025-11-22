@@ -12,7 +12,15 @@ spec:
         app: net-monitor
     spec:
       hostNetwork: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: network-agent
         image: nicolaka/netshoot:latest
         command: ["sleep", "3600"]
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL

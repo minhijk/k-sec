@@ -18,3 +18,15 @@ spec:
         image: mysql:8.0
         securityContext:
           runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+            - ALL
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+        fsGroup: 1000
+        runAsUser: 1000

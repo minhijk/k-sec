@@ -17,3 +17,6 @@ spec:
         image: my-app:1.0.0
         securityContext:
           runAsUser: 1001
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault

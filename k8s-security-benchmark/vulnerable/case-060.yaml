@@ -1,11 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: subtle-10-netpol-ingress-default-allow
+  name: subtle-10-netpol-ingress-allow-all-global
+  namespace: kube-system
 spec:
-  podSelector:
-    matchLabels:
-      app: db
+  podSelector: {}
   policyTypes:
   - Ingress
   ingress:

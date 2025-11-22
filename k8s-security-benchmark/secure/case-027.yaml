@@ -17,6 +17,9 @@ spec:
         image: nginx:1.25.3
         securityContext:
           runAsUser: 101
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
         resources:
           requests:
             memory: "64Mi"

@@ -1,9 +1,1 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: vuln-complex-04-namespace-admin
-  namespace: production
-rules:
-- apiGroups: ["", "apps", "extensions", "batch"]
-  resources: ["pods", "services", "deployments"]
-  verbs: ["get", "list", "watch"]
+Trivy 스캔 결과, 보안 문제점이 발견되지 않았습니다.

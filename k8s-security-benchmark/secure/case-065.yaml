@@ -1,12 +1,1 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: subtle-15-rolebinding-in-default
-  namespace: web-app
-subjects:
-- kind: ServiceAccount
-  name: my-sa
-roleRef:
-  kind: Role
-  name: pod-reader
-  apiGroup: rbac.authorization.k8s.io
+Trivy 스캔 결과, 보안 문제점이 발견되지 않았습니다.

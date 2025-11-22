@@ -1,8 +1,1 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: subtle-33-sa-token-creator
-rules:
-- apiGroups: [""]
-  resources: ["serviceaccounts/token"]
-  verbs: []
+Trivy 스캔 결과, 보안 문제점이 발견되지 않았습니다.

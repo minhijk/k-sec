@@ -10,3 +10,7 @@ spec:
     securityContext:
       seccompProfile:
         type: RuntimeDefault
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL

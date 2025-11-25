@@ -9,12 +9,6 @@ spec:
     command: ["sleep", "3600"]
     securityContext:
       privileged: false
-      allowPrivilegeEscalation: false
-      capabilities:
-        drop:
-        - ALL
-      seccompProfile:
-        type: RuntimeDefault
     resources:
       requests:
         cpu: "50m"

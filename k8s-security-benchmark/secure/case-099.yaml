@@ -10,8 +10,4 @@ spec:
       - name: main
         image: busybox:1.36
         command: ["sh", "-c", "exit 1"]
-        securityContext:
-          allowPrivilegeEscalation: false
-          seccompProfile:
-            type: RuntimeDefault
       restartPolicy: Never

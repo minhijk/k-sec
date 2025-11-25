@@ -9,4 +9,4 @@ spec:
     command: ["sleep", "3600"]
     securityContext:
       runAsUser: 1001
-      allowPrivilegeEscalation: false
+      allowPrivilegeEscalation: true

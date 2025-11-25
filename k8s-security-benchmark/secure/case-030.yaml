@@ -14,8 +14,3 @@ spec:
             image: alpine:3.18
             securityContext:
               allowPrivilegeEscalation: false
-              seccompProfile:
-                type: RuntimeDefault
-            resources:
-              limits:
-                pids: 2048

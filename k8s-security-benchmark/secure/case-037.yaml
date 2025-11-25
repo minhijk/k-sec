@@ -13,16 +13,8 @@ spec:
         app: custom-proxy
     spec:
       hostNetwork: false
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: proxy
         image: proxy:1.0
         ports:
         - containerPort: 443
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL

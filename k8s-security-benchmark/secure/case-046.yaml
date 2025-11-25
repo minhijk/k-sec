@@ -11,6 +11,3 @@ spec:
     - etcd
     - --client-cert-auth=true
     - --auto-tls=false
-    securityContext:
-      seccompProfile:
-        type: RuntimeDefault

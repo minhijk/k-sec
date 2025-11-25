@@ -13,9 +13,6 @@ spec:
       labels:
         app: db
     spec:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: database
         image: mysql:8.0
@@ -26,8 +23,3 @@ spec:
           requests:
             cpu: "250m"
             memory: "512Mi"
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL

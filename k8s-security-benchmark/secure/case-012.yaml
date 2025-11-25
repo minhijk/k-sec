@@ -12,9 +12,6 @@ spec:
       labels:
         app: web
     spec:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: mem-eater
         image: nginx:1.25.3
@@ -25,8 +22,3 @@ spec:
           limits:
             cpu: "200m"
             memory: "128Mi"
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL

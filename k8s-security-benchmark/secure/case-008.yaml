@@ -12,16 +12,8 @@ spec:
       labels:
         app: web
     spec:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: web-server
         image: nginx:1.25.3
         ports:
         - containerPort: 80
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL

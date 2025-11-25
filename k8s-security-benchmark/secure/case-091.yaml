@@ -15,13 +15,6 @@ spec:
       containers:
       - name: web-server
         image: nginx:1.25.3
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - ALL
-          seccompProfile:
-            type: RuntimeDefault
         livenessProbe:
           httpGet:
             path: /

@@ -19,11 +19,7 @@ spec:
       allowPrivilegeEscalation: false
       runAsUser: 1001
       readOnlyRootFilesystem: true
-      capabilities:
-        drop:
-        - ALL
-      seccompProfile:
-        type: RuntimeDefault
+      capabilities: {}
     resources:
       requests:
         cpu: "100m"

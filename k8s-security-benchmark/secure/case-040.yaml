@@ -13,14 +13,6 @@ spec:
         app: myapp
     spec:
       automountServiceAccountToken: false
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: myapp-container
         image: myapp:1.0.5
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL

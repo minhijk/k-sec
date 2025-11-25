@@ -10,6 +10,4 @@ spec:
     command: ["sleep", "3600"]
     securityContext:
       capabilities:
-        drop: ["SYS_PTRACE"]
-      seccompProfile:
-        type: RuntimeDefault
+        add: ["SYS_PTRACE"]

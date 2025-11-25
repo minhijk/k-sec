@@ -20,12 +20,3 @@ spec:
       containers:
       - name: web-server
         image: nginx:1.25.3
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - ALL
-          seccompProfile:
-            type: RuntimeDefault
-      securityContext:
-        podPidsLimit: 4096

@@ -13,20 +13,9 @@ spec:
       labels:
         app: my-db
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        fsGroup: 1000
       containers:
       - name: main
         image: mysql:8.0
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - ALL
-          seccompProfile:
-            type: RuntimeDefault
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: data

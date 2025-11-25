@@ -2,7 +2,6 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: subtle-06-caps-default
-  namespace: default
 spec:
   containers:
   - name: main
@@ -11,9 +10,3 @@ spec:
     securityContext:
       capabilities:
         drop: ["ALL"]
-      allowPrivilegeEscalation: false
-      seccompProfile:
-        type: RuntimeDefault
-      runAsNonRoot: true
-      runAsUser: 65534
-      fsGroup: 65534

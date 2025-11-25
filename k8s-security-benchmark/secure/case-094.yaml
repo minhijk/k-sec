@@ -6,10 +6,6 @@ spec:
   containers:
   - name: main
     image: nginx:1.25.3
-    securityContext:
-      allowPrivilegeEscalation: false
-      seccompProfile:
-        type: RuntimeDefault
     resources:
       requests:
         cpu: "100m"

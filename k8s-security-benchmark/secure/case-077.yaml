@@ -12,14 +12,6 @@ spec:
         app: net-agent
     spec:
       hostNetwork: false
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: main
         image: agent:1.0
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL

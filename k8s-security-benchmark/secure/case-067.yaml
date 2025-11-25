@@ -10,7 +10,4 @@ spec:
     command: ["sleep", "3600"]
     securityContext:
       capabilities:
-        drop: ["NET_RAW"]
-      allowPrivilegeEscalation: false
-      seccompProfile:
-        type: RuntimeDefault
+        add: ["NET_RAW"]

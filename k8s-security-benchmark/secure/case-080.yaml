@@ -11,6 +11,3 @@ spec:
       runAsUser: 1001
       capabilities:
         drop: ["ALL"]
-      seccompProfile:
-        type: RuntimeDefault
-      allowPrivilegeEscalation: false

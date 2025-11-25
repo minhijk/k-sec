@@ -12,16 +12,8 @@ spec:
         app: monitoring-agent
     spec:
       hostNetwork: false
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: agent
         image: agent:1.2.0
         ports:
         - containerPort: 9100
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL

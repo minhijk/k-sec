@@ -1,1 +1,5 @@
-Trivy 스캔 결과, 보안 문제점이 발견되지 않았습니다.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: subtle-03-sa-token-sa-default
+automountServiceAccountToken: false

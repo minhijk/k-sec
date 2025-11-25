@@ -6,7 +6,3 @@ spec:
   containers:
   - name: latest-nginx
     image: nginx:1.25.3
-    securityContext:
-      allowPrivilegeEscalation: false
-      seccompProfile:
-        type: RuntimeDefault

@@ -1,0 +1,1415 @@
+--- KubeLinter Scan Results for: secure ---
+
+============================================================
+Results for: case-001.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-001.yaml: (object: <no namespace>/vuln-single-01-privileged /v1, Kind=Pod) container "nginx" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-001.yaml: (object: <no namespace>/vuln-single-01-privileged /v1, Kind=Pod) container "nginx" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-001.yaml: (object: <no namespace>/vuln-single-01-privileged /v1, Kind=Pod) container "nginx" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-001.yaml: (object: <no namespace>/vuln-single-01-privileged /v1, Kind=Pod) container "nginx" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-002.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-002.yaml: (object: <no namespace>/vuln-single-02-priv-escalation apps/v1, Kind=Deployment) container "web-server" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-002.yaml: (object: <no namespace>/vuln-single-02-priv-escalation apps/v1, Kind=Deployment) container "web-server" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-002.yaml: (object: <no namespace>/vuln-single-02-priv-escalation apps/v1, Kind=Deployment) container "web-server" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-002.yaml: (object: <no namespace>/vuln-single-02-priv-escalation apps/v1, Kind=Deployment) container "web-server" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-003.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-003.yaml: (object: <no namespace>/vuln-single-03-runasuser-zero /v1, Kind=Pod) container "root-container" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-003.yaml: (object: <no namespace>/vuln-single-03-runasuser-zero /v1, Kind=Pod) container "root-container" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-003.yaml: (object: <no namespace>/vuln-single-03-runasuser-zero /v1, Kind=Pod) container "root-container" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-004.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-004.yaml: (object: <no namespace>/vuln-single-04-runasnonroot-false apps/v1, Kind=StatefulSet) container "database" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-004.yaml: (object: <no namespace>/vuln-single-04-runasnonroot-false apps/v1, Kind=StatefulSet) container "database" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-004.yaml: (object: <no namespace>/vuln-single-04-runasnonroot-false apps/v1, Kind=StatefulSet) container "database" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-005.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-005.yaml: (object: <no namespace>/vuln-single-05-hostpid /v1, Kind=Pod) container "process-snooper" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-005.yaml: (object: <no namespace>/vuln-single-05-hostpid /v1, Kind=Pod) container "process-snooper" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-005.yaml: (object: <no namespace>/vuln-single-05-hostpid /v1, Kind=Pod) container "process-snooper" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-005.yaml: (object: <no namespace>/vuln-single-05-hostpid /v1, Kind=Pod) container "process-snooper" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-006.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-006.yaml: (object: <no namespace>/vuln-single-06-hostnetwork apps/v1, Kind=DaemonSet) The container "network-agent" is using an invalid container image, "nicolaka/netshoot:latest". Please use images that are not blocked by the `BlockList` criteria : [".*:(latest)$" "^[^:]*$" "(.*/[^:]+)$"] (check: latest-tag, remediation: Use a container image with a specific tag other than latest.)
+
+/home/k-sec/k8s-test/secure/case-006.yaml: (object: <no namespace>/vuln-single-06-hostnetwork apps/v1, Kind=DaemonSet) container "network-agent" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-006.yaml: (object: <no namespace>/vuln-single-06-hostnetwork apps/v1, Kind=DaemonSet) container "network-agent" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-006.yaml: (object: <no namespace>/vuln-single-06-hostnetwork apps/v1, Kind=DaemonSet) container "network-agent" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-006.yaml: (object: <no namespace>/vuln-single-06-hostnetwork apps/v1, Kind=DaemonSet) container "network-agent" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-007.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-007.yaml: (object: <no namespace>/vuln-single-07-hostipc /v1, Kind=Pod) container "ipc-listener" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-007.yaml: (object: <no namespace>/vuln-single-07-hostipc /v1, Kind=Pod) container "ipc-listener" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-007.yaml: (object: <no namespace>/vuln-single-07-hostipc /v1, Kind=Pod) container "ipc-listener" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-007.yaml: (object: <no namespace>/vuln-single-07-hostipc /v1, Kind=Pod) container "ipc-listener" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-008.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-008.yaml: (object: <no namespace>/vuln-single-08-hostport apps/v1, Kind=Deployment) container "web-server" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-008.yaml: (object: <no namespace>/vuln-single-08-hostport apps/v1, Kind=Deployment) container "web-server" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-008.yaml: (object: <no namespace>/vuln-single-08-hostport apps/v1, Kind=Deployment) container "web-server" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-008.yaml: (object: <no namespace>/vuln-single-08-hostport apps/v1, Kind=Deployment) container "web-server" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-009.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-009.yaml: (object: <no namespace>/vuln-single-09-seccomp-missing /v1, Kind=Pod) container "no-seccomp-container" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-009.yaml: (object: <no namespace>/vuln-single-09-seccomp-missing /v1, Kind=Pod) container "no-seccomp-container" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-009.yaml: (object: <no namespace>/vuln-single-09-seccomp-missing /v1, Kind=Pod) container "no-seccomp-container" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-009.yaml: (object: <no namespace>/vuln-single-09-seccomp-missing /v1, Kind=Pod) container "no-seccomp-container" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-010.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-010.yaml: (object: <no namespace>/vuln-single-10-writable-fs batch/v1, Kind=Job) Standalone Job does not specify ttlSecondsAfterFinished (check: job-ttl-seconds-after-finished, remediation: Set Job.spec.ttlSecondsAfterFinished. Unset CronJob.Spec.JobTemplate.Spec.ttlSecondsAfterFinished.)
+
+/home/k-sec/k8s-test/secure/case-010.yaml: (object: <no namespace>/vuln-single-10-writable-fs batch/v1, Kind=Job) container "writer" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-010.yaml: (object: <no namespace>/vuln-single-10-writable-fs batch/v1, Kind=Job) container "writer" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-010.yaml: (object: <no namespace>/vuln-single-10-writable-fs batch/v1, Kind=Job) container "writer" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-011.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-011.yaml: (object: <no namespace>/vuln-single-11-cpu-limit-missing /v1, Kind=Pod) container "cpu-eater" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-011.yaml: (object: <no namespace>/vuln-single-11-cpu-limit-missing /v1, Kind=Pod) container "cpu-eater" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+
+--- [STDERR] ---
+Error: found 2 lint errors
+
+============================================================
+Results for: case-012.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-012.yaml: (object: <no namespace>/vuln-single-12-mem-limit-missing apps/v1, Kind=Deployment) container "mem-eater" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-012.yaml: (object: <no namespace>/vuln-single-12-mem-limit-missing apps/v1, Kind=Deployment) container "mem-eater" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+
+--- [STDERR] ---
+Error: found 2 lint errors
+
+============================================================
+Results for: case-013.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-013.yaml: (object: <no namespace>/vuln-single-13-cpu-request-missing /v1, Kind=Pod) container "no-cpu-request" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-013.yaml: (object: <no namespace>/vuln-single-13-cpu-request-missing /v1, Kind=Pod) container "no-cpu-request" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+
+--- [STDERR] ---
+Error: found 2 lint errors
+
+============================================================
+Results for: case-014.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-014.yaml: (object: <no namespace>/vuln-single-14-mem-request-missing apps/v1, Kind=StatefulSet) container "database" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-014.yaml: (object: <no namespace>/vuln-single-14-mem-request-missing apps/v1, Kind=StatefulSet) container "database" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+
+--- [STDERR] ---
+Error: found 2 lint errors
+
+============================================================
+Results for: case-015.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-015.yaml: (object: <no namespace>/vuln-single-15-image-latest /v1, Kind=Pod) container "latest-nginx" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-015.yaml: (object: <no namespace>/vuln-single-15-image-latest /v1, Kind=Pod) container "latest-nginx" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-015.yaml: (object: <no namespace>/vuln-single-15-image-latest /v1, Kind=Pod) container "latest-nginx" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-015.yaml: (object: <no namespace>/vuln-single-15-image-latest /v1, Kind=Pod) container "latest-nginx" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-016.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-016.yaml: (object: <no namespace>/vuln-single-16-pullpolicy apps/v1, Kind=Deployment) container "web-server" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-016.yaml: (object: <no namespace>/vuln-single-16-pullpolicy apps/v1, Kind=Deployment) container "web-server" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-016.yaml: (object: <no namespace>/vuln-single-16-pullpolicy apps/v1, Kind=Deployment) container "web-server" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-016.yaml: (object: <no namespace>/vuln-single-16-pullpolicy apps/v1, Kind=Deployment) container "web-server" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-017.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-018.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-019.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-020.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-021.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-022.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-022.yaml: (object: <no namespace>/vuln-single-22-sa-token-automount /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-022.yaml: (object: <no namespace>/vuln-single-22-sa-token-automount /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-022.yaml: (object: <no namespace>/vuln-single-22-sa-token-automount /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-022.yaml: (object: <no namespace>/vuln-single-22-sa-token-automount /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-023.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-023.yaml: (object: production/vuln-single-23-default-ns apps/v1, Kind=Deployment) container "test-app" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-023.yaml: (object: production/vuln-single-23-default-ns apps/v1, Kind=Deployment) container "test-app" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-023.yaml: (object: production/vuln-single-23-default-ns apps/v1, Kind=Deployment) container "test-app" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-023.yaml: (object: production/vuln-single-23-default-ns apps/v1, Kind=Deployment) container "test-app" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-024.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-024.yaml: (object: <no namespace>/vuln-single-24-docker-sock /v1, Kind=Pod) container "dind" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-024.yaml: (object: <no namespace>/vuln-single-24-docker-sock /v1, Kind=Pod) container "dind" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-024.yaml: (object: <no namespace>/vuln-single-24-docker-sock /v1, Kind=Pod) container "dind" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-024.yaml: (object: <no namespace>/vuln-single-24-docker-sock /v1, Kind=Pod) container "dind" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-025.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-025.yaml: (object: <no namespace>/vuln-single-25-add-capability /v1, Kind=Pod) container "net-admin-container" has DROP capabilities: [], but does not drop capability "NET_RAW" which is required (check: drop-net-raw-capability, remediation: NET_RAW makes it so that an application within the container is able to craft raw packets, use raw sockets, and bind to any address. Remove this capability in the containers under containers security contexts.)
+
+/home/k-sec/k8s-test/secure/case-025.yaml: (object: <no namespace>/vuln-single-25-add-capability /v1, Kind=Pod) container "net-admin-container" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-025.yaml: (object: <no namespace>/vuln-single-25-add-capability /v1, Kind=Pod) container "net-admin-container" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-025.yaml: (object: <no namespace>/vuln-single-25-add-capability /v1, Kind=Pod) container "net-admin-container" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-025.yaml: (object: <no namespace>/vuln-single-25-add-capability /v1, Kind=Pod) container "net-admin-container" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-026.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-026.yaml: (object: <no namespace>/vuln-complex-01-privileged-host-pod /v1, Kind=Pod) The container "full-access-container" is using an invalid container image, "nicolaka/netshoot:latest". Please use images that are not blocked by the `BlockList` criteria : [".*:(latest)$" "^[^:]*$" "(.*/[^:]+)$"] (check: latest-tag, remediation: Use a container image with a specific tag other than latest.)
+
+/home/k-sec/k8s-test/secure/case-026.yaml: (object: <no namespace>/vuln-complex-01-privileged-host-pod /v1, Kind=Pod) container "full-access-container" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-026.yaml: (object: <no namespace>/vuln-complex-01-privileged-host-pod /v1, Kind=Pod) container "full-access-container" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-026.yaml: (object: <no namespace>/vuln-complex-01-privileged-host-pod /v1, Kind=Pod) container "full-access-container" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-026.yaml: (object: <no namespace>/vuln-complex-01-privileged-host-pod /v1, Kind=Pod) container "full-access-container" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-027.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-027.yaml: (object: <no namespace>/vuln-complex-02-root-no-limits-latest apps/v1, Kind=Deployment) container "legacy-web" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-027.yaml: (object: <no namespace>/vuln-complex-02-root-no-limits-latest apps/v1, Kind=Deployment) container "legacy-web" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 2 lint errors
+
+============================================================
+Results for: case-028.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-028.yaml: (object: <no namespace>/vuln-complex-03-admin-daemonset apps/v1, Kind=DaemonSet) container "agent" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-028.yaml: (object: <no namespace>/vuln-complex-03-admin-daemonset apps/v1, Kind=DaemonSet) container "agent" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-028.yaml: (object: <no namespace>/vuln-complex-03-admin-daemonset apps/v1, Kind=DaemonSet) container "agent" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-028.yaml: (object: <no namespace>/vuln-complex-03-admin-daemonset apps/v1, Kind=DaemonSet) container "agent" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-029.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-030.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-030.yaml: (object: <no namespace>/vuln-complex-05-insecure-cronjob batch/v1, Kind=CronJob) container "backup-script" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-030.yaml: (object: <no namespace>/vuln-complex-05-insecure-cronjob batch/v1, Kind=CronJob) container "backup-script" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-030.yaml: (object: <no namespace>/vuln-complex-05-insecure-cronjob batch/v1, Kind=CronJob) container "backup-script" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-030.yaml: (object: <no namespace>/vuln-complex-05-insecure-cronjob batch/v1, Kind=CronJob) container "backup-script" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-031.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-031.yaml: (object: <no namespace>/vuln-complex-06-statefulset apps/v1, Kind=StatefulSet) container "app" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-031.yaml: (object: <no namespace>/vuln-complex-06-statefulset apps/v1, Kind=StatefulSet) container "app" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-031.yaml: (object: <no namespace>/vuln-complex-06-statefulset apps/v1, Kind=StatefulSet) container "app" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-032.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-032.yaml: (object: production/vuln-complex-07-default-ns-pod /v1, Kind=Pod) container "root-shell" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-032.yaml: (object: production/vuln-complex-07-default-ns-pod /v1, Kind=Pod) container "root-shell" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-032.yaml: (object: production/vuln-complex-07-default-ns-pod /v1, Kind=Pod) container "root-shell" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-033.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-034.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-034.yaml: (object: <no namespace>/vuln-complex-09-hostpath-job batch/v1, Kind=Job) Standalone Job does not specify ttlSecondsAfterFinished (check: job-ttl-seconds-after-finished, remediation: Set Job.spec.ttlSecondsAfterFinished. Unset CronJob.Spec.JobTemplate.Spec.ttlSecondsAfterFinished.)
+
+/home/k-sec/k8s-test/secure/case-034.yaml: (object: <no namespace>/vuln-complex-09-hostpath-job batch/v1, Kind=Job) container "host-writer" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-034.yaml: (object: <no namespace>/vuln-complex-09-hostpath-job batch/v1, Kind=Job) container "host-writer" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-034.yaml: (object: <no namespace>/vuln-complex-09-hostpath-job batch/v1, Kind=Job) container "host-writer" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-035.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-036.yaml
+============================================================
+
+--- [STDERR] ---
+Warning: no valid objects found.
+
+============================================================
+Results for: case-037.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-037.yaml: (object: <no namespace>/vuln-complex-12-host-net-port apps/v1, Kind=Deployment) container "proxy" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-037.yaml: (object: <no namespace>/vuln-complex-12-host-net-port apps/v1, Kind=Deployment) container "proxy" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-037.yaml: (object: <no namespace>/vuln-complex-12-host-net-port apps/v1, Kind=Deployment) container "proxy" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-037.yaml: (object: <no namespace>/vuln-complex-12-host-net-port apps/v1, Kind=Deployment) container "proxy" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-038.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-038.yaml: (object: <no namespace>/vuln-complex-13-sys-admin /v1, Kind=Pod) container "sys-admin-pod" has DROP capabilities: [], but does not drop capability "NET_RAW" which is required (check: drop-net-raw-capability, remediation: NET_RAW makes it so that an application within the container is able to craft raw packets, use raw sockets, and bind to any address. Remove this capability in the containers under containers security contexts.)
+
+/home/k-sec/k8s-test/secure/case-038.yaml: (object: <no namespace>/vuln-complex-13-sys-admin /v1, Kind=Pod) container "sys-admin-pod" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-038.yaml: (object: <no namespace>/vuln-complex-13-sys-admin /v1, Kind=Pod) container "sys-admin-pod" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-038.yaml: (object: <no namespace>/vuln-complex-13-sys-admin /v1, Kind=Pod) container "sys-admin-pod" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-039.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-039.yaml: (object: <no namespace>/vuln-complex-14-insecure-defaults apps/v1, Kind=StatefulSet) container "app" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-039.yaml: (object: <no namespace>/vuln-complex-14-insecure-defaults apps/v1, Kind=StatefulSet) container "app" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-039.yaml: (object: <no namespace>/vuln-complex-14-insecure-defaults apps/v1, Kind=StatefulSet) container "app" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-039.yaml: (object: <no namespace>/vuln-complex-14-insecure-defaults apps/v1, Kind=StatefulSet) container "app" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-040.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-040.yaml: (object: <no namespace>/vuln-complex-15-sa-token-latest apps/v1, Kind=Deployment) container "myapp-container" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-040.yaml: (object: <no namespace>/vuln-complex-15-sa-token-latest apps/v1, Kind=Deployment) container "myapp-container" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-040.yaml: (object: <no namespace>/vuln-complex-15-sa-token-latest apps/v1, Kind=Deployment) container "myapp-container" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-040.yaml: (object: <no namespace>/vuln-complex-15-sa-token-latest apps/v1, Kind=Deployment) container "myapp-container" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-041.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-041.yaml: (object: <no namespace>/vuln-complex-16-all-host-access apps/v1, Kind=DaemonSet) container "agent" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-041.yaml: (object: <no namespace>/vuln-complex-16-all-host-access apps/v1, Kind=DaemonSet) container "agent" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-041.yaml: (object: <no namespace>/vuln-complex-16-all-host-access apps/v1, Kind=DaemonSet) container "agent" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-041.yaml: (object: <no namespace>/vuln-complex-16-all-host-access apps/v1, Kind=DaemonSet) container "agent" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-042.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-043.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-043.yaml: (object: <no namespace>/vuln-complex-18-privileged-no-limits /v1, Kind=Pod) container "priv-no-limit" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-043.yaml: (object: <no namespace>/vuln-complex-18-privileged-no-limits /v1, Kind=Pod) container "priv-no-limit" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+
+--- [STDERR] ---
+Error: found 2 lint errors
+
+============================================================
+Results for: case-044.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-044.yaml: (object: kube-system/vuln-complex-19-kube-apiserver /v1, Kind=Pod) container "kube-apiserver" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-044.yaml: (object: kube-system/vuln-complex-19-kube-apiserver /v1, Kind=Pod) container "kube-apiserver" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-044.yaml: (object: kube-system/vuln-complex-19-kube-apiserver /v1, Kind=Pod) container "kube-apiserver" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-044.yaml: (object: kube-system/vuln-complex-19-kube-apiserver /v1, Kind=Pod) container "kube-apiserver" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-045.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-045.yaml: (object: kube-system/vuln-complex-20-kube-controller-manager /v1, Kind=Pod) container "kube-controller-manager" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-045.yaml: (object: kube-system/vuln-complex-20-kube-controller-manager /v1, Kind=Pod) container "kube-controller-manager" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-045.yaml: (object: kube-system/vuln-complex-20-kube-controller-manager /v1, Kind=Pod) container "kube-controller-manager" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-045.yaml: (object: kube-system/vuln-complex-20-kube-controller-manager /v1, Kind=Pod) container "kube-controller-manager" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-046.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-046.yaml: (object: kube-system/vuln-complex-21-etcd /v1, Kind=Pod) container "etcd" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-046.yaml: (object: kube-system/vuln-complex-21-etcd /v1, Kind=Pod) container "etcd" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-046.yaml: (object: kube-system/vuln-complex-21-etcd /v1, Kind=Pod) container "etcd" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-046.yaml: (object: kube-system/vuln-complex-21-etcd /v1, Kind=Pod) container "etcd" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-047.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-047.yaml: (object: kube-system/vuln-complex-22-kubelet /v1, Kind=Pod) container "kubelet" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-047.yaml: (object: kube-system/vuln-complex-22-kubelet /v1, Kind=Pod) container "kubelet" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-047.yaml: (object: kube-system/vuln-complex-22-kubelet /v1, Kind=Pod) container "kubelet" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-047.yaml: (object: kube-system/vuln-complex-22-kubelet /v1, Kind=Pod) container "kubelet" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-048.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-049.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-049.yaml: (object: <no namespace>/vuln-complex-24-root-escalate apps/v1, Kind=Deployment) container "app" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-049.yaml: (object: <no namespace>/vuln-complex-24-root-escalate apps/v1, Kind=Deployment) container "app" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-049.yaml: (object: <no namespace>/vuln-complex-24-root-escalate apps/v1, Kind=Deployment) container "app" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-050.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-050.yaml: (object: production/vuln-complex-25-all-problems /v1, Kind=Pod) container "nightmare-container" has DROP capabilities: [], but does not drop capability "NET_RAW" which is required (check: drop-net-raw-capability, remediation: NET_RAW makes it so that an application within the container is able to craft raw packets, use raw sockets, and bind to any address. Remove this capability in the containers under containers security contexts.)
+
+
+--- [STDERR] ---
+Error: found 1 lint errors
+
+============================================================
+Results for: case-051.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-051.yaml: (object: <no namespace>/subtle-01-priv-escalation-default /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-051.yaml: (object: <no namespace>/subtle-01-priv-escalation-default /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-051.yaml: (object: <no namespace>/subtle-01-priv-escalation-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-051.yaml: (object: <no namespace>/subtle-01-priv-escalation-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-052.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-052.yaml: (object: <no namespace>/subtle-02-sa-token-pod-default /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-052.yaml: (object: <no namespace>/subtle-02-sa-token-pod-default /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-052.yaml: (object: <no namespace>/subtle-02-sa-token-pod-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-052.yaml: (object: <no namespace>/subtle-02-sa-token-pod-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-053.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-054.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-054.yaml: (object: <no namespace>/subtle-04-seccomp-pod-default /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-054.yaml: (object: <no namespace>/subtle-04-seccomp-pod-default /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-054.yaml: (object: <no namespace>/subtle-04-seccomp-pod-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-054.yaml: (object: <no namespace>/subtle-04-seccomp-pod-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-055.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-055.yaml: (object: <no namespace>/subtle-05-seccomp-container-default /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-055.yaml: (object: <no namespace>/subtle-05-seccomp-container-default /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-055.yaml: (object: <no namespace>/subtle-05-seccomp-container-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-055.yaml: (object: <no namespace>/subtle-05-seccomp-container-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-056.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-056.yaml: (object: <no namespace>/subtle-06-caps-default /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-056.yaml: (object: <no namespace>/subtle-06-caps-default /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-056.yaml: (object: <no namespace>/subtle-06-caps-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-056.yaml: (object: <no namespace>/subtle-06-caps-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-057.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-057.yaml: (object: <no namespace>/subtle-07-readonlyfs-default /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-057.yaml: (object: <no namespace>/subtle-07-readonlyfs-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-057.yaml: (object: <no namespace>/subtle-07-readonlyfs-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-058.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-058.yaml: (object: <no namespace>/subtle-08-runasnonroot-default /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-058.yaml: (object: <no namespace>/subtle-08-runasnonroot-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-058.yaml: (object: <no namespace>/subtle-08-runasnonroot-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-059.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-059.yaml: (object: <no namespace>/subtle-09-runasuser-default /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-059.yaml: (object: <no namespace>/subtle-09-runasuser-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-059.yaml: (object: <no namespace>/subtle-09-runasuser-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-060.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-060.yaml: (object: kube-system/victim-pod-ingress /v1, Kind=Pod) container "nginx" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-060.yaml: (object: kube-system/victim-pod-ingress /v1, Kind=Pod) container "nginx" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-060.yaml: (object: kube-system/victim-pod-ingress /v1, Kind=Pod) container "nginx" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-060.yaml: (object: kube-system/victim-pod-ingress /v1, Kind=Pod) container "nginx" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-061.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-061.yaml: (object: kube-system/victim-pod-egress /v1, Kind=Pod) container "nginx" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-061.yaml: (object: kube-system/victim-pod-egress /v1, Kind=Pod) container "nginx" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-061.yaml: (object: kube-system/victim-pod-egress /v1, Kind=Pod) container "nginx" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-061.yaml: (object: kube-system/victim-pod-egress /v1, Kind=Pod) container "nginx" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-062.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-062.yaml: (object: <no namespace>/subtle-12-apparmor-default /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-062.yaml: (object: <no namespace>/subtle-12-apparmor-default /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-062.yaml: (object: <no namespace>/subtle-12-apparmor-default /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-062.yaml: (object: <no namespace>/subtle-12-apparmor-default /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-063.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-063.yaml: (object: <no namespace>/subtle-13-service-nodeport /v1, Kind=Service) no pods found matching service labels (map[app:my-app]) (check: dangling-service, remediation: Confirm that your service's selector correctly matches the labels on one of your deployments.)
+
+
+--- [STDERR] ---
+Error: found 1 lint errors
+
+============================================================
+Results for: case-064.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-064.yaml: (object: <no namespace>/subtle-14-service-loadbalancer /v1, Kind=Service) no pods found matching service labels (map[app:my-app]) (check: dangling-service, remediation: Confirm that your service's selector correctly matches the labels on one of your deployments.)
+
+
+--- [STDERR] ---
+Error: found 1 lint errors
+
+============================================================
+Results for: case-065.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-066.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-066.yaml: (object: <no namespace>/subtle-16-root-with-hostpath /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-066.yaml: (object: <no namespace>/subtle-16-root-with-hostpath /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-066.yaml: (object: <no namespace>/subtle-16-root-with-hostpath /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-067.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-067.yaml: (object: <no namespace>/subtle-17-hostnet-with-netraw /v1, Kind=Pod) container "main" has ADD capability: "NET_RAW", which matched with the forbidden capability for containers (check: drop-net-raw-capability, remediation: NET_RAW makes it so that an application within the container is able to craft raw packets, use raw sockets, and bind to any address. Remove this capability in the containers under containers security contexts.)
+
+/home/k-sec/k8s-test/secure/case-067.yaml: (object: <no namespace>/subtle-17-hostnet-with-netraw /v1, Kind=Pod) container "main" has DROP capabilities: [], but does not drop capability "NET_RAW" which is required (check: drop-net-raw-capability, remediation: NET_RAW makes it so that an application within the container is able to craft raw packets, use raw sockets, and bind to any address. Remove this capability in the containers under containers security contexts.)
+
+/home/k-sec/k8s-test/secure/case-067.yaml: (object: <no namespace>/subtle-17-hostnet-with-netraw /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-067.yaml: (object: <no namespace>/subtle-17-hostnet-with-netraw /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-067.yaml: (object: <no namespace>/subtle-17-hostnet-with-netraw /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-067.yaml: (object: <no namespace>/subtle-17-hostnet-with-netraw /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 6 lint errors
+
+============================================================
+Results for: case-068.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-068.yaml: (object: <no namespace>/subtle-18-hostpid-with-ptrace /v1, Kind=Pod) container "main" has DROP capabilities: [], but does not drop capability "NET_RAW" which is required (check: drop-net-raw-capability, remediation: NET_RAW makes it so that an application within the container is able to craft raw packets, use raw sockets, and bind to any address. Remove this capability in the containers under containers security contexts.)
+
+/home/k-sec/k8s-test/secure/case-068.yaml: (object: <no namespace>/subtle-18-hostpid-with-ptrace /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-068.yaml: (object: <no namespace>/subtle-18-hostpid-with-ptrace /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-068.yaml: (object: <no namespace>/subtle-18-hostpid-with-ptrace /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-068.yaml: (object: <no namespace>/subtle-18-hostpid-with-ptrace /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-069.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-069.yaml: (object: <no namespace>/subtle-19-priv-with-dev-hostpath /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-069.yaml: (object: <no namespace>/subtle-19-priv-with-dev-hostpath /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-069.yaml: (object: <no namespace>/subtle-19-priv-with-dev-hostpath /v1, Kind=Pod) host system directory "/dev" is mounted on container "main" (check: sensitive-host-mounts, remediation: Ensure sensitive host system directories are not mounted in containers by removing those Volumes and VolumeMounts.)
+
+/home/k-sec/k8s-test/secure/case-069.yaml: (object: <no namespace>/subtle-19-priv-with-dev-hostpath /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-069.yaml: (object: <no namespace>/subtle-19-priv-with-dev-hostpath /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-070.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-070.yaml: (object: <no namespace>/subtle-20-root-with-priv-escalation /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-070.yaml: (object: <no namespace>/subtle-20-root-with-priv-escalation /v1, Kind=Pod) container "main" has AllowPrivilegeEscalation set to true. (check: privilege-escalation-container, remediation: Ensure containers do not allow privilege escalation by setting allowPrivilegeEscalation=false, privileged=false and removing CAP_SYS_ADMIN capability. See https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for more details.)
+
+/home/k-sec/k8s-test/secure/case-070.yaml: (object: <no namespace>/subtle-20-root-with-priv-escalation /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-070.yaml: (object: <no namespace>/subtle-20-root-with-priv-escalation /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-071.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-071.yaml: (object: <no namespace>/subtle-21-pod-with-secret-role /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-071.yaml: (object: <no namespace>/subtle-21-pod-with-secret-role /v1, Kind=Pod) serviceAccount "secret-reader-sa" not found (check: non-existent-service-account, remediation: Create the missing service account, or refer to an existing service account.)
+
+/home/k-sec/k8s-test/secure/case-071.yaml: (object: <no namespace>/subtle-21-pod-with-secret-role /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-071.yaml: (object: <no namespace>/subtle-21-pod-with-secret-role /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-071.yaml: (object: <no namespace>/subtle-21-pod-with-secret-role /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-072.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-073.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-073.yaml: (object: <no namespace>/subtle-23-root-with-writablefs /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-073.yaml: (object: <no namespace>/subtle-23-root-with-writablefs /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-073.yaml: (object: <no namespace>/subtle-23-root-with-writablefs /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-074.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-074.yaml: (object: <no namespace>/subtle-24-docker-sock-writable /v1, Kind=Pod) host system directory "/var/run/docker.sock" is mounted on container "main" (check: docker-sock, remediation: Ensure the Docker socket is not mounted inside any containers by removing the associated  Volume and VolumeMount in deployment yaml specification. If the Docker socket is mounted inside a container it could allow processes running within  the container to execute Docker commands which would effectively allow for full control of the host.)
+
+/home/k-sec/k8s-test/secure/case-074.yaml: (object: <no namespace>/subtle-24-docker-sock-writable /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-074.yaml: (object: <no namespace>/subtle-24-docker-sock-writable /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-074.yaml: (object: <no namespace>/subtle-24-docker-sock-writable /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-074.yaml: (object: <no namespace>/subtle-24-docker-sock-writable /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-075.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-075.yaml: (object: <no namespace>/subtle-25-root-cronjob batch/v1, Kind=CronJob) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-075.yaml: (object: <no namespace>/subtle-25-root-cronjob batch/v1, Kind=CronJob) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-075.yaml: (object: <no namespace>/subtle-25-root-cronjob batch/v1, Kind=CronJob) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-076.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-076.yaml: (object: <no namespace>/subtle-26-statefulset-hostpath apps/v1, Kind=StatefulSet) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-076.yaml: (object: <no namespace>/subtle-26-statefulset-hostpath apps/v1, Kind=StatefulSet) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-076.yaml: (object: <no namespace>/subtle-26-statefulset-hostpath apps/v1, Kind=StatefulSet) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-076.yaml: (object: <no namespace>/subtle-26-statefulset-hostpath apps/v1, Kind=StatefulSet) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-077.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-077.yaml: (object: <no namespace>/subtle-27-hostnet-daemonset apps/v1, Kind=DaemonSet) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-077.yaml: (object: <no namespace>/subtle-27-hostnet-daemonset apps/v1, Kind=DaemonSet) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-077.yaml: (object: <no namespace>/subtle-27-hostnet-daemonset apps/v1, Kind=DaemonSet) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-077.yaml: (object: <no namespace>/subtle-27-hostnet-daemonset apps/v1, Kind=DaemonSet) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-078.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-078.yaml: (object: <no namespace>/subtle-28-latest-ifnotpresent apps/v1, Kind=Deployment) The container "web-server" is using an invalid container image, "nginx:latest". Please use images that are not blocked by the `BlockList` criteria : [".*:(latest)$" "^[^:]*$" "(.*/[^:]+)$"] (check: latest-tag, remediation: Use a container image with a specific tag other than latest.)
+
+/home/k-sec/k8s-test/secure/case-078.yaml: (object: <no namespace>/subtle-28-latest-ifnotpresent apps/v1, Kind=Deployment) container "web-server" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-078.yaml: (object: <no namespace>/subtle-28-latest-ifnotpresent apps/v1, Kind=Deployment) container "web-server" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-078.yaml: (object: <no namespace>/subtle-28-latest-ifnotpresent apps/v1, Kind=Deployment) container "web-server" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-078.yaml: (object: <no namespace>/subtle-28-latest-ifnotpresent apps/v1, Kind=Deployment) container "web-server" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-079.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-079.yaml: (object: default/subtle-29-kubesystem-manifest-hostpath /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-079.yaml: (object: default/subtle-29-kubesystem-manifest-hostpath /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-079.yaml: (object: default/subtle-29-kubesystem-manifest-hostpath /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-079.yaml: (object: default/subtle-29-kubesystem-manifest-hostpath /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-080.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-080.yaml: (object: <no namespace>/subtle-30-netadmin-as-nonroot /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-080.yaml: (object: <no namespace>/subtle-30-netadmin-as-nonroot /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-080.yaml: (object: <no namespace>/subtle-30-netadmin-as-nonroot /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 3 lint errors
+
+============================================================
+Results for: case-081.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-082.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-083.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-084.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-085.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-086.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-087.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-088.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-089.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-090.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-091.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-091.yaml: (object: <no namespace>/subtle-41-liveness-missing apps/v1, Kind=Deployment) container "web-server" does not expose port 80 for the HTTPGet (check: liveness-port, remediation: Check which ports you've exposed and ensure they match what you have specified in the liveness probe.)
+
+/home/k-sec/k8s-test/secure/case-091.yaml: (object: <no namespace>/subtle-41-liveness-missing apps/v1, Kind=Deployment) container "web-server" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-091.yaml: (object: <no namespace>/subtle-41-liveness-missing apps/v1, Kind=Deployment) container "web-server" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-091.yaml: (object: <no namespace>/subtle-41-liveness-missing apps/v1, Kind=Deployment) container "web-server" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-091.yaml: (object: <no namespace>/subtle-41-liveness-missing apps/v1, Kind=Deployment) container "web-server" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-092.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-092.yaml: (object: <no namespace>/subtle-42-readiness-missing apps/v1, Kind=Deployment) container "web-server" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-092.yaml: (object: <no namespace>/subtle-42-readiness-missing apps/v1, Kind=Deployment) container "web-server" does not expose port 80 for the HTTPGet (check: readiness-port, remediation: Check which ports you've exposed and ensure they match what you have specified in the readiness probe.)
+
+/home/k-sec/k8s-test/secure/case-092.yaml: (object: <no namespace>/subtle-42-readiness-missing apps/v1, Kind=Deployment) container "web-server" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-092.yaml: (object: <no namespace>/subtle-42-readiness-missing apps/v1, Kind=Deployment) container "web-server" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-092.yaml: (object: <no namespace>/subtle-42-readiness-missing apps/v1, Kind=Deployment) container "web-server" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-093.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-093.yaml: (object: <no namespace>/subtle-43-liveness-touch /v1, Kind=Pod) container "main" does not expose port 80 for the HTTPGet (check: liveness-port, remediation: Check which ports you've exposed and ensure they match what you have specified in the liveness probe.)
+
+/home/k-sec/k8s-test/secure/case-093.yaml: (object: <no namespace>/subtle-43-liveness-touch /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-093.yaml: (object: <no namespace>/subtle-43-liveness-touch /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-093.yaml: (object: <no namespace>/subtle-43-liveness-touch /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-093.yaml: (object: <no namespace>/subtle-43-liveness-touch /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-094.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-094.yaml: (object: <no namespace>/subtle-44-qos-guaranteed-inflexible /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-094.yaml: (object: <no namespace>/subtle-44-qos-guaranteed-inflexible /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+
+--- [STDERR] ---
+Error: found 2 lint errors
+
+============================================================
+Results for: case-095.yaml
+============================================================
+KubeLinter 0.7.6
+
+No lint errors found!
+
+============================================================
+Results for: case-096.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-096.yaml: (object: <no namespace>/subtle-46-strategy-missing apps/v1, Kind=Deployment) object has 3 replicas but does not specify inter pod anti-affinity (check: no-anti-affinity, remediation: Specify anti-affinity in your pod specification to ensure that the orchestrator attempts to schedule replicas on different nodes. Using podAntiAffinity, specify a labelSelector that matches pods for the deployment, and set the topologyKey to kubernetes.io/hostname. Refer to https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity for details.)
+
+/home/k-sec/k8s-test/secure/case-096.yaml: (object: <no namespace>/subtle-46-strategy-missing apps/v1, Kind=Deployment) container "web-server" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-096.yaml: (object: <no namespace>/subtle-46-strategy-missing apps/v1, Kind=Deployment) container "web-server" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-096.yaml: (object: <no namespace>/subtle-46-strategy-missing apps/v1, Kind=Deployment) container "web-server" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-096.yaml: (object: <no namespace>/subtle-46-strategy-missing apps/v1, Kind=Deployment) container "web-server" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-097.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-097.yaml: (object: <no namespace>/subtle-47-default-sa-usage /v1, Kind=Pod) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-097.yaml: (object: <no namespace>/subtle-47-default-sa-usage /v1, Kind=Pod) serviceAccount "my-app-sa" not found (check: non-existent-service-account, remediation: Create the missing service account, or refer to an existing service account.)
+
+/home/k-sec/k8s-test/secure/case-097.yaml: (object: <no namespace>/subtle-47-default-sa-usage /v1, Kind=Pod) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-097.yaml: (object: <no namespace>/subtle-47-default-sa-usage /v1, Kind=Pod) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-097.yaml: (object: <no namespace>/subtle-47-default-sa-usage /v1, Kind=Pod) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-098.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-098.yaml: (object: <no namespace>/subtle-48-cronjob-concurrency-allow batch/v1, Kind=CronJob) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-098.yaml: (object: <no namespace>/subtle-48-cronjob-concurrency-allow batch/v1, Kind=CronJob) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-098.yaml: (object: <no namespace>/subtle-48-cronjob-concurrency-allow batch/v1, Kind=CronJob) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-098.yaml: (object: <no namespace>/subtle-48-cronjob-concurrency-allow batch/v1, Kind=CronJob) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 4 lint errors
+
+============================================================
+Results for: case-099.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-099.yaml: (object: <no namespace>/subtle-49-job-backoff-default batch/v1, Kind=Job) Standalone Job does not specify ttlSecondsAfterFinished (check: job-ttl-seconds-after-finished, remediation: Set Job.spec.ttlSecondsAfterFinished. Unset CronJob.Spec.JobTemplate.Spec.ttlSecondsAfterFinished.)
+
+/home/k-sec/k8s-test/secure/case-099.yaml: (object: <no namespace>/subtle-49-job-backoff-default batch/v1, Kind=Job) container "main" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-099.yaml: (object: <no namespace>/subtle-49-job-backoff-default batch/v1, Kind=Job) container "main" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-099.yaml: (object: <no namespace>/subtle-49-job-backoff-default batch/v1, Kind=Job) container "main" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-099.yaml: (object: <no namespace>/subtle-49-job-backoff-default batch/v1, Kind=Job) container "main" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
+
+============================================================
+Results for: case-100.yaml
+============================================================
+KubeLinter 0.7.6
+
+/home/k-sec/k8s-test/secure/case-100.yaml: (object: <no namespace>/subtle-50-replicas-1 apps/v1, Kind=Deployment) object has 3 replicas but does not specify inter pod anti-affinity (check: no-anti-affinity, remediation: Specify anti-affinity in your pod specification to ensure that the orchestrator attempts to schedule replicas on different nodes. Using podAntiAffinity, specify a labelSelector that matches pods for the deployment, and set the topologyKey to kubernetes.io/hostname. Refer to https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity for details.)
+
+/home/k-sec/k8s-test/secure/case-100.yaml: (object: <no namespace>/subtle-50-replicas-1 apps/v1, Kind=Deployment) container "web-server" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/home/k-sec/k8s-test/secure/case-100.yaml: (object: <no namespace>/subtle-50-replicas-1 apps/v1, Kind=Deployment) container "web-server" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+/home/k-sec/k8s-test/secure/case-100.yaml: (object: <no namespace>/subtle-50-replicas-1 apps/v1, Kind=Deployment) container "web-server" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/home/k-sec/k8s-test/secure/case-100.yaml: (object: <no namespace>/subtle-50-replicas-1 apps/v1, Kind=Deployment) container "web-server" has memory limit 0 (check: unset-memory-requirements, remediation: Set memory limits for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+
+--- [STDERR] ---
+Error: found 5 lint errors
